@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import { useTheme } from 'vuetify'
 import logo from '@/assets/logo.svg?raw'
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
+import { useTheme } from 'vuetify'
 
 import authV1MaskDark from '@/assets/images/pages/auth-v1-mask-dark.png'
 import authV1MaskLight from '@/assets/images/pages/auth-v1-mask-light.png'
 import authV1Tree2 from '@/assets/images/pages/auth-v1-tree-2.png'
 import authV1Tree from '@/assets/images/pages/auth-v1-tree.png'
+import { authStore } from '@/stores/AuthStore'
 
 const form = ref({
-  username: '',
-  email: '',
-  password: '',
-  privacyPolicies: false,
+    business_code : "123456",
+    name : "",
+    email : "",
+    password : "",
+    password_confirmation : "",
 })
 
 const vuetifyTheme = useTheme()
@@ -23,6 +25,9 @@ const authThemeMask = computed(() => {
 })
 
 const isPasswordVisible = ref(false)
+const isPasswordVisible2 = ref(false)
+
+const auth = authStore()
 </script>
 
 <template>
@@ -53,13 +58,13 @@ const isPasswordVisible = ref(false)
       </VCardText>
 
       <VCardText>
-        <VForm @submit.prevent="() => {}">
+        <VForm @submit.prevent="()=> {}">
           <VRow>
             <!-- Username -->
             <VCol cols="12">
               <VTextField
-                v-model="form.username"
-                label="Username"
+                v-model="form.name"
+                label="Name"
               />
             </VCol>
             <!-- email -->
@@ -70,8 +75,6 @@ const isPasswordVisible = ref(false)
                 type="email"
               />
             </VCol>
-
-            <!-- password -->
             <VCol cols="12">
               <VTextField
                 v-model="form.password"
@@ -80,27 +83,24 @@ const isPasswordVisible = ref(false)
                 :append-inner-icon="isPasswordVisible ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
                 @click:append-inner="isPasswordVisible = !isPasswordVisible"
               />
-              <div class="d-flex align-center mt-1 mb-4">
-                <VCheckbox
-                  id="privacy-policy"
-                  v-model="form.privacyPolicies"
-                  inline
-                />
-                <VLabel
-                  for="privacy-policy"
-                  style="opacity: 1;"
-                >
-                  <span class="me-1">I agree to</span>
-                  <a
-                    href="javascript:void(0)"
-                    class="text-primary"
-                  >privacy policy & terms</a>
-                </VLabel>
-              </div>
-
+            </VCol>
+            <VCol cols="12">
+              <VTextField
+                v-model="form.password_confirmation"
+                label="Confirm Password"
+                :type="isPasswordVisible2 ? 'text' : 'password'"
+                :append-inner-icon="isPasswordVisible2 ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
+                @click:append-inner="isPasswordVisible2 = !isPasswordVisible2"
+              />
+            </VCol>
+            <!-- password -->
+            <VCol cols="12">
+              
+             
               <VBtn
                 block
                 type="submit"
+                @click="auth.register(form)"
               >
                 Sign up
               </VBtn>

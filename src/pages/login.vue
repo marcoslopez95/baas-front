@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { useTheme } from 'vuetify'
 import logo from '@/assets/logo.svg?raw'
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
+import { useTheme } from 'vuetify'
 
 import authV1MaskDark from '@/assets/images/pages/auth-v1-mask-dark.png'
 import authV1MaskLight from '@/assets/images/pages/auth-v1-mask-light.png'
 import authV1Tree2 from '@/assets/images/pages/auth-v1-tree-2.png'
 import authV1Tree from '@/assets/images/pages/auth-v1-tree.png'
+import { authStore } from '@/stores/AuthStore'
+const auth = authStore()
 
 const form = ref({
   email: '',
   password: '',
-  remember: false,
 })
 
 const vuetifyTheme = useTheme()
@@ -74,9 +75,9 @@ const isPasswordVisible = ref(false)
               />
 
               <!-- remember me checkbox -->
-              <div class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4">
+              <!-- <div class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4">
                 <VCheckbox
-                  v-model="form.remember"
+                  v-model="auth.form.remember"
                   label="Remember me"
                 />
 
@@ -86,13 +87,14 @@ const isPasswordVisible = ref(false)
                 >
                   Forgot Password?
                 </a>
-              </div>
+              </div> -->
 
               <!-- login button -->
               <VBtn
+                style="margin-top: 5px;"
                 block
                 type="submit"
-                to="/"
+                @click="auth.login(form)"
               >
                 Login
               </VBtn>
