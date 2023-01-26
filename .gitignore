@@ -30,3 +30,5 @@ dist-ssr
 
 # iconify dist files
 src/@iconify/*.js
+node_modules
+package-lock.json
