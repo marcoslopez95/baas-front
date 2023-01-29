@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { Anchor } from 'vuetify/lib/components'
-import avatar1 from '@/assets/images/avatars/avatar-1.png'
+import avatar1 from '@/assets/images/avatars/avatar-1.png';
+import { authStore } from '@/stores/AuthStore';
+import type { Anchor } from 'vuetify/lib/components';
 
 const avatarBadgeProps = {
   dot: true,
@@ -10,6 +11,8 @@ const avatarBadgeProps = {
   color: 'success',
   bordered: true,
 }
+
+const auth = authStore()
 </script>
 
 <template>
@@ -46,7 +49,7 @@ const avatarBadgeProps = {
             </template>
 
             <VListItemTitle class="font-weight-semibold">
-              John Doe
+              {{ auth.user.name}}
             </VListItemTitle>
             <VListItemSubtitle class="text-disabled">
               Admin
@@ -111,7 +114,7 @@ const avatarBadgeProps = {
           <VDivider class="my-2" />
 
           <!-- 👉 Logout -->
-          <VListItem to="/login">
+          <VListItem @click="auth.logout">
             <template #prepend>
               <VIcon
                 class="me-2"
