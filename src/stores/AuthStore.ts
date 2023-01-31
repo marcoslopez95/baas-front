@@ -1,8 +1,10 @@
-import axios from 'axios';
+import { AxiosResponse } from 'axios';
 import { defineStore } from 'pinia';
 import { useRouter } from 'vue-router';
+import { helperStore } from './../helper';
 
 export const authStore = defineStore('auth',() =>{
+  const helper = helperStore()
   const router = useRouter()
 
   interface formLoginInterface {
@@ -21,8 +23,8 @@ export const authStore = defineStore('auth',() =>{
   const login = (form: formLoginInterface) =>{
     let url = '/api/auth/client-login';
 
-    axios.post(url,form)
-    .then(async res =>{
+    helper.http(url,'post',{data:form})
+      .then(async (res:any) =>{
         console.log("success",res)
         let new_token: string = res.data.accessToken;
 
@@ -39,7 +41,7 @@ export const authStore = defineStore('auth',() =>{
   const register = (form: formRegisterInterface) => {
     let url = '/api/auth/register';
 
-    axios.post(url,form)
+    helper.http(url,'post',{data:form})
     .then( (res) =>{
         console.log("success",res)
       router.push('/login')   
@@ -74,12 +76,12 @@ export const authStore = defineStore('auth',() =>{
         Authorization : `Bearer ${token}`
       }
     try{
-      let res = await axios.get(url,{headers})
+      let res: AxiosResponse = await helper.http(url,'get',{headers})
       localStorage.setItem("user",JSON.stringify(res.data.data))
       setUser()
       resolve(true)
     }catch(err){
-            console.log("error",err);
+            // console.log("error",err);
       reject(err)
 
       }

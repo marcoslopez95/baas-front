@@ -1,17 +1,16 @@
-import axios from 'axios';
 import { defineStore } from 'pinia';
 import { ref } from "vue";
+import { helperStore } from './../helper';
 export const accountUserStore = defineStore('account-user', ()=>{
+  const helper = helperStore()
   const items = ref<accountUserInterfaz[]>([])
   const item = ref<accountUserInterfaz>()
 
   const getAccounts = () => {
     let url = '/api/accounts'
-    let headers  = {
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    }
-    axios.get(url,{headers})
-        .then(res => {
+    helper.http(url,'get')
+
+        .then((res:any) => {
           items.value = res.data.data
         })
         .catch(err => {

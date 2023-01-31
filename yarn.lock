@@ -484,6 +484,11 @@
   "resolved" "https://registry.npmjs.org/@iconify/vue/-/vue-3.2.1.tgz"
   "version" "3.2.1"
 
+"@incuca/vue3-toaster@^1.1.1":
+  "integrity" "sha512-c9HgTeap6nyO2+kIb/jftHj76mcnDgGkwLHXcYg1M+IPqxRsPEKlWJLo+rLWcXna2vRpv0Y0Vo+++i4SuKUESA=="
+  "resolved" "https://registry.npmjs.org/@incuca/vue3-toaster/-/vue3-toaster-1.1.1.tgz"
+  "version" "1.1.1"
+
 "@intlify/bundle-utils@next":
   "integrity" "sha512-rf4cLBOnbqmpXVcCdcYHilZpMt1m82syh3WLBJlZvGxN2KkH9HeHVH4+bnibF/SDXCHNh6lM6wTpS/qw+PkcMg=="
   "resolved" "https://registry.npmjs.org/@intlify/bundle-utils/-/bundle-utils-3.2.1.tgz"
@@ -3417,7 +3422,7 @@
   "resolved" "https://registry.npmjs.org/lodash.uniq/-/lodash.uniq-4.5.0.tgz"
   "version" "4.5.0"
 
-"lodash@^4.17.20", "lodash@^4.17.21":
+"lodash@^4.17.14", "lodash@^4.17.15", "lodash@^4.17.20", "lodash@^4.17.21":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -3926,6 +3931,11 @@
   "resolved" "https://registry.npmjs.org/perfect-scrollbar/-/perfect-scrollbar-1.5.5.tgz"
   "version" "1.5.5"
 
+"picocolors@^0.2.1":
+  "integrity" "sha512-cMlDqaLEqfSaW8Z7N5Jw+lyIW869EzT73/F5lhtY9cLGoVxSXznfgfXMO0Z5K0o0Q2TkTXq+0KFsdnSe3jDViA=="
+  "resolved" "https://registry.npmjs.org/picocolors/-/picocolors-0.2.1.tgz"
+  "version" "0.2.1"
+
 "picocolors@^1.0.0":
   "integrity" "sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ=="
   "resolved" "https://registry.npmjs.org/picocolors/-/picocolors-1.0.0.tgz"
@@ -4255,10 +4265,13 @@
     "cssesc" "^3.0.0"
     "util-deprecate" "^1.0.2"
 
-"postcss-sorting@^7.0.1":
-  "integrity" "sha512-iLBFYz6VRYyLJEJsBJ8M3TCqNcckVzz4wFounSc5Oez35ogE/X+aoC5fFu103Ot7NyvjU3/xqIXn93Gp3kJk4g=="
-  "resolved" "https://registry.npmjs.org/postcss-sorting/-/postcss-sorting-7.0.1.tgz"
-  "version" "7.0.1"
+"postcss-sorting@^5.0.1":
+  "integrity" "sha512-Y9fUFkIhfrm6i0Ta3n+89j56EFqaNRdUKqXyRp6kvTcSXnmgEjaVowCXH+JBe9+YKWqd4nc28r2sgwnzJalccA=="
+  "resolved" "https://registry.npmjs.org/postcss-sorting/-/postcss-sorting-5.0.1.tgz"
+  "version" "5.0.1"
+  dependencies:
+    "lodash" "^4.17.14"
+    "postcss" "^7.0.17"
 
 "postcss-svgo@^4.0.3":
   "integrity" "sha512-NoRbrcMWTtUghzuKSoIm6XV+sJdvZ7GZSc3wdBN0W19FTtp2ko8NqLsgoh/m9CzNhU3KLPvQmjIwtaNFkaFTvw=="
@@ -4293,7 +4306,39 @@
   "resolved" "https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz"
   "version" "4.2.0"
 
-"postcss@^7.0.0", "postcss@^7.0.1", "postcss@^7.0.27", "postcss@^8.1.10", "postcss@^8.2", "postcss@^8.3.11", "postcss@^8.3.3", "postcss@^8.3.9", "postcss@^8.4.0", "postcss@^8.4.16":
+"postcss@^7.0.0":
+  "integrity" "sha512-yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA=="
+  "resolved" "https://registry.npmjs.org/postcss/-/postcss-7.0.39.tgz"
+  "version" "7.0.39"
+  dependencies:
+    "picocolors" "^0.2.1"
+    "source-map" "^0.6.1"
+
+"postcss@^7.0.1":
+  "integrity" "sha512-yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA=="
+  "resolved" "https://registry.npmjs.org/postcss/-/postcss-7.0.39.tgz"
+  "version" "7.0.39"
+  dependencies:
+    "picocolors" "^0.2.1"
+    "source-map" "^0.6.1"
+
+"postcss@^7.0.17":
+  "integrity" "sha512-yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA=="
+  "resolved" "https://registry.npmjs.org/postcss/-/postcss-7.0.39.tgz"
+  "version" "7.0.39"
+  dependencies:
+    "picocolors" "^0.2.1"
+    "source-map" "^0.6.1"
+
+"postcss@^7.0.27":
+  "integrity" "sha512-yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA=="
+  "resolved" "https://registry.npmjs.org/postcss/-/postcss-7.0.39.tgz"
+  "version" "7.0.39"
+  dependencies:
+    "picocolors" "^0.2.1"
+    "source-map" "^0.6.1"
+
+"postcss@^8.1.10", "postcss@^8.2", "postcss@^8.3.3", "postcss@^8.4.0", "postcss@^8.4.16":
   "integrity" "sha512-Wi8mWhncLJm11GATDaQKobXSNEYGUHeQLiQqDFG1qQ5UTDPTEvKw0Xt5NsTpktGTwLps3ByrWsBrG0rB8YQ9oA=="
   "resolved" "https://registry.npmjs.org/postcss/-/postcss-8.4.18.tgz"
   "version" "8.4.18"
@@ -4744,12 +4789,13 @@
     "stylelint-config-recommended" "^8.0.0"
 
 "stylelint-order@^3.1.1":
-  "integrity" "sha512-OWQ7pmicXufDw5BlRqzdz3fkGKJPgLyDwD1rFY3AIEfIH/LQY38Vu/85v8/up0I+VPiuGRwbc2Hg3zLAsJaiyw=="
-  "resolved" "https://registry.npmjs.org/stylelint-order/-/stylelint-order-5.0.0.tgz"
-  "version" "5.0.0"
+  "integrity" "sha512-4gP/r8j/6JGZ/LL41b2sYtQqfwZl4VSqTp7WeIwI67v/OXNQ08dnn64BGXNwAUSgb2+YIvIOxQaMzqMyQMzoyQ=="
+  "resolved" "https://registry.npmjs.org/stylelint-order/-/stylelint-order-3.1.1.tgz"
+  "version" "3.1.1"
   dependencies:
-    "postcss" "^8.3.11"
-    "postcss-sorting" "^7.0.1"
+    "lodash" "^4.17.15"
+    "postcss" "^7.0.17"
+    "postcss-sorting" "^5.0.1"
 
 "stylelint-scss@^4.0.0":
   "integrity" "sha512-GvSaKCA3tipzZHoz+nNO7S02ZqOsdBzMiCx9poSmLlb3tdJlGddEX/8QzCOD8O7GQan9bjsvLMsO5xiw6IhhIQ=="
@@ -4767,7 +4813,7 @@
   "resolved" "https://registry.npmjs.org/stylelint-use-logical-spec/-/stylelint-use-logical-spec-4.1.0.tgz"
   "version" "4.1.0"
 
-"stylelint@^14.0.0", "stylelint@^14.12.0", "stylelint@^14.4.0", "stylelint@^14.5.1", "stylelint@^14.8.0", "stylelint@^14.9.0", "stylelint@>=11", "stylelint@>=13":
+"stylelint@^14.12.0", "stylelint@^14.4.0", "stylelint@^14.5.1", "stylelint@^14.8.0", "stylelint@^14.9.0", "stylelint@>=10.0.1", "stylelint@>=11", "stylelint@>=13":
   "integrity" "sha512-NJSAdloiAB/jgVJKxMR90mWlctvmeBFGFVUvyKngi9+j/qPSJ5ZB+u8jOmGbLTnS7OHrII9NFGehPRyar8U5vg=="
   "resolved" "https://registry.npmjs.org/stylelint/-/stylelint-14.13.0.tgz"
   "version" "14.13.0"

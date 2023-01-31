@@ -6,6 +6,8 @@ import { loadFonts } from '@/plugins/webfontloader'
 import router from '@/router'
 import '@/styles/styles.scss'
 import '@core/scss/index.scss'
+
+// import Toaster from "@incuca/vue3-toaster"
 import axios from 'axios'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
@@ -19,4 +21,5 @@ const app = createApp(App)
 app.use(vuetify)
 app.use(createPinia())
 app.use(router)
+// app.use(Toaster)
 app.mount('#app')
