@@ -83,7 +83,10 @@ export const depositStore = defineStore('deposit', () => {
       showModal.value = false
     })
   }
+
   return {
+    currencies,
+    getCurrencies,
     getDeposits,
     payment_methods,
     getBussinessBank,

@@ -17,6 +17,50 @@ export const accountUserStore = defineStore('account-user', ()=>{
           console.log(err)
         })
   }
+  
+  const openModal = ref(false);
+  const createAccount = (currency:number) => {
+    let url = '/api/accounts'
+    let data = {
+      currency_id : currency
+    }
+    helper.http(url,'post',{data})
+    .then((res:any) => {
+      getAccounts()
+      openModal.value= false
+    })
+  }
+
+  
+  const currencies = ref<Currency[]>([])
+
+  const getCurrencies = () => {
+    let url = `/api/currencies`
+
+    helper.http(url, 'get').then(
+        (res: any) => {
+          currencies.value = res.data.data
+        })
+  }
+  return {
+    getAccounts,
+    items,
+    item,
+    openModal,
+    createAccount,
+    currencies,
+    getCurrencies
+  }
+
+  
+interface Currency {
+  id: number
+  name: string
+  abbreviation: string
+  symbol: string
+  description: string
+  createdAt?: any
+}
 
   interface accountUserInterfaz {
     "id": number,
@@ -44,9 +88,5 @@ export const accountUserStore = defineStore('account-user', ()=>{
     "createdAt": Date,
     "updatedAt": Date
   }
-  return {
-    getAccounts,
-    items,
-    item
-  }
+ 
 })
