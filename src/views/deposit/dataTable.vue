@@ -169,7 +169,7 @@ const colorText = (item: Deposit) => {
             v-if="item.operationStatus.name == 'EN PROCESO'"
             @click="selectDeposit(item)"
             >
-            <VIcon icon="mdi-eye" />
+            <VIcon icon="mdi-upload" />
           </VBtn>
            <span v-else>-</span>
         </td>
