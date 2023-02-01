@@ -6,7 +6,7 @@ export const helperStore = defineStore('helper',() => {
   const items = ref()
   const item = ref()
   const router = useRouter()
-
+  const form = ref()
   const paginated = ref({
     "currentPage":1,
     "perPage":6,
@@ -48,7 +48,8 @@ export const helperStore = defineStore('helper',() => {
     items,
     item,
     http,
-    paginated
+    paginated,
+    form
   }
 })
 

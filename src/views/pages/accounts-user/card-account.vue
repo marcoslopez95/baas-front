@@ -100,7 +100,7 @@ interface accountUserInterfaz {
         </VCardItem>
 
         <VCardText class="text-dark">
-          {{ data.balance }} {{ data.currency.symbol }}
+          {{ data.balance }} {{ data.currency.abbreviation }}
         </VCardText>
 
         <VCardText class="d-flex justify-space-between align-center flex-wrap">
