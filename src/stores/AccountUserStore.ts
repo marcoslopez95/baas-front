@@ -42,6 +42,15 @@ export const accountUserStore = defineStore('account-user', ()=>{
           currencies.value = res.data.data
         })
   }
+
+  const deleteAccount = (id:number) => {
+    let url = `/api/accounts/${id}`
+
+    helper.http(url, 'delete').then(
+        (res: any) => {
+          getAccounts()
+        })
+  }
   return {
     getAccounts,
     items,
@@ -49,7 +58,8 @@ export const accountUserStore = defineStore('account-user', ()=>{
     openModal,
     createAccount,
     currencies,
-    getCurrencies
+    getCurrencies,
+    deleteAccount
   }
 
   

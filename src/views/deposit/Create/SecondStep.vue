@@ -21,7 +21,7 @@
                 class="text-white"
                 v-for="item in filterAccounts"
                 @click="selectAccount(item)"
-                :color="form.payment_method_id == item.id ? '#774488' : '#D684F1'"
+                :color="form.account_id == item.id ? '#774488' : '#D684F1'"
               >
                 {{ item.accountNumber }} ( {{ item.balance }} {{ item.currency.abbreviation }})
               </VBtn>

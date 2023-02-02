@@ -148,7 +148,9 @@ const colorText = (item: Deposit) => {
       >
         <td>{{ item.transactionNumber }}</td>
         <td class="text-center">
-          {{ item.amount }}
+          <!-- {{ item.amount }} -->
+          {{ new Intl.NumberFormat('de-DE').format(item.amount) }}
+          
         </td>
         <td class="text-center">
           {{ dayjs(item.createdAt).format('DD/MM/YYYY') }}

@@ -37,7 +37,7 @@ export const depositStore = defineStore('deposit', () => {
     return methods
   })
 
-  const bussinness_bank = ref()
+  const bussinness_bank = ref([])
 
   const getBussinessBank = () => {
     let url = `/api/business-bank-accounts`
@@ -85,8 +85,6 @@ export const depositStore = defineStore('deposit', () => {
   }
 
   return {
-    currencies,
-    getCurrencies,
     getDeposits,
     payment_methods,
     getBussinessBank,

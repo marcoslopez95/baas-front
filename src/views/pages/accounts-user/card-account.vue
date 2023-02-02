@@ -54,7 +54,7 @@ interface accountUserInterfaz {
       md="6"
       lg="4"
     >
-      <VCard color="#ffffff" class="rounded-xl" @click="openModal(data)">
+      <VCard color="#ffffff" class="rounded-xl">
         <VCardItem>
           <!-- <template #prepend>
             <VIcon
@@ -63,7 +63,7 @@ interface accountUserInterfaz {
               :icon="data.icon"
             />
           </template> -->
-          <VCardTitle class="text-dark">
+          <VCardTitle class="text-dark"  @click="openModal(data)">
             {{ data.accountType.name }}
           </VCardTitle>
         </VCardItem>
@@ -73,9 +73,19 @@ interface accountUserInterfaz {
           {{ data.balance }} {{ data.currency.abbreviation }} <br />
         </VCardText>
 
-        <VCardText class="d-flex justify-space-between align-center flex-wrap">
-          
-        </VCardText>
+        <VRow>
+        <VCol cols="8"></VCol>
+        <VCol>
+          <!-- <VBtn class="" style="width: 22px; height: 22px;"> -->
+          <VIcon
+            size="20px"
+            color="bg-primary"
+            icon="mdi-delete"
+            @click="store.deleteAccount(data.id)"
+            ></VIcon>
+          <!-- </VBtn> -->
+        </VCol>
+        </VRow>
       </VCard>
     </VCol>
 
