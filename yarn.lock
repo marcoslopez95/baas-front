@@ -484,11 +484,6 @@
   "resolved" "https://registry.npmjs.org/@iconify/vue/-/vue-3.2.1.tgz"
   "version" "3.2.1"
 
-"@incuca/vue3-toaster@^1.1.1":
-  "integrity" "sha512-c9HgTeap6nyO2+kIb/jftHj76mcnDgGkwLHXcYg1M+IPqxRsPEKlWJLo+rLWcXna2vRpv0Y0Vo+++i4SuKUESA=="
-  "resolved" "https://registry.npmjs.org/@incuca/vue3-toaster/-/vue3-toaster-1.1.1.tgz"
-  "version" "1.1.1"
-
 "@intlify/bundle-utils@next":
   "integrity" "sha512-rf4cLBOnbqmpXVcCdcYHilZpMt1m82syh3WLBJlZvGxN2KkH9HeHVH4+bnibF/SDXCHNh6lM6wTpS/qw+PkcMg=="
   "resolved" "https://registry.npmjs.org/@intlify/bundle-utils/-/bundle-utils-3.2.1.tgz"
@@ -4506,6 +4501,11 @@
   dependencies:
     "glob" "^7.1.3"
 
+"rimraf@^4.1.2":
+  "integrity" "sha512-BlIbgFryTbw3Dz6hyoWFhKk+unCcHMSkZGrTFVAx2WmttdBSonsdtRlwiuTbDqTKr+UlXIUqJVS4QT5tUzGENQ=="
+  "resolved" "https://registry.npmjs.org/rimraf/-/rimraf-4.1.2.tgz"
+  "version" "4.1.2"
+
 "rollup@^2.50.0", "rollup@~2.78.0":
   "integrity" "sha512-VeeCgtGi4P+o9hIg+xz4qQpRl6R401LWEXBmxYKOV4zlF82lyhgh2hTZnheFUbANE8l2A41F458iwj2vEYaXJg=="
   "resolved" "https://registry.npmjs.org/rollup/-/rollup-2.78.1.tgz"
@@ -5440,6 +5440,13 @@
     "cssnano" "^4.1.3"
     "perfect-scrollbar" "^1.5.5"
     "postcss-import" "^12.0.0"
+
+"vue3-toastify@^0.0.5":
+  "integrity" "sha512-hKHDg1MA5G+FdKYks8QbC52ejCwkc+epou7RZUocJcSIpvUkzsLznhv0MrgsKr0eDKtMeU3z9khsWsd9fCplow=="
+  "resolved" "https://registry.npmjs.org/vue3-toastify/-/vue3-toastify-0.0.5.tgz"
+  "version" "0.0.5"
+  dependencies:
+    "rimraf" "^4.1.2"
 
 "vuetify@^3.0.0-beta.4", "vuetify@3.0.0-beta.11":
   "integrity" "sha512-WHwHNRpnDZ2ZUaOlL3oSnIvVSz0kVLmF/OVQUupIYvgV8pERgFN2NtXN5E3bq/DQkMyYcEUcnSQIrzQs2aZ36A=="

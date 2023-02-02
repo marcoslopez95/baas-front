@@ -7,7 +7,9 @@ import router from '@/router'
 import '@/styles/styles.scss'
 import '@core/scss/index.scss'
 
-// import Toaster from "@incuca/vue3-toaster"
+import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
 import axios from 'axios'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
@@ -21,5 +23,8 @@ const app = createApp(App)
 app.use(vuetify)
 app.use(createPinia())
 app.use(router)
-// app.use(Toaster)
+app.use(Vue3Toastify, {
+  autoClose: 3000,
+  theme: 'colored',
+} as ToastContainerOptions);
 app.mount('#app')

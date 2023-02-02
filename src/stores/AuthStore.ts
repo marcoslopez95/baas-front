@@ -7,23 +7,11 @@ export const authStore = defineStore('auth',() =>{
   const helper = helperStore()
   const router = useRouter()
 
-  interface formLoginInterface {
-    email: string,
-    password: string,
-  }
-
-  interface formRegisterInterface {
-    business_code : string,
-    name : string,
-    email : string,
-    password : string,
-    password_confirmation : string,
-  }
 
   const login = (form: formLoginInterface) =>{
     let url = '/api/auth/client-login';
 
-    helper.http(url,'post',{data:form})
+    helper.http(url,'post',{data:form}, 'logeado')
       .then(async (res:any) =>{
         console.log("success",res)
         let new_token: string = res.data.accessToken;
@@ -41,7 +29,7 @@ export const authStore = defineStore('auth',() =>{
   const register = (form: formRegisterInterface) => {
     let url = '/api/auth/register';
 
-    helper.http(url,'post',{data:form})
+    helper.http(url,'post',{data:form}, 'registro exitoso')
     .then( (res) =>{
         console.log("success",res)
       router.push('/login')   
@@ -89,6 +77,58 @@ export const authStore = defineStore('auth',() =>{
   }
 
 
+  const logout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    user.value = {
+      id: 0,
+      business_id: 0,
+      code: "",
+      name: "",
+      email: "",
+    }
+
+    router.push('/login')
+  }
+
+  
+  const confirm_code = ref(false)
+  const getForgotPassword = (email: string) => {
+    let url = '/api/auth/forgot-password'
+    let params = { email}
+    // console.log('data',data)
+    helper.http(url,'get',{params}, 'correo enviado')
+        .then((res)=>{
+          confirm_code.value = true
+        })
+  }
+
+  const confirmForgotPassword = (form: FormConfirmForgotPassword) => {
+    let url = '/api/auth/verify-password-recovery'
+    let data = { ...form}
+    helper.http(url,'post',{data}, 'contraseña cambiada')
+        .then((res)=>{
+          router.push('/login')
+        })
+  }
+
+  return {
+    login,
+    register,
+    user,
+    logout,
+    setUser,
+    confirm_code,
+    getForgotPassword,
+    confirmForgotPassword
+  }
+
+    interface FormConfirmForgotPassword {
+        code: string,
+        password: string,
+        password_confirmation: string,
+    }
+  
   interface userModel {
     id: number,
     business_id: number,
@@ -103,24 +143,17 @@ export const authStore = defineStore('auth',() =>{
     // deleted_at: null
   }
 
-  const logout = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
-    user.value = {
-      id: 0,
-      business_id: 0,
-      code: "",
-      name: "",
-      email: "",
-    }
-
-    router.push('/login')
+  
+  interface formLoginInterface {
+    email: string,
+    password: string,
   }
-  return {
-    login,
-    register,
-    user,
-    logout,
-    setUser,
+
+  interface formRegisterInterface {
+    business_code : string,
+    name : string,
+    email : string,
+    password : string,
+    password_confirmation : string,
   }
 })

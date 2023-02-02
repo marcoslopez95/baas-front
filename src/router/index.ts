@@ -22,7 +22,7 @@ const router = createRouter({
 router.beforeEach(async (to, from,next) => {
 
   if (!isAutenticated()) {
-    if(to.name != 'login' && to.name != 'register'){
+    if(to.name != 'login' && to.name != 'register' && to.name != 'auth-forgot-password'){
       next({ name: 'login' });
     }
   }else 

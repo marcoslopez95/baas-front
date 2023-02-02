@@ -1,8 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
 import { defineStore } from 'pinia';
 import { useRouter } from 'vue-router';
+import { toast, ToastOptions } from 'vue3-toastify';
 
 export const helperStore = defineStore('helper',() => {
+    
   const items = ref()
   const item = ref()
   const router = useRouter()
@@ -15,7 +17,7 @@ export const helperStore = defineStore('helper',() => {
     return localStorage.getItem('token') || false
   }
 
-  const http = (url:string,method: Method = 'get', options: AxiosRequestConfig = {}) => {
+  const http = (url:string,method: Method = 'get', options: AxiosRequestConfig = {}, notification = '') => {
     return new Promise(async (resolve, reject) => {
       try{
         let config: AxiosRequestConfig = {
@@ -30,9 +32,12 @@ export const helperStore = defineStore('helper',() => {
           }
         }
         let response: AxiosResponse = await axios(config)
+        if(notification){
+          showNotify(notification)
+        }
         resolve(response)
       }catch(error: AxiosResponse | any){
-        // console.log('aqui')
+        getErrors(error.response.data.errors)
         if(error.response && error.response.status === 401){
           // console.log('aq2')
           localStorage.removeItem('token')
@@ -43,13 +48,39 @@ export const helperStore = defineStore('helper',() => {
       }
     })
   }
+
+  const getErrors = (errors:any) => {
+    let error:string[] = []
+    let op:ToastOptions = {
+      type: 'error',
+    }
+    if(errors){
+    // console.log('asd',errors)
+    for(let err in errors){
+      // console.log('er',errors[err][0])
+      error.push(errors[err][0])
+    }
+    }
+    // console.log(error)
+    error.forEach(er => showNotify(er,op))
+    
+  }
+
+  const showNotify = (msg:string, options: ToastOptions = {type:'success'}) => {
+    toast(msg, {
+      theme: 'colored',
+      ...options
+    }); // ToastOptions
+  }
   return {
     isAutenticated,
     items,
     item,
     http,
     paginated,
-    form
+    form,
+    showNotify,
+    getErrors
   }
 })
 

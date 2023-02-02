@@ -116,6 +116,18 @@ const isPasswordVisible = ref(false)
 
             <VCol
               cols="12"
+              class="text-center text-base"
+            >
+              <RouterLink
+                class="text-primary ms-2"
+                :to="{ name: 'auth-forgot-password' }"
+              >
+                Forgot password?
+              </RouterLink>
+            </VCol>
+
+            <VCol
+              cols="12"
               class="d-flex align-center"
             >
               <VDivider />
