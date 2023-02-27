@@ -28,8 +28,11 @@ export const authStore = defineStore('auth',() =>{
 
   const register = (form: formRegisterInterface) => {
     let url = '/api/auth/register';
-
-    helper.http(url,'post',{data:form}, 'registro exitoso')
+    let headers = {
+      "business-key": import.meta.env.VITE_BUSSINESS_KEY
+    }
+    console.log("headers",headers)
+    helper.http(url,'post',{data:form, headers}, 'registro exitoso')
     .then( (res) =>{
         console.log("success",res)
       router.push('/login')   

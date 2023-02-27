@@ -3,6 +3,9 @@ import { ref } from "vue";
 import { helperStore } from './../helper';
 export const accountUserStore = defineStore('account-user', ()=>{
   const helper = helperStore()
+  const {baseUrl} = storeToRefs(helper)
+
+  baseUrl.value = import.meta.env.VITE_RECHEARBLE_API
   const items = ref<accountUserInterfaz[]>([])
   const item = ref<accountUserInterfaz>()
 

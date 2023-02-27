@@ -107,5 +107,6 @@
                 "borderStyle": "solid"
             }
         ]
-    }
+    },
+    "vue-i18n.i18nPaths": ""
 }

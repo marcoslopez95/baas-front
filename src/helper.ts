@@ -4,7 +4,8 @@ import { useRouter } from 'vue-router';
 import { toast, ToastOptions } from 'vue3-toastify';
 
 export const helperStore = defineStore('helper',() => {
-    
+  
+  const baseUrl = ref(import.meta.env.VITE_API_URL)
   const items = ref()
   const item = ref()
   const router = useRouter()
@@ -19,7 +20,7 @@ export const helperStore = defineStore('helper',() => {
 
   const http = (url:string,method: Method = 'get', options: AxiosRequestConfig = {}, notification = '') => {
     return new Promise(async (resolve, reject) => {
-      try{
+      try{ 
         let config: AxiosRequestConfig = {
           url,
           method,
@@ -80,7 +81,8 @@ export const helperStore = defineStore('helper',() => {
     paginated,
     form,
     showNotify,
-    getErrors
+    getErrors,
+    baseUrl
   }
 })
 
