@@ -114,12 +114,14 @@ interface OperationStatus {
 
 const colorText = (item: Deposit) => {
   switch (item.operationStatus.name) {
-    case 'EN PROCESO':
+    case 'EN ESPERA DE COMPROBANTE':
       return 'text-pending'
     case 'EN VERIFICACION':
       return 'text-verified'
     case 'failed':
-      return '#ff0000'
+      return '#ff0000' 
+    case 'ACEPTADO':
+      return 'text-success'
     default:
       return '#000000'
   }
@@ -156,7 +158,7 @@ const colorText = (item: Deposit) => {
           {{ dayjs(item.createdAt).format('DD/MM/YYYY') }}
         </td>
         <td class="text-center">
-          {{ item.account.currency.symbol }}
+          {{ item.destination.currency.symbol }}
         </td>
         <td class="text-center font-weight-bold" :class="colorText(item)">
           {{ item.operationStatus.name }}
@@ -168,7 +170,7 @@ const colorText = (item: Deposit) => {
         <td class="text-center">
         <!-- Si y solo si en proceso, cargar comprobante -->
           <VBtn 
-            v-if="item.operationStatus.name == 'EN PROCESO'"
+            v-if="item.operationStatus.name == 'EN ESPERA DE COMPROBANTE'"
             @click="selectDeposit(item)"
             >
             <VIcon icon="mdi-upload" />

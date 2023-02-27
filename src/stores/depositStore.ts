@@ -3,7 +3,7 @@ import { helperStore } from './../helper'
 
 export const depositStore = defineStore('deposit', () => {
   const helper = helperStore()
-  const { items,item } = storeToRefs(helper)
+  const { items, item, baseUrl } = storeToRefs(helper)
   const router = useRouter()
 
   const form = ref({
@@ -13,8 +13,11 @@ export const depositStore = defineStore('deposit', () => {
     amount: '',
     comments: '',
   })
+
   const getDeposits = () => {
-    let url = `api/operations/recharges`
+    baseUrl.value = import.meta.env.VITE_RECHEARBLE_API
+
+    let url = `api/clients/recharges`
     let params = helper.paginated
     helper.http(url, 'get', { params }).then((res: any) => {
       let deposits: Deposit[] = res.data.data
@@ -40,6 +43,8 @@ export const depositStore = defineStore('deposit', () => {
   const bussinness_bank = ref([])
 
   const getBussinessBank = () => {
+  baseUrl.value = import.meta.env.VITE_API_URL
+
     let url = `/api/business-bank-accounts`
     helper.http(url, 'get').then((res: any) => {
       bussinness_bank.value = res.data.data
@@ -49,7 +54,9 @@ export const depositStore = defineStore('deposit', () => {
   const steps = ref(1)
 
   const createDeposit = () => {
-    let url = `api/operations/recharges`
+  baseUrl.value = import.meta.env.VITE_RECHEARBLE_API
+
+    let url = `api/clients/recharges`
     let data = {
       business_bank_account_id: form.value.business_bank_account_id,
       account_id: form.value.account_id,
@@ -59,26 +66,27 @@ export const depositStore = defineStore('deposit', () => {
 
     helper.http(url, 'post', { data }).then(res => {
       steps.value = 1
-       form.value = {
+      form.value = {
         business_bank_account_id: 0,
         payment_method_id: 0,
         account_id: '',
         amount: '',
         comments: '',
-       }
+      }
       getDeposits()
       router.push('/deposit')
     })
   }
 
   const showModal = ref<boolean>(false)
-  const uploadVoucher = (voucher:any,id:number) => {
-    let url = `/api/operations/recharges/${id}/voucher`
-    let data = new FormData
-    data.append('voucher',voucher)
+  const uploadVoucher = (voucher: any, id: number) => {
+    baseUrl.value = import.meta.env.VITE_RECHEARBLE_API
 
-    helper.http(url,'post',{data})
-    .finally(()=>{
+    let url = `/api/clients/recharges/${id}/voucher`
+    let data = new FormData()
+    data.append('voucher', voucher)
+
+    helper.http(url, 'post', { data }).finally(() => {
       getDeposits()
       showModal.value = false
     })
@@ -94,7 +102,7 @@ export const depositStore = defineStore('deposit', () => {
     createDeposit,
     selectItem,
     uploadVoucher,
-    showModal
+    showModal,
   }
 })
 

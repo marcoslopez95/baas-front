@@ -23,12 +23,12 @@
       </VCardText>
 
       <VCardText class="text-left">
-        <b>Account Holder:</b> {{ item.rechargeable?.accountHolder ?? '' }} <br />
-        <b>Account Number:</b> {{ item.rechargeable?.accountNumber ?? '' }} <br />
-        <b>Swift Code:</b> {{ item.rechargeable?.swiftCode ?? '' }} <br />
-        <b>Address:</b> {{ item.rechargeable?.address ?? '' }} <br />
-        <b>Payment Method:</b> {{ item.rechargeable?.paymentMethod.name ?? '' }} <br />
-        <b>Currency:</b> {{ item.rechargeable?.currency.abbreviation ?? '' }} <br />
+        <b>Account Holder:</b> {{ item.origin?.accountHolder ?? '' }} <br />
+        <b>Account Number:</b> {{ item.origin?.accountNumber ?? '' }} <br />
+        <b>Swift Code:</b> {{ item.origin?.swiftCode ?? '' }} <br />
+        <b>Address:</b> {{ item.origin?.address ?? '' }} <br />
+        <b>Payment Method:</b> {{ item.origin?.paymentMethod?.name ?? '' }} <br />
+        <b>Currency:</b> {{ item.origin?.currency?.abbreviation ?? '' }} <br />
       </VCardText>
 
       <VCardText class="text-center">

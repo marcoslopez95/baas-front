@@ -24,6 +24,7 @@ export const helperStore = defineStore('helper',() => {
         let config: AxiosRequestConfig = {
           url,
           method,
+          baseURL: baseUrl.value,
           ...options
         }
         // console.log('asd',config)
