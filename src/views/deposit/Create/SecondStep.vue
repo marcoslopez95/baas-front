@@ -88,8 +88,10 @@ const currenciesWithSelectPaymentMethod = computed(() => {
   if (bussinness_bank.value.length === 0) return []
   let currencies: currencyInterfaz[] = []
   bussinness_bank.value.map((element: any) => {
-    if (form.value.payment_method_id === element.paymentMethod.id) {
-      currencies.push(element.currency)
+    if(element.paymentMethod){
+      if (form.value.payment_method_id === element.paymentMethod.id) {
+        currencies.push(element.currency)
+      }
     }
   })
   return currencies

@@ -5,11 +5,13 @@ export const accountUserStore = defineStore('account-user', ()=>{
   const helper = helperStore()
   const {baseUrl} = storeToRefs(helper)
 
-  baseUrl.value = import.meta.env.VITE_RECHEARBLE_API
+  baseUrl.value = import.meta.env.VITE_API_URL
+
   const items = ref<accountUserInterfaz[]>([])
   const item = ref<accountUserInterfaz>()
 
   const getAccounts = () => {
+    
     let url = '/api/accounts'
     helper.http(url,'get')
 

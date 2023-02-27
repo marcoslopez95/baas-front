@@ -33,8 +33,10 @@ export const depositStore = defineStore('deposit', () => {
     if (bussinness_bank.value.length === 0) return []
     let methods: PaymentMethod[] = []
     bussinness_bank.value.map((element: any) => {
-      if (!methods.find(item => item.id === element.paymentMethod.id)) {
-        methods.push(element.paymentMethod)
+      if(element.paymentMethod){
+        if (!methods.find(item => item.id === element.paymentMethod.id)) {
+          methods.push(element.paymentMethod)
+        }
       }
     })
     return methods

@@ -153,8 +153,10 @@ const filterBussinessAccount = computed(() => {
   if (bussinness_bank.value.length === 0) return []
   let bank_accounts: BussinessAccountInterfaz[] = []
   bussinness_bank.value.map((element: BussinessAccountInterfaz) => {
-    if (element.paymentMethod.id == form.value.payment_method_id) {
-      bank_accounts.push(element)
+    if(element.paymentMethod){
+      if (element.paymentMethod.id == form.value.payment_method_id) {
+        bank_accounts.push(element)
+      }
     }
   })
   return bank_accounts
@@ -163,7 +165,7 @@ const filterBussinessAccount = computed(() => {
 const selectBank = computed(()=>{
   if(!form.value.business_bank_account_id) return null
   let bank: BussinessAccountInterfaz = bussinness_bank.value.find((element: BussinessAccountInterfaz) => element.id === form.value.business_bank_account_id )
-
+  // console.log('banco',bank)
   return bank
 })
 
