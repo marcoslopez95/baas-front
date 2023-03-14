@@ -2,13 +2,14 @@
 import { Store } from '@/stores/configsStore';
 import { required } from '@/validator';
 import { useRoute } from 'vue-router';
+
 const emit = defineEmits(['stepValue'])
 const store = Store()
 const validator = { required }
 const route = useRoute()
-const typeDocuments = []
+const typeDocuments: TypeDocument[] = []
 const countries = []
-const formKyc = ref(null)
+const formKyc = ref<any>()
 const form = ref({
   document_type_id: null,
   country_id: null,
@@ -24,6 +25,16 @@ const nextStep = async () => {
 
   if (!valid) return
   emit('stepValue', 2)
+
+
+}
+
+interface TypeDocument {
+  id: number,
+  name: string,
+  description: string,
+  createdAt: Date,
+  deletedAt?: Date
 }
 </script>
 
