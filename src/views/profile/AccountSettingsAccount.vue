@@ -332,7 +332,7 @@ const currencies = [
 
     <VCol cols="12">
       <!-- 👉 Delete Account -->
-      <VCard title="Delete Account">
+      <VCard title="Verificación de identidad">
         <VCardText>
           <!-- 👉 Checkbox and Button  -->
           <VAlert
@@ -341,26 +341,19 @@ const currencies = [
             class="mb-4"
           >
             <VAlertTitle class="mb-1">
-              Are you sure you want to delete your account?
+             Por favor verifica tu identidad
             </VAlertTitle>
-            <p class="mb-0">
+            <!-- <p class="mb-0">
               Once you delete your account, there is no going back. Please be certain.
-            </p>
+            </p> -->
           </VAlert>
-          <div>
-            <VCheckbox
-              v-model="isAccountDeactivated"
-              :rules="validateAccountDeactivation"
-              label="I confirm my account deactivation"
-            />
-          </div>
 
           <VBtn
-            :disabled="!isAccountDeactivated"
-            color="error"
+            to="/kyc"
+            color="primary"
             class="mt-3"
           >
-            Deactivate Account
+            Verificar
           </VBtn>
         </VCardText>
       </VCard>

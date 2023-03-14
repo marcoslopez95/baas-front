@@ -14,7 +14,7 @@ export const authStore = defineStore('auth',() =>{
     helper.http(url,'post',{data:form}, 'logeado')
       .then(async (res:any) =>{
         console.log("success",res)
-        let new_token: string = res.data.accessToken;
+        let new_token: string = res.data.data.accessToken;
 
         localStorage.setItem('token',new_token.split('|')[1]);
         await getUser()

@@ -2,7 +2,7 @@
 import upgradeBannerDark from '@/assets/images/pro/upgrade-banner-dark.png'
 import upgradeBannerLight from '@/assets/images/pro/upgrade-banner-light.png'
 import logo from '@/assets/logo.svg?raw'
-import { VerticalNavLink, VerticalNavSectionTitle } from '@layouts'
+import { VerticalNavLink } from '@layouts'
 import { useTheme } from 'vuetify'
 
 const vuetifyTheme = useTheme()
@@ -54,14 +54,14 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-cash-fast' }
       }"
     />
-    <VerticalNavLink
+    <!-- <VerticalNavLink
       :item="{
         title: 'Account Settings',
         to: 'account-settings',
         icon: { icon: 'mdi-account-cog-outline' }
       }"
-    />
-    <!-- 👉 Pages -->
+    /> -->
+    <!-- 👉 Pages 
     <VerticalNavSectionTitle :item="{ heading: 'Pages' }" />
     <VerticalNavLink
       :item="{
@@ -79,8 +79,8 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-account-plus-outline' }
       }"
     />
-
-    <!-- ℹ️ This path doesn't exist so 404 route will catch this undefined path -->
+-->
+    <!-- ℹ️ This path doesn't exist so 404 route will catch this undefined path 
     <VerticalNavLink
       :item="{
         title: 'Error',
@@ -89,8 +89,8 @@ const upgradeBanner = computed(() => {
         icon: { icon: 'mdi-alert-circle-outline' }
       }"
     />
-
-    <!-- 👉 User Interface -->
+-->
+    <!-- 👉 User Interface
     <VerticalNavSectionTitle :item="{ heading: 'User Interface' }" />
 
     <VerticalNavLink
@@ -127,10 +127,11 @@ const upgradeBanner = computed(() => {
         to: 'form-layouts',
         icon: { icon: 'mdi-form-select' }
       }"
-    />
+    /> -->
   </ul>
 
-  <!-- 👉 illustration -->
+
+  <!-- 👉 illustration
   <a
     href="https://themeselection.com/item/materio-vuetify-vuejs-admin-template"
     target="_blank"
@@ -144,6 +145,7 @@ const upgradeBanner = computed(() => {
       style="max-width: 230px"
     >
   </a>
+   -->
 </template>
 
 <style lang="scss">
