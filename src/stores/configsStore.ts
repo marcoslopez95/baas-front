@@ -1,15 +1,15 @@
 import { helperStore } from '../helper'
 
-export const Store = defineStore('configs', () => {
+export const configStore = defineStore('configs', () => {
   const helper = helperStore()
-  
-  const { url,baseUrl,pagination } = storeToRefs(helper)
+
+  const { url, baseUrl, pagination } = storeToRefs(helper)
   pagination.value.currentPage = 1
   baseUrl.value = import.meta.env.VITE_API_URL
   url.value = '/api/configs/countries'
 
-  const countries = ref()
-  const documentsTypes = ref()
+  const countries = ref<Countries[]>([])
+  const documentsTypes = ref<TypeDocument[]>([])
 
   const getCountries = () => {
     url.value = '/api/configs/countries'
@@ -27,25 +27,42 @@ export const Store = defineStore('configs', () => {
     })
   }
 
-
-  const index = () =>{
+  const index = () => {
     helper.index()
   }
   const form = ref({
-    name:"",
-    abbreviation:"",
-    citizenship:"",
-    phone_code:"",
-    description:"",
-
+    name: '',
+    abbreviation: '',
+    citizenship: '',
+    phone_code: '',
+    description: '',
   })
-
-  
 
   return {
     form,
     index,
+    countries,
+    documentsTypes,
     getCountries,
     getDocumentTypes
+  }
+
+  interface Countries {
+    abbreviation: string
+    citizenship: string
+    created_at: Date
+    deleted_at?: Date
+    description?: string
+    id: number
+    name: string
+    phone_code: string
+  }
+
+  interface TypeDocument {
+    id: number
+    name: string
+    description: string
+    createdAt: Date
+    deletedAt?: Date
   }
 })

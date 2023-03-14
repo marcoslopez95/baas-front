@@ -1,40 +1,28 @@
 <script lang="ts" setup>
-import { Store } from '@/stores/configsStore';
+import { configStore } from '@/stores/configsStore';
 import { required } from '@/validator';
 import { useRoute } from 'vue-router';
-
+const props =  defineProps({
+    formData:{
+        type: Object,
+        required: true
+    }
+})
 const emit = defineEmits(['stepValue'])
-const store = Store()
+const store = configStore()
 const validator = { required }
 const route = useRoute()
-const typeDocuments: TypeDocument[] = []
-const countries = []
-const formKyc = ref<any>()
-const form = ref({
-  document_type_id: null,
-  country_id: null,
-  city: null,
-  Address: null,
-})
+const formStep1 = ref<any>()
+const form = ref(props.formData)
 store.getCountries()
 store.getDocumentTypes()
-//birthdate  selfie front_document reverse_document
+
 const nextStep = async () => {
-  const { valid } = await formKyc.value.validate()
+  const { valid } = await formStep1.value.validate()
   console.log('peticion', valid)
 
   if (!valid) return
   emit('stepValue', 2)
-
-
-}
-
-interface TypeDocument {
-  id: number,
-  name: string,
-  description: string,
-  createdAt: Date,
-  deletedAt?: Date
 }
 </script>
 
@@ -43,7 +31,7 @@ interface TypeDocument {
     <VCardText>
       <VForm
         @submit.prevent="nextStep"
-        ref="formKyc"
+        ref="formStep1"
       >
         <VRow>
           <VCol
@@ -51,7 +39,9 @@ interface TypeDocument {
             md="6"
           >
             <VSelect
-              :items="typeDocuments"
+              item-title="name"
+              item-value="id"
+              :items="store.documentsTypes"
               :rules="[validator.required]"
               v-model="form.document_type_id"
               label="Type document"
@@ -74,9 +64,11 @@ interface TypeDocument {
             md="6"
           >
             <VSelect
+              item-title="name"
+              item-value="id"
               :rules="[validator.required]"
-              :items="countries"
-              v-model="form.document_type_id"
+              :items="store.countries"
+              v-model="form.country_id"
               label="Country"
             />
           </VCol>
@@ -96,13 +88,20 @@ interface TypeDocument {
           >
             <VTextField
               label="Address"
-              v-model="form.Address"
+              v-model="form.address"
               :rules="[validator.required]"
             />
           </VCol>
         </VRow>
       </VForm>
     </VCardText>
-    <VCardActions><VBtn @click="nextStep">Next</VBtn></VCardActions>
+    <VCardActions class="justify-end"
+      ><VBtn
+        min-width="150px"
+        @click="nextStep"
+        variant="tonal"
+        >Next</VBtn
+      ></VCardActions
+    >
   </VCard>
 </template>
