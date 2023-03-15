@@ -25,7 +25,10 @@ export const authStore = defineStore('auth', () => {
         console.log('error', err)
       })
   }
+  const steps = ref(1)
+
   const loading = ref(false)
+  const errorsKyc = ref()
   const validateKyc = (form: formKycInterface) => {
     console.log(form)
     let data = new FormData()
@@ -36,21 +39,32 @@ export const authStore = defineStore('auth', () => {
     data.append('birthdate', form.birthdate)
     data.append('selfie', form.selfie)
     data.append('front_document', form.front_document)
+    if(form.reverse_document)
     data.append('reverse_document', form.reverse_document)
     loading.value = true
     let url = '/api/auth/kyc-verification'
     helper
       .http(url, 'post', { data: data })
       .then((res: any) => {
-        console.log('success', res)
         loading.value = false
 
         router.push('/profile')
       })
-      .catch(err => {
+      .catch(async err => {
         loading.value = false
 
-        console.log('error', err)
+        if(err.response.status == 423){
+          helper.showNotify(`${err.response.data.message}, tus documentos pasaran a verificacion manual`,{
+            type: 'error',
+          })
+          await getUser()
+          router.push('/profile')
+        }else if(err.response?.data?.data?.body){
+          steps.value = 3
+          errorsKyc.value = JSON.parse(err.response.data.data.body)
+        }
+       
+
       })
   }
   const register = (form: formRegisterInterface) => {
@@ -58,11 +72,9 @@ export const authStore = defineStore('auth', () => {
     let headers = {
       'business-key': import.meta.env.VITE_BUSSINESS_KEY,
     }
-    console.log('headers', headers)
     helper
       .http(url, 'post', { data: form, headers }, 'registro exitoso')
       .then(res => {
-        console.log('success', res)
         router.push('/login')
       })
       .catch(err => {
@@ -147,6 +159,8 @@ export const authStore = defineStore('auth', () => {
     confirmForgotPassword,
     validateKyc,
     loading,
+    errorsKyc,
+    steps
   }
 
   interface FormConfirmForgotPassword {

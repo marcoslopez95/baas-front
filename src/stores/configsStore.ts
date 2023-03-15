@@ -10,7 +10,12 @@ export const configStore = defineStore('configs', () => {
 
   const countries = ref<Countries[]>([])
   const documentsTypes = ref<TypeDocument[]>([])
+  const documenType = ref<object>({id:null, name:''})
 
+  const setTypeDocument =(value: object)=>{
+    console.log('store', value)
+    documenType.value =  value
+  }
   const getCountries = () => {
     url.value = '/api/configs/countries'
     helper.http(url.value, 'get').then((res: any) => {
@@ -44,7 +49,9 @@ export const configStore = defineStore('configs', () => {
     countries,
     documentsTypes,
     getCountries,
-    getDocumentTypes
+    getDocumentTypes,
+    documenType,
+    setTypeDocument
   }
 
   interface Countries {

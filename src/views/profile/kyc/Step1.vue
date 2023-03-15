@@ -6,20 +6,24 @@ const props =  defineProps({
     formData:{
         type: Object,
         required: true
-    }
+    },
 })
 const emit = defineEmits(['stepValue'])
 const store = configStore()
 const validator = { required }
 const route = useRoute()
 const formStep1 = ref<any>()
+const document = store.documenType?.id ? ref( store.documenType) : ref()
 const form = ref(props.formData)
 store.getCountries()
 store.getDocumentTypes()
 
+const changeDocumentType= (e: any) => {
+  store.setTypeDocument(e)
+  form.value.document_type_id = e.id
+}
 const nextStep = async () => {
   const { valid } = await formStep1.value.validate()
-  console.log('peticion', valid)
 
   if (!valid) return
   emit('stepValue', 2)
@@ -43,7 +47,9 @@ const nextStep = async () => {
               item-value="id"
               :items="store.documentsTypes"
               :rules="[validator.required]"
-              v-model="form.document_type_id"
+              @update:model-value="changeDocumentType($event)"
+              v-model="document"
+              return-object
               label="Type document"
             />
           </VCol>

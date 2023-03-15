@@ -2,15 +2,14 @@
 import { authStore } from '@/stores/AuthStore';
 import Step1 from '@/views/profile/kyc/Step1.vue';
 import Step2 from '@/views/profile/kyc/Step2.vue';
+import Step3 from '@/views/profile/kyc/Step3.vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute()
 const store = authStore()
-
-const valueStep = ref(1)
 const formDataStep1 = ref({
   document_type_id: null,
-  country_id: '',
+  country_id: null,
   city: '',
   address: '',
   birthdate: '',
@@ -22,12 +21,15 @@ const formDataStep2 = ref({
 })
 const componentStep = computed(() => {
   let comp = Step1
-  switch (valueStep.value) {
+  switch (store.steps) {
     case 1:
       comp = Step1
       break
     case 2:
       comp = Step2
+      break
+    case 3:
+      comp = Step3
       break
     default:
       break
@@ -37,16 +39,15 @@ const componentStep = computed(() => {
 // {...formDataStep1.value, ...formDataStep2.value}
 const sendData = async () => {
   store.validateKyc({ ...formDataStep1.value, ...formDataStep2.value })
-  console.log('pasa')
 } 
 </script>
 
 <template>
   <div>
     <VCard class="mb-4">
-      <VCardTitle>Verificar identidad</VCardTitle>
+      <VCardTitle>Verificar identidad {{ store.steps }}</VCardTitle>
     </VCard>
-    <Component :formData="valueStep == 1 ? formDataStep1 : formDataStep2" :is="componentStep" @send="sendData()"
-      @stepValue="valueStep = $event" />
+    <Component :formData="store.steps == 1 ? formDataStep1 : formDataStep2" :is="componentStep" @send="sendData()"
+      @stepValue="store.steps = $event" />
   </div>
 </template>
