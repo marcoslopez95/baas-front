@@ -17,7 +17,7 @@ export const helperStore = defineStore('helper',() => {
   const isAutenticated = () => {
     return localStorage.getItem('token') || false
   }
-
+  
   const http = (url:string,method: Method = 'get', options: AxiosRequestConfig = {}, notification = '') => {
     return new Promise(async (resolve, reject) => {
       try{ 
