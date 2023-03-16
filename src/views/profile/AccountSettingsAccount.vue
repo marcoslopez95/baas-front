@@ -3,7 +3,7 @@ import avatar1 from '@/assets/images/avatars/avatar-1.png';
 import { authStore } from '@/stores/AuthStore';
 const store = authStore()
 const statusKyc = computed(() => {
-  return store.user?.profile?.kycVerification?.general_status
+  return store.statusKyc
 }
 )
 const accountData = {

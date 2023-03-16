@@ -13,7 +13,9 @@ const store = configStore()
 const validator = { required }
 const route = useRoute()
 const formStep1 = ref<any>()
-const document = store.documenType?.id ? ref( store.documenType) : ref()
+const document = store.documenType?.id ? ref( store.documenType) : ref(null)
+console.log(document)
+
 const form = ref(props.formData)
 store.getCountries()
 store.getDocumentTypes()

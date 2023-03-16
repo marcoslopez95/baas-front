@@ -52,12 +52,12 @@ export const authStore = defineStore('auth', () => {
       })
       .catch(async err => {
         loading.value = false
+        await getUser()
 
         if(err.response.status == 423){
           helper.showNotify(`${err.response.data.message}, tus documentos pasaran a verificacion manual`,{
             type: 'error',
           })
-          await getUser()
           router.push('/profile')
         }else if(err.response?.data?.data?.body){
           steps.value = 3
@@ -89,11 +89,14 @@ export const authStore = defineStore('auth', () => {
     name: '',
     email: '',
   })
+  const statusKyc = ref<String>()
   const setUser = () => {
     let get_user = localStorage.getItem('user')
     if (!get_user) return null
     let user_local: userModel = JSON.parse(get_user)
     user.value = user_local
+    statusKyc.value = user_local?.profile?.kycVerification?.general_status
+    
   }
 
   const getUser = () => {
@@ -160,7 +163,8 @@ export const authStore = defineStore('auth', () => {
     validateKyc,
     loading,
     errorsKyc,
-    steps
+    steps,
+    statusKyc
   }
 
   interface FormConfirmForgotPassword {

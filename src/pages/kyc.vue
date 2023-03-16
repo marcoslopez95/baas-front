@@ -19,6 +19,7 @@ const formDataStep2 = ref({
   front_document: '',
   reverse_document: '',
 })
+
 const componentStep = computed(() => {
   let comp = Step1
   switch (store.steps) {
@@ -39,15 +40,30 @@ const componentStep = computed(() => {
 // {...formDataStep1.value, ...formDataStep2.value}
 const sendData = async () => {
   store.validateKyc({ ...formDataStep1.value, ...formDataStep2.value })
-} 
+}
+const verify = (() => {
+  formDataStep1.value = {
+    document_type_id: null,
+    country_id: null,
+    city: '',
+    address: '',
+    birthdate: '',
+  }
+  formDataStep2.value = {
+    selfie: '',
+    front_document: '',
+    reverse_document: '',
+  }
+  store.steps = 1
+})
 </script>
 
 <template>
   <div>
     <VCard class="mb-4">
-      <VCardTitle>Verificar identidad {{ store.steps }}</VCardTitle>
+      <VCardTitle>Verificar identidad</VCardTitle>
     </VCard>
-    <Component :formData="store.steps == 1 ? formDataStep1 : formDataStep2" :is="componentStep" @send="sendData()"
-      @stepValue="store.steps = $event" />
+    <Component :formData="store.steps == 1 ? formDataStep1 : formDataStep2" :is="componentStep" @verify="verify()"
+      @send="sendData()" @stepValue="store.steps = $event" />
   </div>
 </template>

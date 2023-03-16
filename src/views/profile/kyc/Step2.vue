@@ -15,6 +15,7 @@ const props = defineProps({
         default: false
     },
 })
+
 const route = useRoute()
 const store = authStore()
 const storeConfig = configStore()
@@ -54,6 +55,8 @@ const uploadFile = (e: any, type: string) => {
 }
 const sendData = () => {
     emit('send')
+
+    
 }
 </script>
 
@@ -64,7 +67,6 @@ const sendData = () => {
                 <VCol cols="12" md="4" class="text-center">
                     <VCard min-height="220px">
                         <VCardText>
-                            {{ document?.name }}
                             <p class="font-weight-semibold text-lg">Front</p>
                             <div v-if="!imgFront" class="px-16 text-center">
                                 <VAlert color="warning" variant="tonal"
