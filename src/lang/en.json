@@ -1,0 +1,173 @@
+{
+  "message": {
+    "hello": "Hola Mundo"
+  },
+  "commons": {
+    "Name": "Name",
+    "Create": "Create",
+    "Email": "Email",
+    "Update": "Update",
+    "Cancel": "Cancel",
+    "Code": "Code",
+    "Description": "Description",
+    "Status": "Status",
+    "Assign": "Assign",
+    "Actions": "Actions",
+    "Abbreviation": "Abbreviation",
+    "Symbol": "Symbol",
+    "Category": "Category",
+    "Active": "Active",
+    "Inactive": "Inactive",
+    "amount": "Amount",
+    "date": "Date",
+    "Details": "Details",
+    "Close": "Close",
+    "accountNumber": "AccountNumber",
+    "Balance": "Balance",
+    "transfer-account-balance": "Transfer Balance",
+    "recharge-account-balance": "Recharge Balance"
+  },
+  "tables": {
+    "headers": {
+      "Name": "Name",
+      "Email": "Email",
+      "Bussiness": "Bussiness",
+      "Actions": "Actions",
+      "Description": "Description"
+    }
+  },
+  "menu": {
+    "sections": {
+      "configs": "Settings",
+      "Bussiness": "Bussiness",
+      "security": "Security",
+      "Users": "Users"
+    },
+    "home": "Home",
+    "Foreign-Admins": "Branch Admins",
+    "Configs": "Settings",
+    "Roles": "Roles",
+    "Permissions": "Permissions",
+    "Countries": "Countries",
+    "Bussinesses": "Bussinesses",
+    "Bussiness-Networks": "Bussiness Networks",
+    "Users": "Users",
+    "Currency-Categories": "Currency Categories",
+    "Currencies": "Currencies",
+    "Payment-Methods": "Payment Methods",
+    "Bank-Account-Types": "Bank Account Types",
+    "Operation-Categories": "Operation Categories",
+    "Operation-Statuses": "Operation Statuses",
+    "Account-Types": "Account Types",
+    "Centralized-Accounts": "Centralized Accounts",
+    "Criptocurrency-Networks": "Criptocurrency Networks",
+    "Deposits": "Deposits",
+    "admins": "Admins",
+    "bussiness-users": "Bussiness Users",
+    "branch-users": "Branch Admins",
+    "users": "Users",
+    "Centralized-Accounts-Category": "Centralized Account Categories",
+    "Document-types": "Document Types"
+  },
+  "buttons": {
+    "create": "Create"
+  },
+  "views": {
+    "foreign-admins": {
+      "singular": "Foreign Admin",
+      "password": "Password",
+      "password-confirm": "Confirmated Password"
+    },
+    "account-types": {
+      "singular": "Account Type"
+    },
+    "bank-account-types": {
+      "singular": "Bank Account Type"
+    },
+    "bussiness-networks": {
+      "singular": "Bussiness Network"
+    },
+    "bussinesses": {
+      "singular": "Bussiness",
+      "assign-account-centralized": "assign account centralized",
+      "assign-payment-methods": "assign payment methods",
+      "is-primary": "Is Primary",
+      "branch": "Branch"
+    },
+    "centralized-accounts": {
+      "singular": "Centralized Account"
+    },
+    "countries": {
+      "singular": "Country",
+      "abbreviation": "abbreviation",
+      "citizenship": "citizenship",
+      "phone-code": "phone code"
+    },
+    "currencies": {
+      "singular": "Currency",
+      "plural": "Currencies"
+    },
+    "payment-methods": {
+      "singular": "Payment Method",
+      "plural": "Payment Methods"
+    },
+    "roles": {
+      "singular": "Rol"
+    },
+    "permissions": {
+      "plural": "Permissions",
+      "singular": "Permission"
+    },
+    "currency-categories": {
+      "plural": "Currency Categories",
+      "singular": "Currency Category"
+    },
+    "operation-categories": {
+      "plural": "Operation Categories",
+      "singular": "Operation Category"
+    },
+    "operation-status": {
+      "plural": "Operation Status",
+      "singular": "Operation Status"
+    },
+    "criptocurrency-networks": {
+      "plural": "Criptocurrency Networks",
+      "singular": "Criptocurrency Networks"
+    },
+    "deposits": {
+      "transaction-number": "Transaction Number",
+      "destiny": "Destiny",
+      "origin": "Origin",
+      "account_holder": "Account Holder",
+      "account_number": "Account Number",
+      "address": "Address",
+      "bank": "Bank",
+      "swift_code": "Swift Code",
+      "account_type": "Account Type",
+      "deposit-data": "Deposit Data",
+      "date": "Date",
+      "checked": "Deposit checked successfully",
+      "blocked": "Deposit blocked successfully"
+    },
+    "Centralized-Accounts-Category": {
+      "plural": "Centralized Accounts Categories",
+      "singular": "Centralized Account Category"
+    },
+    "Centralized-Accounts": {
+      "plural": "Account Centralized"
+    },
+    "document-types": {
+      "singular": "Document Type"
+    },
+    "branches": {
+      "singular": "Branch"
+    }
+  },
+  "assign-permissions-to-role": "Assign PermissionsTo Role",
+  "name-panel": "Admin Panel",
+  "Welcome": "Welcome",
+  "login-description": "Please sign-in to your account and start the adventure.",
+  "Password": "Password",
+  "Login": "Login",
+  "Acces no Permit": "Acces no Permit"
+}

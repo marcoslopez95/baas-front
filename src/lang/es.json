@@ -1,0 +1,173 @@
+{
+  "message": {
+    "hello": "Hola Mundo"
+  },
+  "commons": {
+    "Name": "Nombre",
+    "Create": "Crear",
+    "Email": "Correo Electrónico",
+    "Update": "Actualizar",
+    "Cancel": "Cancelar",
+    "Code": "Código",
+    "Description": "Descripción",
+    "Status": "Estado",
+    "Assign": "Asignar",
+    "Actions": "Acciones",
+    "Abbreviation": "Abreviación",
+    "Symbol": "Símbolo",
+    "Category": "Categoría",
+    "Active": "Activo",
+    "Inactive": "Inactivo",
+    "amount": "Monto",
+    "date": "Fecha",
+    "Details": "Detalles",
+    "Close": "Cerrar",
+    "accountNumber": "Número de Cuenta",
+    "Balance": "Balance",
+    "transfer-account-balance": "Balance Transferido",
+    "recharge-account-balance": "Balance Recargado"
+  },
+  "tables": {
+    "headers": {
+      "Name": "Nombre",
+      "Email": "Email",
+      "Bussiness": "Empresa",
+      "Actions": "Acciones",
+      "Description": "Descripción"
+    }
+  },
+  "menu": {
+    "sections": {
+      "configs": "configuraciones",
+      "Bussiness": "Empresa",
+      "security": "Seguridad",
+      "Users": "Usuarios"
+    },
+    "home": "Inicio",
+    "Foreign-Admins": "Admins. Sucursal",
+    "Configs": "Configuraciones",
+    "Roles": "Roles",
+    "Permissions": "Permisos",
+    "Countries": "Países",
+    "Bussinesses": "Empresas",
+    "Bussiness-Networks": "Redes de Empresa",
+    "Users": "Usuarios",
+    "Currency-Categories": "Categorías de Moneda",
+    "Currencies": "Monedas",
+    "Payment-Methods": "Métodos de Pago",
+    "Bank-Account-Types": "Tipos de Cuentas Bancarias",
+    "Operation-Categories": "Categorías de Operación",
+    "Operation-Statuses": "Estados de Operación",
+    "Account-Types": "Tipos de Cuenta",
+    "Centralized-Accounts": "Cuenta Centralizada",
+    "Criptocurrency-Networks": "Redes de Criptomoneda",
+    "Deposits": "Depositos",
+    "admins": "Admins",
+    "bussiness-users": "Usuarios Empresa",
+    "branch-users": "Admins. Sucursales",
+    "users": "Usuarios",
+    "Centralized-Accounts-Category": "Categ. de Ctas. Centralizadas",
+    "Document-types": "Tipos de Documento"
+  },
+  "buttons": {
+    "create": "Crear"
+  },
+  "views": {
+    "foreign-admins": {
+      "singular": "Administrador Foráneo",
+      "password": "Contraseña",
+      "password-confirm": "Confirmar Contraseña"
+    },
+    "account-types": {
+      "singular": "Tipo de Cuenta"
+    },
+    "bank-account-types": {
+      "singular": "Tipo de Cuenta Bancaria"
+    },
+    "bussiness-networks": {
+      "singular": "Red de Empresa"
+    },
+    "bussinesses": {
+      "singular": "Empresa",
+      "assign-account-centralized": "Asignar Cuenta Centralizada",
+      "assign-payment-methods": "Asignar Métodos de Pago",
+      "is-primary": "Primario",
+      "branch": "Sucursal"
+    },
+    "centralized-accounts": {
+      "singular": "Cuenta Centralizada"
+    },
+    "countries": {
+      "singular": "País",
+      "abbreviation": "Abreviación",
+      "citizenship": "Ciudadanía",
+      "phone-code": "Código de teléfono"
+    },
+    "currencies": {
+      "singular": "Moneda",
+      "plural": "Monedas"
+    },
+    "payment-methods": {
+      "singular": "Método de Pago",
+      "plural": "Métodos de Pago"
+    },
+    "roles": {
+      "singular": "Rol"
+    },
+    "permissions": {
+      "plural": "Permisos",
+      "singular": "permiso"
+    },
+    "currency-categories": {
+      "plural": "Categorías de Moneda",
+      "singular": "Categoría de Moneda"
+    },
+    "operation-categories": {
+      "plural": "Categoría de Operaciones",
+      "singular": "Categoria de Operación"
+    },
+    "operation-status": {
+      "plural": "Estados de Operación",
+      "singular": "Estado de Operación"
+    },
+    "criptocurrency-networks": {
+      "plural": "Redes de Criptomoneda",
+      "singular": "Red de Criptomoneda"
+    },
+    "deposits": {
+      "transaction-number": "Num. Transacción",
+      "destiny": "Destino",
+      "origin": "Origen",
+      "account_holder": "Titular de la Cuenta",
+      "account_number": "Número de Cuenta",
+      "address": "Dirección",
+      "bank": "Banco",
+      "swift_code": "Código Swift",
+      "account_type": "Tipo de Cuenta",
+      "deposit-data": "Datos del depósito",
+      "date": "Fecha",
+      "checked": "Deposito aceptado correctamente",
+      "blocked": "Deposito rechazado correctamente"
+    },
+    "Centralized-Accounts-Category": {
+      "plural": "Categorias de Cuenta Centralizadas",
+      "singular": "Categoría de Cuenta Centralizada"
+    },
+    "Centralized-Accounts": {
+      "plural": "Cuentas Centralizadas"
+    },
+    "document-types": {
+      "singular": "Tipo de Documento"
+    },
+    "branches": {
+      "singular": "Sucursal"
+    }
+  },
+  "assign-permissions-to-role": "Asignar permisos al Rol",
+  "name-panel": "Admin Panel",
+  "Welcome": "Biienvenido",
+  "login-description": "Por favor, introduce tus credenciales para comenzar.",
+  "Password": "Contraseña",
+  "Login": "Iniciar Sesión",
+  "Acces no Permit": "Acceso no Permitido"
+}
