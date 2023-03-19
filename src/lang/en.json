@@ -28,7 +28,8 @@
     "recharge-account-balance": "Recharge Balance",
     "next": "Next",
     "change": "Change",
-    "upload": "Upload"
+    "upload": "Upload",
+    "try-again": "Try Again"
   },
   "tables": {
     "headers": {
@@ -182,6 +183,14 @@
       "image-selfie": {
         "title": "Selfie",
         "description": "Upload a selfie"
+      },
+      "failed": "Sorry you have not passed the identity check, check the following suggestions and try again.",
+      "errors": {
+        "image-not-equals": "The image does not correspond to the document type",
+        "fields-not-equals": "The registry data does not match the identity document",
+        "document-not-view": "Fuzzy Document",
+        "take-off-glasses": "Take off your glasses",
+        "smiley-selfie": "Take a new selfie smiling"
       }
     },
     "profile": {

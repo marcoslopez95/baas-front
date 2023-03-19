@@ -1,17 +1,18 @@
 <script lang="ts" setup>
 import { authStore } from '@/stores/AuthStore';
 import { configStore } from '@/stores/configsStore';
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n()
 const store = authStore()
 const config = configStore()
 const emit = defineEmits(['verify'])
 // Esto se debe traducir
 let bugs = [
-  " La imagen no corresponde al tipo de documento",
-  " Los datos del registro no coincide con el documento de identidad",
-  "Documento borroso",
-  "Quitarse los lentes",
-  "Toma una nueva selfie sonriendo"
+  t('views.kyc.errors.image-not-equals'),
+  t('views.kyc.errors.fields-not-equals'),
+  t('views.kyc.errors.document-not-view'),
+  t('views.kyc.errors.take-off-glasses'),
+  t('views.kyc.errors.smiley-selfie'),
 ]
 const errorsKycComp = computed(() => {
   let arrayErrors = []
@@ -37,7 +38,7 @@ const backStep = async () => {
 <template>
   <VCard>
     <VCardText>
-      <p class="text-center text-lg"> Lo sentimos no ha superado la verificación de identidad, revisa las siguientes sugerencias eh intentalo nuevamente.</p>
+      <p class="text-center text-lg">{{ $t('views.kyc.failed') }} </p>
       <VList class="list-grid" >
         <VListItem  border v-for="(item, i) in errorsKycComp" :key="i">
           <template #prepend>
@@ -48,7 +49,7 @@ const backStep = async () => {
       </VList>
     </VCardText>
     <VCardActions class="justify-end">
-      <VBtn min-width="150px" @click="backStep" variant="tonal">Volver a intentar</VBtn>
+      <VBtn min-width="150px" @click="backStep" variant="tonal">{{$t('commons.try-again')}}</VBtn>
     </VCardActions>
   </VCard>
 </template>

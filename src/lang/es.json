@@ -28,7 +28,8 @@
     "recharge-account-balance": "Balance Recargado",
     "next": "Siguiente",
     "change": "Cambiar",
-    "upload": "Subir"
+    "upload": "Subir",
+    "try-again": "Volver a intentar"
   },
   "tables": {
     "headers": {
@@ -181,6 +182,14 @@
       "image-selfie": {
         "title": "Selfie",
         "description": "Cargue una selfie"
+      },
+      "failed": "Lo sentimos no ha superado la verificación de identidad, revisa las siguientes sugerencias eh intentalo nuevamente.",
+      "errors": {
+        "image-not-equals": "La imagen no corresponde al tipo de documento",
+        "fields-not-equals": "Los datos del registro no coincide con el documento de identidad",
+        "document-not-view": "Documento borroso",
+        "take-off-glasses": "Quitarse los Lentes",
+        "smiley-selfie": "Toma una nueva selfie sonriendo"
       }
     },
     "profile": {
