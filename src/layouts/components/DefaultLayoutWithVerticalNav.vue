@@ -1,11 +1,17 @@
 <script lang="ts" setup>
-import DrawerContent from './DrawerContent.vue'
 import { VerticalNavLayout } from '@layouts'
+import DrawerContent from './DrawerContent.vue'
 
 // Components
 import Footer from '@/layouts/components/Footer.vue'
 import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
 import UserProfile from '@/layouts/components/UserProfile.vue'
+import { authStore } from '@/stores/AuthStore'
+
+const auth = authStore()
+const langs = [
+  'es','en'
+]
 </script>
 
 <template>
@@ -34,6 +40,26 @@ import UserProfile from '@/layouts/components/UserProfile.vue'
         />
       </a>
       <NavbarThemeSwitcher />
+      <v-menu location="bottom">
+      <template v-slot:activator="{ props }">
+        <v-btn
+          color="primary"
+          dark
+          v-bind="props"
+        >
+          Lang({{ auth.lang }})
+        </v-btn>
+      </template>
+
+      <v-list>
+        <v-list-item
+          v-for="(item, index) in langs"
+          :key="index"
+        >
+          <v-list-item-title @click="auth.changeLang(item)">{{ item }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
       <VBtn
         icon
         variant="text"

@@ -1,7 +1,8 @@
-import { AxiosResponse } from 'axios'
-import { defineStore } from 'pinia'
-import { useRouter } from 'vue-router'
-import { helperStore } from './../helper'
+import { AxiosResponse } from 'axios';
+import { defineStore } from 'pinia';
+import { useRouter } from 'vue-router';
+import { helperStore } from './../helper';
+import { langTypes } from './../lang/index';
 
 export const authStore = defineStore('auth', () => {
   const helper = helperStore()
@@ -32,15 +33,15 @@ export const authStore = defineStore('auth', () => {
   const validateKyc = (form: formKycInterface) => {
     console.log(form)
     let data = new FormData()
-    data.append('document_type_id', form.document_type_id)
-    data.append('country_id', form.country_id)
+    data.append('document_type_id', `${form.document_type_id}`)
+    data.append('country_id', `${form.country_id}`)
     data.append('city', form.city)
     data.append('address', form.address)
     data.append('birthdate', form.birthdate)
-    data.append('selfie', form.selfie)
-    data.append('front_document', form.front_document)
+    data.append('selfie', (form.selfie) as Blob)
+    data.append('front_document', (form.front_document) as Blob)
     if(form.reverse_document)
-    data.append('reverse_document', form.reverse_document)
+    data.append('reverse_document', (form.reverse_document) as Blob)
     loading.value = true
     let url = '/api/auth/kyc-verification'
     helper
@@ -150,7 +151,23 @@ export const authStore = defineStore('auth', () => {
       router.push('/login')
     })
   }
+  const lang = ref<langTypes>('')
+  lang.value =  localStorage.getItem('lang')
+  watch(lang, () => {
+    if(localStorage.getItem('lang')){
+      localStorage.removeItem('lang')
+    }
+    localStorage.setItem('lang', lang.value)
+  })
 
+  const changeLang = (lang_i: langTypes) => {
+    lang.value = lang_i
+    if(localStorage.getItem('lang')){
+      localStorage.removeItem('lang')
+    }
+    localStorage.setItem('lang', lang.value)
+    window.location.reload()
+  }
   return {
     login,
     register,
@@ -164,7 +181,9 @@ export const authStore = defineStore('auth', () => {
     loading,
     errorsKyc,
     steps,
-    statusKyc
+    statusKyc,
+    changeLang,
+    lang
   }
 
   interface FormConfirmForgotPassword {
@@ -201,13 +220,13 @@ export const authStore = defineStore('auth', () => {
   }
 
   interface formKycInterface {
-    document_type_id: number
-    country_id: number
+    document_type_id: number | null
+    country_id: number | null
     city: string
     address: string
     birthdate: string
-    selfie: object
-    front_document: object
-    reverse_document: object
+    selfie: object | '' | string | Blob
+    front_document: object | '' | string | Blob
+    reverse_document: object | '' | string | Blob
   }
 })

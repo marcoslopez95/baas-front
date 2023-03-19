@@ -225,23 +225,23 @@ const currencies = [
     </VCol>
 
     <VCol cols="12">
-      <VCard title="Verificación de identidad">
+      <VCard :title="$t('views.profile.verifity-identity')">
         <VCardText v-if="!statusKyc || statusKyc == 'RECHAZADO'">
           <VAlert :color="statusKyc == 'RECHAZADO' ? 'error' : 'warning'" variant="tonal" class="mb-4">
             <VAlertTitle class="mb-1">
-              {{ statusKyc == 'RECHAZADO' ? 'Identidad rechazada, vuelve a verificar' : 'Por favor verifica tu identidad'
+              {{ statusKyc == 'RECHAZADO' ? $t('views.profile.reject-kyc') : $t('views.profile.no-kyc')
               }}
             </VAlertTitle>
           </VAlert>
 
           <VBtn to="/kyc" color="primary" class="mt-3">
-            Verificar
+            {{$t('views.profile.verify-identity')}}
           </VBtn>
         </VCardText>
         <VCardText v-else-if="statusKyc == 'ACEPTADO' || statusKyc == 'EN VERIFICACION'">
           <VAlert :color="statusKyc == 'ACEPTADO' ? 'success' : 'warning'" variant="tonal" class="mb-4">
             <VAlertTitle class="mb-1">
-              {{statusKyc == 'ACEPTADO' ? 'Identidad verificada' : 'Identidad en verificacion'}}
+              {{statusKyc == 'ACEPTADO' ? $t('views.profile.ok-kyc')  : $t('views.profile.wait-kyc')}}
             </VAlertTitle>
           </VAlert>
         </VCardText>

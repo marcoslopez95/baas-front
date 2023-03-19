@@ -67,10 +67,12 @@ const sendData = () => {
                 <VCol cols="12" md="4" class="text-center">
                     <VCard min-height="220px">
                         <VCardText>
-                            <p class="font-weight-semibold text-lg">Front</p>
+                            <p class="font-weight-semibold text-lg">
+                              {{$t('views.kyc.image-front.title')}}
+                            </p>
                             <div v-if="!imgFront" class="px-16 text-center">
                                 <VAlert color="warning" variant="tonal"
-                                    title="Cargue una foto de su documento de identidad frontal" class="text-center">
+                                    :title="$t('views.kyc.image-front.description')" class="text-center">
                                 </VAlert>
                             </div>
                             <VImg v-else :src="imgFront" class="mx-auto" style="width: 200px !important"></VImg>
@@ -79,7 +81,7 @@ const sendData = () => {
                                 @input="uploadFile($event, 'front')" />
 
                             <VBtn variant="tonal" class="mt-4" @click="refFile?.click()" prepend-icon="mdi-upload-outline">
-                                {{ imgFront ? 'Change' : 'Upload' }}
+                                {{ imgFront ? $t('commons.change') : $t('commons.upload') }}
                             </VBtn>
                         </VCardText>
                     </VCard>
@@ -87,10 +89,10 @@ const sendData = () => {
                 <VCol cols="12" md="4" class="text-center" v-if="document?.name != 'Passport'">
                     <VCard min-height="220px">
                         <VCardText>
-                            <p class="font-weight-semibold text-lg">Reverso</p>
+                            <p class="font-weight-semibold text-lg">  {{$t('views.kyc.image-back.title')}}</p>
                             <div v-if="!imgBack" class="px-16">
                                 <VAlert color="warning" variant="tonal"
-                                    title="Cargue una foto de su documento de identidad reverso" class="text-center">
+                                :title="$t('views.kyc.image-back.description')" class="text-center">
                                 </VAlert>
                             </div>
                             <VImg v-else :src="imgBack" class="mx-auto" style="width: 200px !important"></VImg>
@@ -100,7 +102,7 @@ const sendData = () => {
 
                             <VBtn class="mt-4" variant="tonal" @click="refFileBack?.click()"
                                 prepend-icon="mdi-upload-outline">
-                                {{ imgBack ? 'Change' : 'Upload' }}
+                                {{ imgBack ? $t('commons.change') : $t('commons.upload') }}
                             </VBtn>
                         </VCardText>
                     </VCard>
@@ -108,9 +110,9 @@ const sendData = () => {
                 <VCol cols="12" md="4" class="text-center">
                     <VCard min-height="220px">
                         <VCardText>
-                            <p class="font-weight-semibold text-lg">Selfie</p>
+                            <p class="font-weight-semibold text-lg">{{$t('views.kyc.image-selfie.title')}}</p>
                             <div v-if="!imgSelfie" class="px-16">
-                                <VAlert color="warning" variant="tonal" title="Cargue una selfie" class="text-center">
+                                <VAlert color="warning" variant="tonal"  :title="$t('views.kyc.image-selfie.description')" class="text-center">
                                 </VAlert>
                             </div>
 
@@ -121,7 +123,7 @@ const sendData = () => {
 
                             <VBtn class="mt-4" variant="tonal" @click="refFileSelfie?.click()"
                                 prepend-icon="mdi-upload-outline">
-                                {{ imgSelfie ? 'Change' : 'Upload' }}
+                                {{ imgSelfie  ? $t('commons.change') : $t('commons.upload') }}
                             </VBtn>
                         </VCardText>
                     </VCard>
@@ -132,7 +134,7 @@ const sendData = () => {
             <VBtn class="mr-2" min-width="150px" variant="tonal" @click="$emit('stepValue', 1)">Back</VBtn>
             <VBtn @click="sendData" :loading="store.loading"
                 :disabled="!form.front_document || (document?.name != 'Passport' && !form.reverse_document) || !form.selfie"
-                min-width="150px">Send</VBtn>
+                min-width="150px"> {{$t('comons.send')}} </VBtn>
         </div>
     </div>
 </template>

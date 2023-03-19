@@ -25,7 +25,10 @@
     "accountNumber": "AccountNumber",
     "Balance": "Balance",
     "transfer-account-balance": "Transfer Balance",
-    "recharge-account-balance": "Recharge Balance"
+    "recharge-account-balance": "Recharge Balance",
+    "next": "Next",
+    "change": "Change",
+    "upload": "Upload"
   },
   "tables": {
     "headers": {
@@ -161,6 +164,33 @@
     },
     "branches": {
       "singular": "Branch"
+    },
+    "kyc": {
+      "verify-identity": "Verify Identity",
+      "type-document": "Type Document",
+      "birthdate": "Birthdate",
+      "city": "City",
+      "address": "Address",
+      "image-front": {
+        "title": "Front",
+        "description": "Upload an image front of your DNI"
+      },
+      "image-back": {
+        "title": "Back Image",
+        "description": "Upload an imagen back of your DNI"
+      },
+      "image-selfie": {
+        "title": "Selfie",
+        "description": "Upload a selfie"
+      }
+    },
+    "profile": {
+      "verifity-identity": "Verifity Identity",
+      "reject-kyc": "Identity reject, try again",
+      "no-kyc": "Please, verifity you identity",
+      "ok-kyc": "Identity Verificated",
+      "wait-kyc": "Identity in verifity",
+      "verify-identity": "Verify"
     }
   },
   "assign-permissions-to-role": "Assign PermissionsTo Role",
@@ -169,5 +199,8 @@
   "login-description": "Please sign-in to your account and start the adventure.",
   "Password": "Password",
   "Login": "Login",
-  "Acces no Permit": "Acces no Permit"
+  "Acces no Permit": "Acces no Permit",
+  "comons": {
+    "send": "Send"
+  }
 }

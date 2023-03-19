@@ -52,7 +52,7 @@ const nextStep = async () => {
               @update:model-value="changeDocumentType($event)"
               v-model="document"
               return-object
-              label="Type document"
+              :label="$t('views.kyc.type-document')"
             />
           </VCol>
           <VCol
@@ -61,7 +61,7 @@ const nextStep = async () => {
           >
             <VTextField
               :rules="[validator.required]"
-              label="Birthdate"
+              :label="$t('views.kyc.birthdate')"
               type="date"
               v-model="form.birthdate"
               :max="new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)"
@@ -77,7 +77,7 @@ const nextStep = async () => {
               :rules="[validator.required]"
               :items="store.countries"
               v-model="form.country_id"
-              label="Country"
+              :label="$t('views.countries.singular')"
             />
           </VCol>
           <VCol
@@ -85,7 +85,7 @@ const nextStep = async () => {
             md="6"
           >
             <VTextField
-              label="City"
+              :label="$t('views.kyc.city')"
               v-model="form.city"
               :rules="[validator.required]"
             />
@@ -95,7 +95,7 @@ const nextStep = async () => {
             md="6"
           >
             <VTextField
-              label="Address"
+              :label="$t('views.kyc.address')"
               v-model="form.address"
               :rules="[validator.required]"
             />
@@ -108,7 +108,7 @@ const nextStep = async () => {
         min-width="150px"
         @click="nextStep"
         variant="tonal"
-        >Next</VBtn
+        >{{$t('commons.next')}}</VBtn
       ></VCardActions
     >
   </VCard>

@@ -21,7 +21,7 @@ const formDataStep2 = ref({
 })
 
 const componentStep = computed(() => {
-  let comp = Step1
+  let comp:any = Step1
   switch (store.steps) {
     case 1:
       comp = Step1
@@ -61,8 +61,8 @@ const verify = (() => {
 <template>
   <div>
     <VCard class="mb-4">
-      <VCardTitle>Verificar identidad</VCardTitle>
-    </VCard>
+      <VCardTitle>{{$t('views.kyc.verify-identity')}}</VCardTitle>
+    </VCard> 
     <Component :formData="store.steps == 1 ? formDataStep1 : formDataStep2" :is="componentStep" @verify="verify()"
       @send="sendData()" @stepValue="store.steps = $event" />
   </div>

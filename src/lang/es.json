@@ -25,7 +25,10 @@
     "accountNumber": "Número de Cuenta",
     "Balance": "Balance",
     "transfer-account-balance": "Balance Transferido",
-    "recharge-account-balance": "Balance Recargado"
+    "recharge-account-balance": "Balance Recargado",
+    "next": "Siguiente",
+    "change": "Cambiar",
+    "upload": "Subir"
   },
   "tables": {
     "headers": {
@@ -161,6 +164,32 @@
     },
     "branches": {
       "singular": "Sucursal"
+    },
+    "kyc": {
+      "verify-identity": "Verificar Identidad",
+      "type-document": "Tipo de Documento",
+      "birthdate": "Fecha de Nacimiento",
+      "city": "Ciudad",
+      "address": "Dirección",
+      "image-front": {
+        "title": "Frontal",
+        "description": "Cargue una foto de su documento de identidad frontal"
+      },
+      "image-back": {
+        "description": "Sube una imagen del reverso de su Documento"
+      },
+      "image-selfie": {
+        "title": "Selfie",
+        "description": "Cargue una selfie"
+      }
+    },
+    "profile": {
+      "verifity-identity": "Verificación de identidad",
+      "reject-kyc": "Identidad rechazada, vuelve a verificar",
+      "no-kyc": "Por favor verifica tu identidad",
+      "ok-kyc": "Identidad verificada",
+      "wait-kyc": "Identidad en Verificación",
+      "verify-identity": "Verificar"
     }
   },
   "assign-permissions-to-role": "Asignar permisos al Rol",
@@ -169,5 +198,8 @@
   "login-description": "Por favor, introduce tus credenciales para comenzar.",
   "Password": "Contraseña",
   "Login": "Iniciar Sesión",
-  "Acces no Permit": "Acceso no Permitido"
+  "Acces no Permit": "Acceso no Permitido",
+  "comons": {
+    "send": "Enviar"
+  }
 }
