@@ -5,11 +5,16 @@ import { authStore } from '@/stores/AuthStore';
 import FormForgotPassword from '@/views/pages/authentication/FormForgotPassword.vue';
 import VerifyForgotPassword from '@/views/pages/authentication/VerifyForgotPassword.vue';
 const auth = authStore()
-
+const formPassword = ref<any>()
 const form = ref({
   email: '',
   password: '',
 })
+const codeExist = () =>{
+  // const { valid } = await formPassword.value.validate()
+  console.log('code')
+  auth.confirm_code = true 
+}
 
 </script>
 
@@ -41,12 +46,18 @@ const form = ref({
       </VCardText>
 
       <VCardText>
-        <VForm @submit.prevent="() => {}">
           <VRow>
+            <VCol
+              cols="12"
+              class="text-center text-base"
+            >
             <FormForgotPassword v-if="!auth.confirm_code"></FormForgotPassword>
             <VerifyForgotPassword v-else></VerifyForgotPassword>
             <!-- create account -->
+          </VCol>
+
             <VCol
+            v-if="!auth.confirm_code"
               cols="12"
               class="text-center text-base"
             >
@@ -54,7 +65,7 @@ const form = ref({
               <RouterLink
                 class="text-primary ms-2"
                 to="#"
-                @click.prevent="auth.confirm_code = true"
+                @click.prevent="codeExist"
               >
                 Ya lo tengo
               </RouterLink>
@@ -93,7 +104,6 @@ const form = ref({
               </RouterLink>
             </VCol>
           </VRow>
-        </VForm>
       </VCardText>
     </VCard>
   </div>

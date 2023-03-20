@@ -3,17 +3,20 @@ import logo from '@/assets/logo.svg?raw'
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import { useTheme } from 'vuetify'
 
+
 import authV1MaskDark from '@/assets/images/pages/auth-v1-mask-dark.png'
 import authV1MaskLight from '@/assets/images/pages/auth-v1-mask-light.png'
 import authV1Tree2 from '@/assets/images/pages/auth-v1-tree-2.png'
 import authV1Tree from '@/assets/images/pages/auth-v1-tree.png'
 import { authStore } from '@/stores/AuthStore'
+import { useRouter } from 'vue-router'
 const auth = authStore()
-
 const form = ref({
   email: '',
   password: '',
 })
+
+const router = useRouter()
 
 const vuetifyTheme = useTheme()
 const authThemeMask = computed(() => {
@@ -23,6 +26,10 @@ const authThemeMask = computed(() => {
 })
 
 const isPasswordVisible = ref(false)
+const redirectPassword = () => {
+  auth.confirm_code = false
+  router.push({name: 'auth-forgot-password'})
+}
 </script>
 
 <template>
@@ -118,12 +125,12 @@ const isPasswordVisible = ref(false)
               cols="12"
               class="text-center text-base"
             >
-              <RouterLink
+              <span
                 class="text-primary ms-2"
-                :to="{ name: 'auth-forgot-password' }"
+                @click="redirectPassword"
               >
                 Forgot password?
-              </RouterLink>
+              </span>
             </VCol>
 
             <VCol
