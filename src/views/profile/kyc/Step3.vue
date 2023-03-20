@@ -7,6 +7,7 @@ const store = authStore()
 const config = configStore()
 const emit = defineEmits(['verify'])
 // Esto se debe traducir
+// 54 65 20 71 75 69 65 72 6f
 let bugs = [
   t('views.kyc.errors.image-not-equals'),
   t('views.kyc.errors.fields-not-equals'),
