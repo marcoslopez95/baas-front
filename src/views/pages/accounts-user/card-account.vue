@@ -1,16 +1,27 @@
 <script lang="ts" setup>
 import { accountUserStore } from '@/stores/AccountUserStore';
 import CreateAccount from './createAccount.vue';
+import DialogConfirm from '@/views/global/DialogConfirm.vue';
 
 const store = accountUserStore()
 const dialog = ref(false)
-
+const dialogDelete = ref(false)
+const accountSelect = ref<any>()
 const { item } = storeToRefs(store)
 const openModal = (element: accountUserInterfaz) => {
   item.value = element
   dialog.value = true
 }
 
+const deleteAccount = (id: number) => {
+  accountSelect.value = id
+  dialogDelete.value = true
+}
+const deleteConfirm = () => {
+  store.deleteAccount(accountSelect.value)
+  dialogDelete.value = false
+
+}
 interface accountUserInterfaz {
   "id": number,
   "accountNumber": string,
@@ -62,8 +73,8 @@ interface accountTypeInterfaz {
                 {{ data.balance }} {{ data.currency.abbreviation }} <br />
               </VCol>
               <VCol cols="2">
-                <VBtn class="" icon variant="tonal" color="primary" >
-                <VIcon size="20px" color="bg-primary" icon="mdi-delete" @click="store.deleteAccount(data.id)"></VIcon>
+                <VBtn class="" icon variant="tonal" color="primary">
+                  <VIcon size="20px" color="bg-primary" icon="mdi-delete" @click="deleteAccount(data.id)"></VIcon>
                 </VBtn>
               </VCol>
             </VRow>
@@ -72,6 +83,8 @@ interface accountTypeInterfaz {
 
         </VCard>
       </VCol>
+      <DialogConfirm :title="'Eliminar cuenta'" :content="'¿Estas seguro de eliminar la cuenta?'" :dialog="dialogDelete"
+        @close="dialogDelete = false" @ok="deleteConfirm" />
 
       <v-dialog v-if="dialog" v-model="dialog" max-width="500px" class="" persistent>
         <v-card class="rounded-xl px-4 py-3">

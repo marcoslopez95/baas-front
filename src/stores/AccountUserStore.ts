@@ -63,6 +63,11 @@ export const accountUserStore = defineStore('account-user', ()=>{
     helper.http(url, 'delete').then(
         (res: any) => {
           getAccounts()
+          toast('Cuenta eliminada correctamente', {
+            theme: 'colored',
+              type: 'success',
+            
+          })
         })
   }
   return {
