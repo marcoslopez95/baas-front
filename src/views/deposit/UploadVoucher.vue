@@ -4,6 +4,7 @@
     v-model="showModal"
     max-width="800px"
     class=""
+    persistent
   >
     <VCard class="text-center">
       <VCardText class="d-flex flex-column justify-center align-center">
@@ -32,7 +33,11 @@
       </VCardText>
 
       <VCardText class="text-center">
-        <div class="text-left row"><b>upload a voucher </b><br /></div>
+        <div class="text-left row">
+          <b class="text-lg">Upload a voucher </b><br />
+          <b>Monto:</b> {{ item.amount ?? '' }} <br />
+          <b>Account:</b> {{ item.destination?.accountNumber ?? '' }} <br />
+        </div>
         <label for="voucher">
           <VIcon
             v-if="prevImg == ''"
@@ -51,6 +56,7 @@
           type="file"
           style="display: none"
           id="voucher"
+          accept=".jpeg,.png,.jpg"
           name="voucher"
           @change="changeVoucher($event)"
         />
@@ -70,6 +76,7 @@
           <VCol>
             <v-btn
               color="primary"
+              :disabled="!voucher"
               variant="tonal"
               @click="deposit.uploadVoucher(voucher,item.id)"
             >

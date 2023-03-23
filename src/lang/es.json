@@ -38,6 +38,15 @@
       "Bussiness": "Empresa",
       "Actions": "Acciones",
       "Description": "Descripción"
+    },
+    "headersDeposits": {
+      "Id": "ID de transacción",
+      "Date": "Fecha",
+      "Account": "Cuenta",
+      "Amount": "Monto",
+      "Currency": "Moneda",
+      "Status":"Estado",
+      "Actions": "Acciones"
     }
   },
   "menu": {

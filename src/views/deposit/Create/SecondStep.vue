@@ -1,16 +1,8 @@
 <template>
   <VForm @submit.prevent="() => {}">
-    <VRow>
+    <VRow   class="mx-4 " style="gap: 80px;">
       <VCol cols="12">
         <VRow no-gutters>
-          <!-- 👉 First Name -->
-          <VCol
-            cols="12"
-            md="3"
-            class="my-auto"
-          >
-            <label for="firstName">Select Account</label>
-          </VCol>
 
           <VCol
             cols="12"
@@ -18,7 +10,8 @@
           >
             <VRow class="d-flex gap-4">
               <VBtn
-                class="text-white"
+              min-width="200px" :class="form.account_id == item.id ? 'text-white' : ''"
+                :variant="form.account_id == item.id ? 'flat' : 'tonal'" 
                 v-for="item in filterAccounts"
                 @click="selectAccount(item)"
                 :color="form.account_id == item.id ? '#774488' : '#D684F1'"
@@ -36,16 +29,21 @@
         offset-md="3"
         cols="12"
         md="9"
+        
         class="d-flex mt-5"
       >
       <VBtn
+      min-width="150px"
           type="button"
+          variant="tonal"
           @click="deposit.steps--"
         >
           Back
         </VBtn>
         <VBtn
+        min-width="150px"
           type="button"
+          class="ml-2"
           :disabled="!form.account_id"
           @click="goNextStep"
         >

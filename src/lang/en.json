@@ -38,6 +38,15 @@
       "Bussiness": "Bussiness",
       "Actions": "Actions",
       "Description": "Description"
+    },
+    "headersDeposits": {
+      "Id": "TransactionID",
+      "Date": "Date",
+      "Account": "Account",
+      "Amount": "Amount",
+      "Currency": "Currency",
+      "Status": "Status",
+      "Actions": "Actions"
     }
   },
   "menu": {

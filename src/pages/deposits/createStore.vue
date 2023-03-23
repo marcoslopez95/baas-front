@@ -1,7 +1,15 @@
 <template>
-  <SelectPaymentMethod v-if="deposit.steps === 1"></SelectPaymentMethod>
-  <SecondStep v-if="deposit.steps === 2"></SecondStep>
-  <ThreeStep v-if="deposit.steps === 3"></ThreeStep>
+  <VCard min-height="300px">
+    <VCardTitle>{{ titleCard }}</VCardTitle>
+    <VCardText class="pa-4" >
+      <SelectPaymentMethod v-if="deposit.steps === 1"></SelectPaymentMethod>
+      <SecondStep v-if="deposit.steps === 2"></SecondStep>
+      <ThreeStep v-if="deposit.steps === 3"></ThreeStep>
+    </VCardText>
+    <VCardActions>
+
+    </VCardActions>
+  </VCard>
 </template>
 
 <script setup lang="ts">
@@ -12,9 +20,30 @@ import SecondStep from '@/views/deposit/Create/SecondStep.vue';
 import ThreeStep from '@/views/deposit/Create/ThreeStep.vue';
 
 const deposit = depositStore()
-const helper =  helperStore()
+const helper = helperStore()
 const dialog = ref(false)
+const goSecondStep = () => {
+  deposit.steps.value++
+}
+const titleCard = computed(() => {
+  let title = ''
+  
+  switch (deposit.steps) {
+    case 1:
+      title = 'Payment method'
+      break;
+    case 2:
+      title = 'Select Account'
+      break;
+    case 3:
+      title = 'Select Bussiness bank'
+      break;
 
- 
+    default:
+      break;
+  }
+
+  return title
+})
 </script>
 

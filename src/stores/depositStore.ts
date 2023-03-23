@@ -1,5 +1,6 @@
 import { useRouter } from 'vue-router'
 import { helperStore } from './../helper'
+import { toast, ToastOptions } from 'vue3-toastify';
 
 export const depositStore = defineStore('deposit', () => {
   const helper = helperStore()
@@ -75,6 +76,11 @@ export const depositStore = defineStore('deposit', () => {
         amount: '',
         comments: '',
       }
+      toast('Deposito creado correctamente', {
+        theme: 'colored',
+          type: 'success',
+        
+      })
       getDeposits()
       router.push('/deposit')
     })
@@ -89,6 +95,11 @@ export const depositStore = defineStore('deposit', () => {
     data.append('voucher', voucher)
 
     helper.http(url, 'post', { data }).finally(() => {
+      toast('Voucher subido correctamente', {
+        theme: 'colored',
+          type: 'success',
+        
+      })
       getDeposits()
       showModal.value = false
     })

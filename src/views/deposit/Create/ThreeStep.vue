@@ -4,7 +4,7 @@
       <VCol cols="6">
         <VCol cols="12">
             <!-- 👉 First Name -->
-          <VRow no-gutters class="mb-3 mx-auto">
+          <!-- <VRow no-gutters class="mb-3 mx-auto">
 
             <VCol
               cols="12"
@@ -12,7 +12,7 @@
             >
               <label for="firstName">Select Bussiness bank</label>
             </VCol>
-          </VRow>
+          </VRow> -->
           <VRow no-gutters>
 
             <VCol
@@ -103,7 +103,7 @@
             <h6 class="text-h6">Deposit Account</h6>
           </VCardText>
 
-          <VCardText class="text-left">
+          <VCardText class="text-left" v-if="selectBank">
             <b>Account Holder:</b> {{ selectBank?.accountHolder ?? ''}} <br />
             <b>Account Number:</b> {{ selectBank?.accountNumber ?? ''}} <br />
             <b>Swift Code:</b> {{ selectBank?.swiftCode ?? ''}} <br />
@@ -122,6 +122,8 @@
         class="d-flex mt-5"
       >
         <VBtn
+        min-width="150px"
+        variant="tonal"
           type="button"
           @click="deposit.steps--"
         >
@@ -129,6 +131,8 @@
         </VBtn>
 
         <VBtn
+        min-width="150px"
+        class="ml-2"
           type="button"
           :disabled="!form.amount || !form.business_bank_account_id"
           @click="deposit.createDeposit"

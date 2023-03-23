@@ -3,7 +3,10 @@ import { helperStore } from '@/helper';
 import { depositStore } from '@/stores/depositStore';
 import dayjs from 'dayjs';
 import UploadVoucher from './UploadVoucher.vue';
+import { useI18n } from 'vue-i18n';
+import DataComponent from '@/views/global/Table.vue'
 
+const { t } = useI18n()
 // const item = ref<Deposit>()
 
 const deposit = depositStore()
@@ -12,11 +15,33 @@ const helper = helperStore()
 
 const {showModal} = storeToRefs(deposit)
 const {item} = storeToRefs(helper)
+const headers = ref([
+  t('tables.headersDeposits.Id'),
+  t('tables.headersDeposits.Date'),
+  t('tables.headersDeposits.Account'),
+  t('tables.headersDeposits.Amount'),
+  t('tables.headersDeposits.Currency'),
+  t('tables.headersDeposits.Status'),
+  t('tables.headersDeposits.Actions')
 
+])
 const selectDeposit = (deposit: Deposit) => {
   item.value = deposit;
   showModal.value = true;
 }
+
+const desserts = computed(() => {
+  let array: Array<object> = []
+    console.log( helper.items)
+    if(helper.items)
+  helper.items.map( (res: Deposit)  => array.push(
+    {
+      ...res, desserts: {
+        id: res.transactionNumber, date: dayjs(res.createdAt).format('DD/MM/YYYY'),account:res.destination?.accountNumber, amount: res.amount, currency: res.destination?.currency?.abbreviation, status: res.operationStatus?.name
+      }
+    }))
+  return array
+})
 
 interface Deposit {
   id: number
@@ -129,57 +154,9 @@ const colorText = (item: Deposit) => {
 </script>
 
 <template>
-  <VTable
-    height="250"
-    fixed-header
-  >
-    <thead>
-      <tr>
-        <th class="text-uppercase">Transaction ID</th>
-        <th class="text-center text-uppercase">Amount</th>
-        <th class="text-center text-uppercase">Date</th>
-        <th class="text-center text-uppercase">Currency</th>
-        <th class="text-center text-uppercase">Status</th>
-        <th class="text-center text-uppercase">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        v-for="(item, i) in helper.items"
-        :key="i"
-      >
-        <td>{{ item.transactionNumber }}</td>
-        <td class="text-center">
-          <!-- {{ item.amount }} -->
-          {{ new Intl.NumberFormat('de-DE').format(item.amount) }}
-          
-        </td>
-        <td class="text-center">
-          {{ dayjs(item.createdAt).format('DD/MM/YYYY') }}
-        </td>
-        <td class="text-center">
-          {{ item.destination.currency.symbol }}
-        </td>
-        <td class="text-center font-weight-bold" :class="colorText(item)">
-          {{ item.operationStatus.name }}
-          <!-- Letra bold  -->
-          <!-- Naranja -> en proceso -->
-          <!-- verde -> aceptado -->
-          <!-- rojo -> rechazado -->
-        </td>
-        <td class="text-center">
-        <!-- Si y solo si en proceso, cargar comprobante -->
-          <VBtn 
-            v-if="item.operationStatus.name == 'EN ESPERA DE COMPROBANTE'"
-            @click="selectDeposit(item)"
-            >
-            <VIcon icon="mdi-upload" />
-          </VBtn>
-           <span v-else>-</span>
-        </td>
-      </tr>
-    </tbody>
-  </VTable>
+    <DataComponent @selectDeposit="selectDeposit($event)" :iconVoucher="true"
+    :headers="headers" :desserts="desserts" />
+  
   <UploadVoucher>
   </UploadVoucher>
 </template>

@@ -1,32 +1,25 @@
 <template>
   <VBtn @click="account.openModal = true">Create</VBtn>
 
-  <VDialog
-    v-model="account.openModal"
-    max-width="400px"
-  >
+  <VDialog v-model="account.openModal" max-width="400px" persistent>
     <VCard>
       <VCardTitle>
         Create Account
       </VCardTitle>
 
       <VCardText>
-        <VSelect
-          v-model="currency_id"
-         :items="account.currencies"
-         item-title="name"
-         item-value="id"
-         label="Currency"
-        >
+        <VSelect v-model="currency_id" :items="account.currencies" item-title="name" item-value="id" label="Currency">
         </VSelect>
 
         <!-- <VCardActions> -->
         <VRow class="mt-4">
-        <VCol></VCol>
-        <VCol><VBtn @click="account.createAccount(currency_id)">Store</VBtn></VCol>
-        <VCol></VCol>
+          <VCol></VCol>
+          <VCol>
+            <VBtn @click="account.createAccount(currency_id)">Store</VBtn>
+          </VCol>
+          <VCol></VCol>
         </VRow>
-          
+
         <!-- </VCardActions> -->
       </VCardText>
     </VCard>

@@ -12,7 +12,9 @@ import TableFixedHeader from '@/views/deposit/dataTable.vue';
     <!-- fixed header -->
     <VCol cols="12">
       <VCard title="Deposits">
+        <VCardText>
         <TableFixedHeader />
+      </VCardText>
       </VCard>
     </VCol>
   </VRow>
