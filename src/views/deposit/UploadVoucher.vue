@@ -1,103 +1,62 @@
 <template>
-  <v-dialog
-    v-if="showModal"
-    v-model="showModal"
-    max-width="800px"
-    class=""
-    persistent
-  >
-    <VCard class="text-center">
-      <VCardText class="d-flex flex-column justify-center align-center">
-        <VAvatar
-          color="primary"
-          variant="tonal"
-          size="50"
-          class="mb-4"
-        >
-          <VIcon
-            size="2rem"
-            icon="mdi-bank"
-          />
-        </VAvatar>
+  <DialogBase :dialog="showModal" :widthDialog="'800px'" @close="showModal = false">
+    <template #content>
+      <VRow class="d-flex flex-column justify-center text-center  mx-auto mb-8">
+ 
+      <VAvatar color="primary" variant="tonal" size="50" class="mx-auto">
+        <VIcon size="2rem" icon="mdi-bank" />
+      </VAvatar>
+      <h6 class="text-h6">Deposit Account</h6>
+    </VRow>
 
-        <h6 class="text-h6">Deposit Account</h6>
-      </VCardText>
+      <VRow class="text-center mb-8">
+        <div class="text-left ">
 
-      <VCardText class="text-left">
         <b>Account Holder:</b> {{ item.origin?.accountHolder ?? '' }} <br />
         <b>Account Number:</b> {{ item.origin?.accountNumber ?? '' }} <br />
         <b>Swift Code:</b> {{ item.origin?.swiftCode ?? '' }} <br />
         <b>Address:</b> {{ item.origin?.address ?? '' }} <br />
         <b>Payment Method:</b> {{ item.origin?.paymentMethod?.name ?? '' }} <br />
         <b>Currency:</b> {{ item.origin?.currency?.abbreviation ?? '' }} <br />
-      </VCardText>
+      </div>
+      
+      </VRow>
 
-      <VCardText class="text-center">
-        <div class="text-left row">
-          <b class="text-lg">Upload a voucher </b><br />
+      <VRow class="text-center d-flex flex-column">
+        <div class="text-left row mb">
+          <b class="text-lg">Detail deposit </b><br />
           <b>Monto:</b> {{ item.amount ?? '' }} <br />
           <b>Account:</b> {{ item.destination?.accountNumber ?? '' }} <br />
         </div>
         <label for="voucher">
-          <VIcon
-            v-if="prevImg == ''"
-            size="150px"
-            icon="mdi-upload"
-          >
+          <VIcon v-if="prevImg == ''" size="150px" icon="mdi-upload" style="cursor: pointer;">
           </VIcon>
-          <img
-            v-else
-            :src="prevImg"
-            style="width: 150px; height: 150px"
-            alt="voucher"
-          />
+          <img v-else :src="prevImg" style="width: 150px; height: 150px" alt="voucher" />
         </label>
-        <input
-          type="file"
-          style="display: none"
-          id="voucher"
-          accept=".jpeg,.png,.jpg"
-          name="voucher"
-          @change="changeVoucher($event)"
-        />
-      </VCardText>
-      <v-card-actions class="align-content-between">
-        <VRow>
-          <VCol>
-            <v-btn
-              color="primary"
-              variant="text"
-              @click="showModal = false"
-            >
-              Close
-            </v-btn></VCol
-          >
-          <VCol></VCol>
-          <VCol>
-            <v-btn
-              color="primary"
-              :disabled="!voucher"
-              variant="tonal"
-              @click="deposit.uploadVoucher(voucher,item.id)"
-            >
-              Upload
-            </v-btn></VCol
-          >
-        </VRow>
-      </v-card-actions>
-    </VCard>
-  </v-dialog>
+        <input type="file" style="display: none" id="voucher" accept=".jpeg,.png,.jpg" name="voucher"
+          @change="changeVoucher($event)" />
+      </VRow>
+    </template>
+
+    <template #actions>
+      <VRow class="mx-auto text-center justify-center">
+        <VBtn min-width="150px" @click="deposit.uploadVoucher(voucher, item.id)"  variant="flat">Upload</VBtn>
+      </VRow>
+    </template>
+  </DialogBase>
 </template>
 
 <script setup lang="ts">
 import { helperStore } from '@/helper';
 import { depositStore } from '@/stores/depositStore';
+import DialogBase from '@/views/global/Dialog.vue'
+
 const deposit = depositStore()
 deposit.getDeposits()
 const helper = helperStore()
 
-const {showModal} = storeToRefs(deposit)
-const {item} = storeToRefs(helper)
+const { showModal } = storeToRefs(deposit)
+const { item } = storeToRefs(helper)
 
 
 const prevImg = ref('')

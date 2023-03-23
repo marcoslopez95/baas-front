@@ -83,6 +83,19 @@ export const authStore = defineStore('auth', () => {
       })
   }
 
+  const updateProfile = (form: formRegisterInterface) => {
+    let url = '/api/auth/update-profile'
+    helper
+      .http(url, 'post', { data: form }, 'Perfil editado correctamente')
+      .then(res => {
+        getUser()
+      })
+      .catch(err => {
+        console.log('error', err)
+      })
+  }
+  
+
   const user = ref<userModel>({
     id: 0,
     business_id: 0,
@@ -121,6 +134,8 @@ export const authStore = defineStore('auth', () => {
   }
 
   const logout = () => {
+    router.push('/login')
+
     localStorage.removeItem('token')
     localStorage.removeItem('user')
     user.value = {
@@ -131,7 +146,6 @@ export const authStore = defineStore('auth', () => {
       email: '',
     }
 
-    router.push('/login')
   }
 
   const confirm_code = ref(false)
@@ -144,11 +158,12 @@ export const authStore = defineStore('auth', () => {
     })
   }
 
-  const confirmForgotPassword = (form: FormConfirmForgotPassword) => {
+  const confirmForgotPassword = (form: FormConfirmForgotPassword, type:string) => {
     let url = '/api/auth/verify-password-recovery'
     let data = { ...form }
     helper.http(url, 'post', { data }, 'contraseña cambiada').then(res => {
-      router.push('/login')
+      
+      type == 'Recover'? router.push('/login'):router.push('/profile')
     })
   }
   const lang = ref<langTypes>('')
@@ -183,7 +198,9 @@ export const authStore = defineStore('auth', () => {
     steps,
     statusKyc,
     changeLang,
-    lang
+    lang,
+    getUser,
+    updateProfile
   }
 
   interface FormConfirmForgotPassword {

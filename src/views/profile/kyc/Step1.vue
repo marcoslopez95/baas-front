@@ -8,6 +8,7 @@ const props =  defineProps({
         required: true
     },
 })
+
 const emit = defineEmits(['stepValue'])
 const store = configStore()
 const validator = { required }

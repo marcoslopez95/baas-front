@@ -4,7 +4,7 @@ import { depositStore } from '@/stores/depositStore';
 import dayjs from 'dayjs';
 import UploadVoucher from './UploadVoucher.vue';
 import { useI18n } from 'vue-i18n';
-import DataComponent from '@/views/global/Table.vue'
+import TableBasic from '@/views/global/Table.vue'
 
 const { t } = useI18n()
 // const item = ref<Deposit>()
@@ -154,7 +154,7 @@ const colorText = (item: Deposit) => {
 </script>
 
 <template>
-    <DataComponent @selectDeposit="selectDeposit($event)" :iconVoucher="true"
+    <TableBasic  @selectDeposit="selectDeposit($event)" :iconVoucher="true"
     :headers="headers" :desserts="desserts" />
   
   <UploadVoucher>

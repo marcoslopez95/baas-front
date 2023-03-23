@@ -1,11 +1,28 @@
 <script lang="ts" setup>
 import avatar1 from '@/assets/images/avatars/avatar-1.png';
 import { authStore } from '@/stores/AuthStore';
+import { required } from '@/validator';
+import { configStore } from '@/stores/configsStore';
+const formUpdateProfile = ref<any>()
+
 const store = authStore()
+const config = configStore()
 const statusKyc = computed(() => {
   return store.statusKyc
 }
 )
+const validator = { required }
+
+const country_id = ref<number>()
+const formUser = ref({
+  name: store.user.name,
+  email: store.user.email,
+  birthdate: store.user.profile?.birthdate,
+  city: store.user.profile?.city,
+  address: store.user.profile?.address,
+  country_id: null,
+
+})
 const accountData = {
   avatarImg: avatar1,
   firstName: 'john',
@@ -52,62 +69,16 @@ const resetAvatar = () => {
   accountDataLocal.value.avatarImg = accountData.avatarImg
 }
 
-const timezones = [
-  '(GMT-11:00) International Date Line West',
-  '(GMT-11:00) Midway Island',
-  '(GMT-10:00) Hawaii',
-  '(GMT-09:00) Alaska',
-  '(GMT-08:00) Pacific Time (US & Canada)',
-  '(GMT-08:00) Tijuana',
-  '(GMT-07:00) Arizona',
-  '(GMT-07:00) Chihuahua',
-  '(GMT-07:00) La Paz',
-  '(GMT-07:00) Mazatlan',
-  '(GMT-07:00) Mountain Time (US & Canada)',
-  '(GMT-06:00) Central America',
-  '(GMT-06:00) Central Time (US & Canada)',
-  '(GMT-06:00) Guadalajara',
-  '(GMT-06:00) Mexico City',
-  '(GMT-06:00) Monterrey',
-  '(GMT-06:00) Saskatchewan',
-  '(GMT-05:00) Bogota',
-  '(GMT-05:00) Eastern Time (US & Canada)',
-  '(GMT-05:00) Indiana (East)',
-  '(GMT-05:00) Lima',
-  '(GMT-05:00) Quito',
-  '(GMT-04:00) Atlantic Time (Canada)',
-  '(GMT-04:00) Caracas',
-  '(GMT-04:00) La Paz',
-  '(GMT-04:00) Santiago',
-  '(GMT-03:30) Newfoundland',
-  '(GMT-03:00) Brasilia',
-  '(GMT-03:00) Buenos Aires',
-  '(GMT-03:00) Georgetown',
-  '(GMT-03:00) Greenland',
-  '(GMT-02:00) Mid-Atlantic',
-  '(GMT-01:00) Azores',
-  '(GMT-01:00) Cape Verde Is.',
-  '(GMT+00:00) Casablanca',
-  '(GMT+00:00) Dublin',
-  '(GMT+00:00) Edinburgh',
-  '(GMT+00:00) Lisbon',
-  '(GMT+00:00) London',
-]
+const updateProfile = async() => {
+  const { valid } = await formUpdateProfile.value.validate()
 
-const currencies = [
-  'USD',
-  'EUR',
-  'GBP',
-  'AUD',
-  'BRL',
-  'CAD',
-  'CNY',
-  'CZK',
-  'DKK',
-  'HKD',
-  'HUF',
-  'INR',
-]
+  if (!valid) return
+  console.log('pasa')
+  store.updateProfile(formUser.value)
+}
+
+config.getCountries()
+
 </script>
 
 <template>
@@ -144,80 +115,39 @@ const currencies = [
 
         <VCardText>
           <!-- 👉 Form -->
-          <VForm class="mt-6">
+          <VForm class="mt-6" ref="formUpdateProfile" @submit.prevent="updateProfile">
             <VRow>
               <!-- 👉 First Name -->
               <VCol md="6" cols="12">
-                <VTextField v-model="accountDataLocal.firstName" label="First Name" />
+                <VTextField readonly v-model="formUser.name" label="Name" />
               </VCol>
-
-              <!-- 👉 Last Name -->
-              <VCol md="6" cols="12">
-                <VTextField v-model="accountDataLocal.lastName" label="Last Name" />
-              </VCol>
-
               <!-- 👉 Email -->
               <VCol cols="12" md="6">
-                <VTextField v-model="accountDataLocal.email" label="E-mail" type="email" />
+                <VTextField readonly v-model="formUser.email" label="E-mail" type="email" />
               </VCol>
-
-              <!-- 👉 Organization -->
-              <VCol cols="12" md="6">
-                <VTextField v-model="accountDataLocal.org" label="Organization" />
-              </VCol>
-
               <!-- 👉 Phone -->
               <VCol cols="12" md="6">
-                <VTextField v-model="accountDataLocal.phone" label="Phone Number" />
+                <VTextField readonly :rules="[validator.required]" append-inner-icon="mdi-calendar" v-model="formUser.birthdate"
+                  label="Birthdate" />
               </VCol>
-
-              <!-- 👉 Address -->
-              <VCol cols="12" md="6">
-                <VTextField v-model="accountDataLocal.address" label="Address" />
-              </VCol>
-
-              <!-- 👉 State -->
-              <VCol cols="12" md="6">
-                <VTextField v-model="accountDataLocal.state" label="State" />
-              </VCol>
-
-              <!-- 👉 Zip Code -->
-              <VCol cols="12" md="6">
-                <VTextField v-model="accountDataLocal.zip" label="Zip Code" />
-              </VCol>
-
               <!-- 👉 Country -->
               <VCol cols="12" md="6">
-                <VSelect v-model="accountDataLocal.country" label="Country"
-                  :items="['USA', 'Canada', 'UK', 'India', 'Australia']" />
+                <VSelect item-title="name" item-value="id" :rules="[validator.required]" :items="config.countries"
+                  v-model="formUser.country_id" :label="$t('views.countries.singular')" />
               </VCol>
-
-              <!-- 👉 Language -->
+              <!-- 👉 City -->
               <VCol cols="12" md="6">
-                <VSelect v-model="accountDataLocal.language" label="Language"
-                  :items="['English', 'Spanish', 'Arabic', 'Hindi', 'Urdu']" />
+                <VTextField :rules="[validator.required]" v-model="formUser.city" label="City" />
               </VCol>
-
-              <!-- 👉 Timezone -->
-              <VCol cols="12" md="6">
-                <VSelect v-model="accountDataLocal.timezone" label="Timezone" :items="timezones"
-                  :menu-props="{ maxHeight: 200 }" />
-              </VCol>
-
-              <!-- 👉 Currency -->
-              <VCol cols="12" md="6">
-                <VSelect v-model="accountDataLocal.currency" label="Currency" :items="currencies"
-                  :menu-props="{ maxHeight: 200 }" />
+              <!-- 👉 Address -->
+              <VCol cols="12" md="12">
+                <VTextField :rules="[validator.required]" v-model="formUser.address" label="Address" />
               </VCol>
 
               <!-- 👉 Form Actions -->
-              <VCol cols="12" class="d-flex flex-wrap gap-4">
-                <VBtn>Save changes</VBtn>
-
-                <VBtn color="secondary" variant="tonal" type="reset" @click.prevent="resetForm">
-                  Reset
-                </VBtn>
-              </VCol>
+                <VCol cols="12" class="d-flex flex-wrap gap-4">
+                  <VBtn type="submit" min-width="100px">Save changes</VBtn>
+                </VCol>
             </VRow>
           </VForm>
         </VCardText>
@@ -235,13 +165,13 @@ const currencies = [
           </VAlert>
 
           <VBtn to="/kyc" color="primary" class="mt-3">
-            {{$t('views.profile.verify-identity')}}
+            {{ $t('views.profile.verify-identity') }}
           </VBtn>
         </VCardText>
         <VCardText v-else-if="statusKyc == 'ACEPTADO' || statusKyc == 'EN VERIFICACION'">
           <VAlert :color="statusKyc == 'ACEPTADO' ? 'success' : 'warning'" variant="tonal" class="mb-4">
             <VAlertTitle class="mb-1">
-              {{statusKyc == 'ACEPTADO' ? $t('views.profile.ok-kyc')  : $t('views.profile.wait-kyc')}}
+              {{ statusKyc == 'ACEPTADO' ? $t('views.profile.ok-kyc') : $t('views.profile.wait-kyc') }}
             </VAlertTitle>
           </VAlert>
         </VCardText>

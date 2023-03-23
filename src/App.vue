@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { authStore } from './stores/AuthStore';
+import { helperStore } from '@/helper';
 
+const helper = helperStore()
+console.log('helper',helper.isAutenticated())
 
 const auth = authStore()
-
+if(helper.isAutenticated())
+auth.getUser()
 if(auth.user.name == ''){
   auth.setUser()
 }

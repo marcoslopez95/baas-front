@@ -14,8 +14,9 @@ export const depositStore = defineStore('deposit', () => {
     amount: '',
     comments: '',
   })
-
+const loadingList = ref<boolean>(false)
   const getDeposits = () => {
+    loadingList.value = true
     baseUrl.value = import.meta.env.VITE_RECHEARBLE_API
 
     let url = `api/clients/recharges`
@@ -23,6 +24,8 @@ export const depositStore = defineStore('deposit', () => {
     helper.http(url, 'get', { params }).then((res: any) => {
       let deposits: Deposit[] = res.data.data
       items.value = deposits
+    loadingList.value = false
+
     })
   }
 
@@ -67,7 +70,7 @@ export const depositStore = defineStore('deposit', () => {
       comments: form.value.comments,
     }
 
-    helper.http(url, 'post', { data }).then(res => {
+    helper.http(url, 'post', { data },'Deposito creado correctamente',).then(res => {
       steps.value = 1
       form.value = {
         business_bank_account_id: 0,
@@ -76,11 +79,6 @@ export const depositStore = defineStore('deposit', () => {
         amount: '',
         comments: '',
       }
-      toast('Deposito creado correctamente', {
-        theme: 'colored',
-          type: 'success',
-        
-      })
       getDeposits()
       router.push('/deposit')
     })
@@ -88,18 +86,22 @@ export const depositStore = defineStore('deposit', () => {
 
   const showModal = ref<boolean>(false)
   const uploadVoucher = (voucher: any, id: number) => {
+    if(!voucher){
+    toast('Cargue el comprobante', {
+      theme: 'colored',
+        type: 'warning',
+      
+    })
+    return
+  }
     baseUrl.value = import.meta.env.VITE_RECHEARBLE_API
-
+console.log(id, voucher)
     let url = `/api/clients/recharges/${id}/voucher`
     let data = new FormData()
     data.append('voucher', voucher)
 
-    helper.http(url, 'post', { data }).finally(() => {
-      toast('Voucher subido correctamente', {
-        theme: 'colored',
-          type: 'success',
-        
-      })
+    helper.http(url, 'post', { data },'Voucher subido correctamente').then(() => {
+      
       getDeposits()
       showModal.value = false
     })
@@ -116,6 +118,7 @@ export const depositStore = defineStore('deposit', () => {
     selectItem,
     uploadVoucher,
     showModal,
+    loadingList
   }
 })
 

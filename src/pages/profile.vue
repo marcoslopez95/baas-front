@@ -12,7 +12,7 @@ const activeTab = ref(route.params.tab)
 const tabs = [
   { title: 'Account', icon: 'mdi-account-outline', tab: 'account' },
   { title: 'Security', icon: 'mdi-lock-open-outline', tab: 'security' },
-  { title: 'Notifications', icon: 'mdi-bell-outline', tab: 'notification' },
+  // { title: 'Notifications', icon: 'mdi-bell-outline', tab: 'notification' },
 ]
 </script>
 
