@@ -1,37 +1,44 @@
 <template>
-  <VBtn @click="account.openModal = true">Create</VBtn>
+  <div>
+    <VBtn @click="account.openModal = true">Create</VBtn>
+    <DialogBase :dialog="account.openModal" :widthDialog="'400px'" @close="account.openModal = false">
+      <template #title><span>Create Account</span></template>
+      <template #content>
+        <VForm ref="formCreateAccount" @submit.prevent="createStore()">
+          <VSelect v-model="account.currency_id" :rules="[validator.required]" :items="account.currencies"
+            item-title="name" item-value="id" label="Currency">
+          </VSelect>
 
-  <VDialog v-model="account.openModal" max-width="400px" persistent>
-    <VCard>
-      <VCardTitle>
-        Create Account
-      </VCardTitle>
-
-      <VCardText>
-        <VSelect v-model="currency_id" :items="account.currencies" item-title="name" item-value="id" label="Currency">
-        </VSelect>
-
-        <!-- <VCardActions> -->
-        <VRow class="mt-4">
-          <VCol></VCol>
-          <VCol>
-            <VBtn @click="account.createAccount(currency_id)">Store</VBtn>
-          </VCol>
-          <VCol></VCol>
+        </VForm>
+      </template>
+      <template #actions>
+        <VRow class="mx-auto text-center justify-center">
+            <VBtn @click="createStore()" variant="flat">Store</VBtn>
         </VRow>
+      </template>
 
-        <!-- </VCardActions> -->
-      </VCardText>
-    </VCard>
-  </VDialog>
+    </DialogBase>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { accountUserStore } from '@/stores/AccountUserStore';
+import { required } from '@/validator';
+import DialogBase from '@/views/global/Dialog.vue'
+const validator = { required }
+
 const account = accountUserStore()
 account.getCurrencies()
+const formCreateAccount = ref<any>()
 
-const currency_id = ref<number>()
+
+const createStore = async () => {
+  const { valid } = await formCreateAccount.value.validate()
+  console.log(valid, account.currency_id)
+  if (!valid) return
+  account.createAccount(account.currency_id)
+}
+
 </script>
 
 

@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import { ref } from "vue";
 import { helperStore } from './../helper';
+import { toast, ToastOptions } from 'vue3-toastify';
+
 export const accountUserStore = defineStore('account-user', ()=>{
   const helper = helperStore()
   const {baseUrl} = storeToRefs(helper)
@@ -9,6 +11,7 @@ export const accountUserStore = defineStore('account-user', ()=>{
 
   const items = ref<accountUserInterfaz[]>([])
   const item = ref<accountUserInterfaz>()
+  const currency_id = ref<any>(null)
 
   const getAccounts = () => {
     
@@ -32,6 +35,12 @@ export const accountUserStore = defineStore('account-user', ()=>{
     helper.http(url,'post',{data})
     .then((res:any) => {
       getAccounts()
+      toast('Cuenta creada correctamente', {
+        theme: 'colored',
+          type: 'success',
+        
+      })
+      currency_id.value = null
       openModal.value= false
     })
   }
@@ -64,7 +73,8 @@ export const accountUserStore = defineStore('account-user', ()=>{
     createAccount,
     currencies,
     getCurrencies,
-    deleteAccount
+    deleteAccount,
+    currency_id
   }
 
   

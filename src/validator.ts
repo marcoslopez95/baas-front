@@ -1,4 +1,8 @@
-export const required = (value:any) : boolean | string => (value  ? true : '* Required')
+
+
+export const required = (value:any) : boolean | string =>{
+     console.log('value',value) 
+     return (value  ? true : '* Required') };
 export const password = (pass:string) : boolean | string => {
     const validate = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/; if (validate.test(pass)) {
         return true;
