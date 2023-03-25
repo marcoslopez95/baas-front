@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import avatar1 from '@/assets/images/avatars/avatar-1.png';
 import { authStore } from '@/stores/AuthStore';
-import { required } from '@/validator';
 import { configStore } from '@/stores/configsStore';
+import { required } from '@/validator';
+import updatePhone from './updatePhone/updatePhone.vue';
+
 const formUpdateProfile = ref<any>()
 
 const store = authStore()
@@ -193,7 +195,7 @@ config.getCountries()
       </VCard>
     </VCol>
 
-
+    <updatePhone></updatePhone>
 
   </VRow>
 </template>

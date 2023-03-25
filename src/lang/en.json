@@ -208,7 +208,9 @@
       "no-kyc": "Please, verifity you identity",
       "ok-kyc": "Identity Verificated",
       "wait-kyc": "Identity in verifity",
-      "verify-identity": "Verify"
+      "verify-identity": "Verify",
+      "update-phone": "Update Phone",
+      "edit-phone": "Edit Phone"
     }
   },
   "assign-permissions-to-role": "Assign PermissionsTo Role",
