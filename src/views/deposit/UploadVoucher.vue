@@ -9,20 +9,18 @@
       <h6 class="text-h6">Deposit Account</h6>
     </VRow>
 
-      <VRow class="text-center mb-8">
+      <VRow class="text-center mb-8 ml-4">
         <div class="text-left ">
-
         <b>Account Holder:</b> {{ item.origin?.accountHolder ?? '' }} <br />
         <b>Account Number:</b> {{ item.origin?.accountNumber ?? '' }} <br />
         <b>Swift Code:</b> {{ item.origin?.swiftCode ?? '' }} <br />
         <b>Address:</b> {{ item.origin?.address ?? '' }} <br />
         <b>Payment Method:</b> {{ item.origin?.paymentMethod?.name ?? '' }} <br />
         <b>Currency:</b> {{ item.origin?.currency?.abbreviation ?? '' }} <br />
-      </div>
-      
+      </div>      
       </VRow>
 
-      <VRow class="text-center d-flex flex-column">
+      <VRow class="text-center d-flex flex-column  ml-4">
         <div class="text-left row mb">
           <b class="text-lg">Detail deposit </b><br />
           <b>Monto:</b> {{ item.amount ?? '' }} <br />

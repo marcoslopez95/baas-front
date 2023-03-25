@@ -38,6 +38,7 @@ export const authStore = defineStore('auth', () => {
     data.append('city', form.city)
     data.append('address', form.address)
     data.append('birthdate', form.birthdate)
+    data.append('phone_number', form.phone_number)    
     data.append('selfie', (form.selfie) as Blob)
     data.append('front_document', (form.front_document) as Blob)
     if(form.reverse_document)
@@ -241,7 +242,8 @@ export const authStore = defineStore('auth', () => {
     country_id: number | null
     city: string
     address: string
-    birthdate: string
+    birthdate: string,
+    phone_number: string,
     selfie: object | '' | string | Blob
     front_document: object | '' | string | Blob
     reverse_document: object | '' | string | Blob

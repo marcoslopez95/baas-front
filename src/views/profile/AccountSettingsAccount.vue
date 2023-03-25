@@ -192,8 +192,5 @@ config.getCountries()
         </VCardText>
       </VCard>
     </VCol>
-
-
-
   </VRow>
 </template>

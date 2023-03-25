@@ -56,6 +56,8 @@ const nextStep = async () => {
               :label="$t('views.kyc.type-document')"
             />
           </VCol>
+          <!-- phone_number  -->
+          
           <VCol
             cols="12"
             md="6"
@@ -66,6 +68,16 @@ const nextStep = async () => {
               type="date"
               v-model="form.birthdate"
               :max="new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)"
+            />
+          </VCol>
+          <VCol
+            cols="12"
+            md="6"
+          >
+            <VTextField
+              :label="$t('views.kyc.phone')"
+              v-model="form.phone_number"
+              :rules="[validator.required]"
             />
           </VCol>
           <VCol

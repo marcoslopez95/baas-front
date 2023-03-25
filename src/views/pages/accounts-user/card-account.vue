@@ -66,7 +66,7 @@ interface accountTypeInterfaz {
     </VRow>
     <VRow>
       <VCol v-for="data in store.items" :key="data.id" cols="12" md="6" lg="4">
-        <VCard color="#ffffff" class="rounded-xl pa-4">
+        <VCard class="rounded-xl pa-4">
           <VCardTitle class="text-dark" @click="openModal(data)">
             {{ data.accountType.name }}
           </VCardTitle>

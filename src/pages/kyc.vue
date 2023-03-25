@@ -13,6 +13,7 @@ const formDataStep1 = ref({
   city: '',
   address: '',
   birthdate: '',
+  phone_number:''
 })
 const formDataStep2 = ref({
   selfie: '',
@@ -48,6 +49,7 @@ const verify = (() => {
     city: '',
     address: '',
     birthdate: '',
+    phone_number:'',
   }
   formDataStep2.value = {
     selfie: '',
