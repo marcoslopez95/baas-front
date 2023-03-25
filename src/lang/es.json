@@ -45,7 +45,7 @@
       "Account": "Cuenta",
       "Amount": "Monto",
       "Currency": "Moneda",
-      "Status":"Estado",
+      "Status": "Estado",
       "Actions": "Acciones"
     }
   },
@@ -208,7 +208,9 @@
       "no-kyc": "Por favor verifica tu identidad",
       "ok-kyc": "Identidad verificada",
       "wait-kyc": "Identidad en Verificación",
-      "verify-identity": "Verificar"
+      "verify-identity": "Verificar",
+      "update-phone": "Actualizar Teléfono",
+      "edit-phone": "Editar telefono"
     }
   },
   "assign-permissions-to-role": "Asignar permisos al Rol",

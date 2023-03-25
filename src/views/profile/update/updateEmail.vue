@@ -1,42 +1,74 @@
 
   
-  <script setup lang="ts">
-  import { accountUserStore } from '@/stores/AccountUserStore';
-  import { required } from '@/validator';
-  import DialogBase from '@/views/global/Dialog.vue'
-  const validator = { required }
-  
-  const account = accountUserStore()
-  account.getCurrencies()
-  const formCreateAccount = ref<any>()
-  const form = ref({code:null})
-  
-  const createStore = async () => {
-    const { valid } = await formCreateAccount.value.validate()
-    console.log(valid, account.currency_id)
-    if (!valid) return
-    account.createAccount(account.currency_id)
-  }
-  
-  </script>
-  <template>
-      <DialogBase :dialog="account.openModal" :widthDialog="'400px'" @close="account.openModal = false">
-        <template #title><span>Change email</span></template>
-        <template #content>
-          <VForm ref="formCreateAccount" @submit.prevent="createStore()">
-            <VAlert :title="'Ingresa el codigo que fue enviado a tu correo electronico para su confirmacion'"></VAlert>
-            
-            <VTextField  v-model="form.code" label="Name" />
+<script setup lang="ts">
+import { authStore } from '@/stores/AuthStore';
 
-          </VForm>
-        </template>
-        <template #actions>
-          <VRow class="mx-auto text-center justify-center">
-              <VBtn @click="createStore()" variant="flat">Store</VBtn>
+import { required, email } from '@/validator';
+const validator = { required, email }
+const auth = authStore()
+const { sendCode } = storeToRefs(auth)
+console.log(sendCode)
+const formUpdateEmail = ref<any>()
+const form = ref({ code: '', email: '' })
+
+const validateUpdateEmail = async () => {
+  console.log('pasa')
+  const { valid } = await formUpdateEmail.value.validate()
+  if (!valid) return
+  auth.getResendCodeEmail(form.value.email)
+  sendCode.value = true
+}
+
+const verifyEmail = async () => {
+  const { valid } = await formUpdateEmail.value.validate()
+  if (!valid) return
+  auth.getVerifyUpdateEmail(form.value.code)
+  sendCode.value = false
+}
+
+
+</script>
+<template>
+  <VCol cols="12">
+    <VCard>
+      <VCardTitle class="d-flex">
+        <!-- 👉 Avatar -->
+        <!-- <VAvatar rounded="xl" class="mr-4" size="40" variant="tonal" color="primary"> -->
+        <VIcon size="30" color="primary" class="mr-4" icon="mdi-email"></VIcon>
+        <!-- </VAvatar> -->
+        <span>Actualizar Email</span>
+      </VCardTitle>
+
+      <VDivider />
+      <VCardText>
+        <!-- 👉 Form -->
+        <VForm class="mt-6" ref="formUpdateEmail">
+          <VRow>
+
+            <VCol cols="12" md="6">
+              <VTextField :rules="[validator.required, validator.email]" :readonly="sendCode" v-model="form.email"
+                label="E-mail" type="email" />
+            </VCol>
+            <VCol  cols="12" md="6">
+              <VTextField :rules="[validator.required]" v-if="sendCode" v-model="form.code" label="Code" />
+            </VCol>
+
+            <!-- 👉 Form Actions -->
+            <VCol cols="12" class="d-flex flex-wrap gap-4">
+              <VBtn v-if="sendCode" @click="auth.getResendCodeEmail(form.email)" color="primary" variant="tonal">
+                Resend code
+              </VBtn>
+              <VBtn @click="sendCode ? verifyEmail() : validateUpdateEmail()" min-width="100px">{{ sendCode ? 'Verify' : 'Update' }}
+              </VBtn>
+
+            </VCol>
           </VRow>
-        </template>
-  
-      </DialogBase>
-  </template>
+        </VForm>
+
+
+      </VCardText>
+    </VCard>
+  </VCol>
+</template>
 
   
