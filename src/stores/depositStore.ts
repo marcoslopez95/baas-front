@@ -4,7 +4,12 @@ import { toast, ToastOptions } from 'vue3-toastify';
 
 export const depositStore = defineStore('deposit', () => {
   const helper = helperStore()
-  const { items, item, baseUrl } = storeToRefs(helper)
+  const {url, items, item, baseUrl, pagination } = storeToRefs(helper)
+  pagination.value.currentPage = 1
+
+  baseUrl.value = import.meta.env.VITE_RECHEARBLE_API
+  url.value = 'api/clients/recharges'
+
   const router = useRouter()
 
   const form = ref({
@@ -20,10 +25,22 @@ const loadingList = ref<boolean>(false)
     baseUrl.value = import.meta.env.VITE_RECHEARBLE_API
 
     let url = `api/clients/recharges`
-    let params = helper.paginated
+    // let params = helper.paginated
+    let   params = {
+      perPage: 5,
+      currentPage: 1,
+      paginated: 1
+    }
     helper.http(url, 'get', { params }).then((res: any) => {
       let deposits: Deposit[] = res.data.data
       items.value = deposits
+    loadingList.value = false
+
+    })
+  }
+  const index = () =>{
+    loadingList.value = true
+    helper.index().then((res: any) => {
     loadingList.value = false
 
     })
@@ -79,7 +96,7 @@ const loadingList = ref<boolean>(false)
         amount: '',
         comments: '',
       }
-      getDeposits()
+      index()
       router.push('/deposit')
     })
   }
@@ -102,7 +119,7 @@ console.log(id, voucher)
 
     helper.http(url, 'post', { data },'Voucher subido correctamente').then(() => {
       
-      getDeposits()
+      index()
       showModal.value = false
     })
   }
@@ -118,7 +135,8 @@ console.log(id, voucher)
     selectItem,
     uploadVoucher,
     showModal,
-    loadingList
+    loadingList,
+    index
   }
 })
 

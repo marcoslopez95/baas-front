@@ -52,7 +52,7 @@ import { depositStore } from '@/stores/depositStore';
 import DialogBase from '@/views/global/Dialog.vue'
 
 const deposit = depositStore()
-deposit.getDeposits()
+deposit.index()
 const helper = helperStore()
 
 const { showModal } = storeToRefs(deposit)

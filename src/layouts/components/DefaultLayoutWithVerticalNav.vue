@@ -28,7 +28,7 @@ const langs = [
 
       <VSpacer />
 
-      <a
+      <!-- <a
         href="https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free"
         target="_blank"
         rel="noopener noreferrer"
@@ -38,7 +38,7 @@ const langs = [
           class="ms-6 me-4"
           icon="mdi-github"
         />
-      </a>
+      </a> -->
       <NavbarThemeSwitcher />
       <v-menu location="bottom">
       <template v-slot:activator="{ props }">
@@ -60,7 +60,7 @@ const langs = [
         </v-list-item>
       </v-list>
     </v-menu>
-      <VBtn
+      <!-- <VBtn
         icon
         variant="text"
         color="default"
@@ -71,7 +71,7 @@ const langs = [
           icon="mdi-bell-outline"
           size="24"
         />
-      </VBtn>
+      </VBtn> -->
       <UserProfile />
     </template>
 

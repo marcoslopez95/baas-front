@@ -39,6 +39,11 @@ export const helperStore = defineStore('helper',() => {
         }
         resolve(response)
       }catch(error: AxiosResponse | any){
+        if(error.response.data.message)
+        toast(error.response.data.message, {
+          theme: 'colored',          
+          type: 'error'
+        }); 
         getErrors(error.response.data.errors)
         if(error.response && error.response.status === 401){
           // console.log('aq2')
@@ -67,7 +72,7 @@ export const helperStore = defineStore('helper',() => {
         ...params,
         perPage: pagination.perPage,
         currentPage: pagination.currentPage,
-        paginated: 0
+        paginated: 1
       },
     })
     items.value = response.data.data
@@ -110,6 +115,7 @@ export const helperStore = defineStore('helper',() => {
     baseUrl,
     pagination,
     index,
+    perPage,
     url
   }
 })

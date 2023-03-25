@@ -43,9 +43,6 @@ const auth = authStore()
           </div>
         </template>
 
-        <VCardTitle class="font-weight-semibold text-2xl text-uppercase">
-          Materio
-        </VCardTitle>
       </VCardItem>
 
       <VCardText class="pt-2">
@@ -120,22 +117,7 @@ const auth = authStore()
               </RouterLink>
             </VCol>
 
-            <VCol
-              cols="12"
-              class="d-flex align-center"
-            >
-              <VDivider />
-              <span class="mx-4">or</span>
-              <VDivider />
-            </VCol>
-
-            <!-- auth providers -->
-            <VCol
-              cols="12"
-              class="text-center"
-            >
-              <AuthProvider />
-            </VCol>
+           
           </VRow>
         </VForm>
       </VCardText>

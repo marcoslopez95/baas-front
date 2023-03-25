@@ -16,6 +16,8 @@
   
   <script setup lang="ts">
   import DialogBase from '@/views/global/Dialog.vue'
+// const { t } = useI18n()
+
   const props = defineProps({
     dialog: {
         type: Boolean,

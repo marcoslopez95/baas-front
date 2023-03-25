@@ -8,13 +8,17 @@ import TableBasic from '@/views/global/Table.vue'
 
 const { t } = useI18n()
 // const item = ref<Deposit>()
-
-const deposit = depositStore()
-deposit.getDeposits()
 const helper = helperStore()
 
-const {showModal} = storeToRefs(deposit)
-const {item} = storeToRefs(helper)
+const { url, baseUrl } = storeToRefs(helper)
+baseUrl.value = import.meta.env.VITE_RECHEARBLE_API
+url.value = '/api/clients/recharges'
+
+const deposit = depositStore()
+deposit.index()
+
+const { showModal } = storeToRefs(deposit)
+const { item } = storeToRefs(helper)
 const headers = ref([
   t('tables.headersDeposits.Id'),
   t('tables.headersDeposits.Date'),
@@ -32,14 +36,14 @@ const selectDeposit = (deposit: Deposit) => {
 
 const desserts = computed(() => {
   let array: Array<object> = []
-    console.log( helper.items)
-    if(helper.items)
-  helper.items.map( (res: Deposit)  => array.push(
-    {
-      ...res, desserts: {
-        id: res.transactionNumber, date: dayjs(res.createdAt).format('DD/MM/YYYY'),account:res.destination?.accountNumber, amount: res.amount, currency: res.destination?.currency?.abbreviation, status: res.operationStatus?.name
-      }
-    }))
+  console.log(helper.items)
+  if (helper.items)
+    helper.items.map((res: Deposit) => array.push(
+      {
+        ...res, desserts: {
+          id: res.transactionNumber, date: dayjs(res.createdAt).format('DD/MM/YYYY'), account: res.destination?.accountNumber, amount: res.amount, currency: res.destination?.currency?.abbreviation, status: res.operationStatus?.name
+        }
+      }))
   return array
 })
 
@@ -144,7 +148,7 @@ const colorText = (item: Deposit) => {
     case 'EN VERIFICACION':
       return 'text-verified'
     case 'failed':
-      return '#ff0000' 
+      return '#ff0000'
     case 'ACEPTADO':
       return 'text-success'
     default:
@@ -154,9 +158,23 @@ const colorText = (item: Deposit) => {
 </script>
 
 <template>
-    <TableBasic  @selectDeposit="selectDeposit($event)" :iconVoucher="true"
-    :headers="headers" :desserts="desserts" />
-  
+  <TableBasic @selectDeposit="selectDeposit($event)" :iconVoucher="true" :headers="headers" :desserts="desserts" />
+  <VRow class="mt-2 px-5 py-2">
+    <VCol>
+      <VRow>
+        <VCol cols="4">
+          <VSelect v-model="helper.pagination.perPage" :items="helper.perPage" label="Pagination"
+            @update:modelValue="deposit.index()">
+          </VSelect>
+        </VCol>
+      </VRow>
+    </VCol>
+    <VCol>
+      <VPagination v-model="helper.pagination.currentPage" :length="helper.pagination.total"
+        @update:model-value="helper.index"></VPagination>
+    </VCol>
+    <VCol></VCol>
+  </VRow>
   <UploadVoucher>
   </UploadVoucher>
 </template>
@@ -172,8 +190,8 @@ const colorText = (item: Deposit) => {
 
 .text-success {
   color: #138104
-
 }
+
 .text-blocked {
   color: #b60000
 }

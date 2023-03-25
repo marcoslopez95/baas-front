@@ -2,6 +2,12 @@
 import { accountUserStore } from '@/stores/AccountUserStore';
 import CreateAccount from './createAccount.vue';
 import DialogConfirm from '@/views/global/DialogConfirm.vue';
+import { helperStore } from '@/helper';
+
+const helper = helperStore()
+
+const { url, baseUrl } = storeToRefs(helper)
+baseUrl.value = import.meta.env.VITE_API_URL
 
 const store = accountUserStore()
 const dialog = ref(false)

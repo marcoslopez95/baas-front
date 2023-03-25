@@ -44,15 +44,11 @@ const redirectPassword = () => {
             <div v-html="logo" />
           </div>
         </template>
-
-        <VCardTitle class="font-weight-semibold text-2xl text-uppercase">
-          Materio
-        </VCardTitle>
       </VCardItem>
 
       <VCardText class="pt-2">
         <h5 class="text-h5 font-weight-semibold mb-1">
-          Welcome to Materio! 👋🏻
+          Welcome to Auslander! 👋🏻
         </h5>
         <p class="mb-0">
           Please sign-in to your account and start the adventure
@@ -97,6 +93,19 @@ const redirectPassword = () => {
               </div> -->
 
               <!-- login button -->
+            </VCol>
+            <VCol
+              cols="12"
+              class="text-end text-base"
+            >
+              <span
+                class="text-primary ms-2"
+                @click="redirectPassword"
+              >
+                Forgot password?
+              </span>
+            </VCol>
+            <VCol cols="12">
               <VBtn
                 style="margin-top: 5px;"
                 block
@@ -105,6 +114,7 @@ const redirectPassword = () => {
               >
                 Login
               </VBtn>
+
             </VCol>
 
             <!-- create account -->
@@ -121,34 +131,8 @@ const redirectPassword = () => {
               </RouterLink>
             </VCol>
 
-            <VCol
-              cols="12"
-              class="text-center text-base"
-            >
-              <span
-                class="text-primary ms-2"
-                @click="redirectPassword"
-              >
-                Forgot password?
-              </span>
-            </VCol>
+         
 
-            <VCol
-              cols="12"
-              class="d-flex align-center"
-            >
-              <VDivider />
-              <span class="mx-4">or</span>
-              <VDivider />
-            </VCol>
-
-            <!-- auth providers -->
-            <VCol
-              cols="12"
-              class="text-center"
-            >
-              <AuthProvider />
-            </VCol>
           </VRow>
         </VForm>
       </VCardText>

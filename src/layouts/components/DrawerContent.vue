@@ -15,7 +15,7 @@ const upgradeBanner = computed(() => {
 
 <template>
   <!-- 👉 Nav header -->
-  <div class="nav-header">
+  <div class="nav-header mx-auto" style="padding:1rem 0.25rem 1rem 0.3em !important">
     <RouterLink
       to="/"
       class="app-logo d-flex align-center gap-x-3 app-title-wrapper"
@@ -23,11 +23,7 @@ const upgradeBanner = computed(() => {
       <!-- ℹ️ You can also use img tag or VImg here -->
       <div v-html="logo" />
 
-      <Transition name="vertical-nav-app-title">
-        <h1 class="font-weight-semibold leading-normal text-xl text-uppercase">
-          Materio
-        </h1>
-      </Transition>
+      
     </RouterLink>
   </div>
 
