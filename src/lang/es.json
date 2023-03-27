@@ -209,7 +209,8 @@
       "wait-kyc": "Identidad en Verificación",
       "verify-identity": "Verificar",
       "update-phone": "Actualizar Teléfono",
-      "edit-phone": "Editar telefono"
+      "edit-phone": "Editar telefono",
+      "code": "Código"
     }
   },
   "assign-permissions-to-role": "Asignar permisos al Rol",

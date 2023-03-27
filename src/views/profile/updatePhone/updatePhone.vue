@@ -21,7 +21,8 @@
               </VCol> -->
               <VCol md="6" cols="12">
                 <VueTelInput 
-                  class="h-100 border-primary" 
+                  class="h-100 border-primary"
+                  style="height: 48px!important;"
                   autoDefaultCountry
                   autoFormat
                   v-model="phone"
@@ -41,19 +42,15 @@
                 <VTextField v-model="phone_number" :label="$t('views.profile.edit-phone')" />
               </VCol> -->
               <VCol md="6" cols="12">
-                <VueTelInput 
-                  class="h-100 border-primary" 
-                  v-model="phone_number"
-                  autoDefaultCountry
-                  autoFormat
-                  @validate="phoneEvent"
-                  mode="international"
-                  inputOptions.showDialCode
-                  ></VueTelInput>
+                <VTextField
+                  v-model="code"
+                  :label="$t('views.profile.code')"
+                >
+                </VTextField>
               </VCol>
               <!-- 👉 Form Actions -->
               <VCol cols="12" class="d-flex flex-wrap gap-4">
-                <VBtn :disabled="!isNumberValid" type="submit" min-width="100px">Save changes</VBtn>
+                <VBtn :disabled="!isNumberValid" type="button" @click="updatePhone" min-width="100px">{{$t('views.profile.update-phone')}}</VBtn>
               </VCol>
             </VRow>
           </VForm>
@@ -75,6 +72,7 @@ const validateUpdate = () => {
 }
 
 const phone = ref('')
+const code = ref('')
 const phone_number = ref('')
 const isNumberValid = ref(false)
 const phoneEvent = (objectphone:any) => {
@@ -91,10 +89,40 @@ const confirmationCode = ref(false)
 const sendCode = () => {
   let url = '/auth/change-phone-number'
   let params = {phone_number: phone_number.value}
+  // confirmationCode.value = true
+  // return
   helper
     .http(url,'get',{params})
     .then(()=> {
       confirmationCode.value = true
+    })
+    .catch(() => {
+      confirmationCode.value = true
+
+    })
+    .finally(() => {
+      confirmationCode.value = true
+
+    })
+}
+
+const updatePhone = () => {
+  let url = '/auth/change-phone-number'
+  let params = {sms_token: code.value}
+  // confirmationCode.value = true
+  // return
+  helper
+    .http(url,'post',{params})
+    .then(()=> {
+      confirmationCode.value = false
+    })
+    .catch(() => {
+      // confirmationCode.value = true
+
+    })
+    .finally(() => {
+      // confirmationCode.value = true
+
     })
 }
 </script>
