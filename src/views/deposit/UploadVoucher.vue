@@ -20,7 +20,7 @@
       </div>      
       </VRow>
 
-      <VRow class="text-center d-flex flex-column  ml-4">
+      <VRow class="text-center d-flex flex-column  mx-4">
         <div class="text-left row mb">
           <b class="text-lg">Detail deposit </b><br />
           <b>Monto:</b> {{ Intl.NumberFormat(["ban", "id"]).format(item.amount) ?? '' }} <br />

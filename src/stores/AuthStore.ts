@@ -87,8 +87,8 @@ export const authStore = defineStore('auth', () => {
     loadingProfile.value = true
     helper
       .http(url, 'post', { data: form }, 'Perfil editado correctamente')
-      .then(res => {
-        getUser()
+      .then(async res => {
+        await getUser()
         loadingProfile.value = false
       })
       .catch(err => {
@@ -166,7 +166,7 @@ export const authStore = defineStore('auth', () => {
     })
   }
   const sendCode = ref(false)
-  const formEmail = ref({ email_token: '',sms_token: '', email: '' })
+  const formEmail = ref({ email_token: '', sms_token: '', email: '' })
   const getResendCodeEmail = () => {
     let url = '/api/auth/change-email'
     let params = { email: formEmail.value.email }
@@ -177,19 +177,42 @@ export const authStore = defineStore('auth', () => {
       sendCode.value = true
     })
   }
-
-  const getVerifyUpdateEmail =() => {
+  const getVerifyUpdateEmail = () => {
     let url = '/api/auth/verify-change-email'
     let data = { ...formEmail.value }
 
     // console.log('data',data)
-    helper.http(url, 'post', {data}, 'Correo actualizado correctamente').then(res => {
-   formEmail.value = { email_token: '',sms_token: '', email: '' }
+    helper.http(url, 'post', { data }, 'Correo actualizado correctamente').then(res => {
+      formEmail.value = { email_token: '', sms_token: '', email: '' }
 
-    sendCode.value = false
+      sendCode.value = false
 
       getUser()
+    })
+  }
+  const confirmationCodePhone = ref(false)
+  const formPhone = ref({ email_token: '', sms_token: '', phone_number: '' })
 
+  const getResendCodePhone = () => {
+    let url = '/api/auth/change-phone-number'
+    let params = { phone_number: formPhone.value.phone_number }
+    // console.log('data',data)
+    confirmationCodePhone.value = false
+    helper.http(url, 'get', { params }, 'Código enviado').then(res => {
+      // confirm_code.value = true
+      confirmationCodePhone.value = true
+    })
+  }
+
+  const getVerifyUpdatePhone = () => {
+    let url = '/api/auth/change-phone-number'
+    let data = { ...formPhone.value }
+
+    // console.log('data',data)
+    helper.http(url, 'post', { data }, 'Telefono actualizado correctamente').then(res => {
+      formPhone.value = { email_token: '', sms_token: '', phone_number: '' }
+      getUser()
+      confirmationCodePhone.value = false
     })
   }
   const lang = ref<langTypes>('')
@@ -231,7 +254,11 @@ export const authStore = defineStore('auth', () => {
     getVerifyUpdateEmail,
     loadingProfile,
     sendCode,
-    formEmail
+    formEmail,
+    getResendCodePhone,
+    confirmationCodePhone,
+    getVerifyUpdatePhone,
+    formPhone,
   }
 
   interface FormConfirmForgotPassword {

@@ -58,11 +58,11 @@ const verifyEmail = async () => {
 
             <!-- 👉 Form Actions -->
             <VCol cols="12" class="d-flex flex-wrap gap-4">
-              <VBtn v-if="sendCode" @click="auth.getResendCodeEmail()" color="primary" variant="tonal">
+              <VBtnSecondary v-if="sendCode" @click="auth.getResendCodeEmail()" color="primary" variant="tonal">
                 Resend code
-              </VBtn>
-              <VBtn @click="sendCode ? verifyEmail() : validateUpdateEmail()" min-width="100px">{{ sendCode ? 'Verify' : 'Update' }}
-              </VBtn>
+              </VBtnSecondary>
+              <VBtnPrimary @click="sendCode ? verifyEmail() : validateUpdateEmail()" min-width="100px">{{ sendCode ? 'Verify' : 'Update' }}
+              </VBtnPrimary>
 
             </VCol>
           </VRow>

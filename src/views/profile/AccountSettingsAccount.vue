@@ -26,51 +26,11 @@ const formUser = ref({
   country_id: store.user.profile?.country?.id,
 
 })
-const accountData = {
-  avatarImg: avatar1,
-  firstName: 'john',
-  lastName: 'Doe',
-  email: 'johnDoe@example.com',
-  org: 'ThemeSelection',
-  phone: '+1 (917) 543-9876',
-  address: '123 Main St, New York, NY 10001',
-  state: 'New York',
-  zip: '10001',
-  country: 'USA',
-  language: 'English',
-  timezone: '(GMT-11:00) International Date Line West',
-  currency: 'USD',
-}
+const phoneNumber = ref(`+${store.user.profile?.phoneNumber}`)
 
 const refInputEl = ref<HTMLElement>()
 
-const accountDataLocal = ref(structuredClone(accountData))
 const isAccountDeactivated = ref(false)
-
-const validateAccountDeactivation = [(v: string) => !!v || 'Please confirm account deactivation']
-
-const resetForm = () => {
-  accountDataLocal.value = structuredClone(accountData)
-}
-
-// changeAvatar function
-const changeAvatar = (file: Event) => {
-  const fileReader = new FileReader()
-  const { files } = file.target as HTMLInputElement
-
-  if (files && files.length) {
-    fileReader.readAsDataURL(files[0])
-    fileReader.onload = () => {
-      if (typeof fileReader.result === 'string')
-        accountDataLocal.value.avatarImg = fileReader.result
-    }
-  }
-}
-
-// reset avatar image
-const resetAvatar = () => {
-  accountDataLocal.value.avatarImg = accountData.avatarImg
-}
 
 const updateProfile = async () => {
   const { valid } = await formUpdateProfile.value.validate()
@@ -166,6 +126,9 @@ config.getCountries()
               <!-- 👉 Email -->
               <VCol cols="12" md="6">
                 <VTextField readonly v-model="formUser.email" label="E-mail" type="email" />
+              </VCol>
+              <VCol cols="12" md="6">
+                <VTextField readonly v-model="phoneNumber" label="Phone" />
               </VCol>
               <!-- 👉 Phone -->
               <VCol cols="12" md="6">
