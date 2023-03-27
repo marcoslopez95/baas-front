@@ -181,6 +181,7 @@
       "birthdate": "Fecha de Nacimiento",
       "city": "Ciudad",
       "address": "Dirección",
+      "phone":"Número de teléfono",
       "image-front": {
         "title": "Frontal",
         "description": "Cargue una foto de su documento de identidad frontal"

@@ -28,9 +28,8 @@ router.beforeEach(async (to, from, next) => {
   } else {
     if (to.name == 'login' || to.name == 'register' || to.name == 'auth-forgot-password') {
       next({ name: 'index' })
-    } else if ( (to.name == 'deposit' || to.name == 'accounts-user')) {
-      if(!isVerifiedKyc())
-      next({ name: 'profile' })
+    } else if (to.name == 'deposit' || to.name == 'accounts-user') {
+      if (!isVerifiedKyc()) next({ name: 'profile' })
     }
   }
   next()
@@ -45,8 +44,14 @@ const isAutenticated = () => {
 const isVerifiedKyc = () => {
   let kyc = false
   let user = localStorage.getItem('user') || null
-  let status = user ? JSON.parse(user)?.profile?.kycVerification?.general_status : null
+
+  let status = user
+    ? JSON.parse(user)?.profile?.kycVerification?.general_status
+      ? JSON.parse(user)?.profile?.kycVerification?.general_status
+      : null
+    : null
   console.log(status)
+  if(status)
   switch (status) {
     case 'ACEPTADO':
       kyc = true
@@ -69,5 +74,9 @@ const isVerifiedKyc = () => {
     default:
       break
   }
+  else toast('Verifique su identidad para continuar', {
+    theme: 'colored',
+    type: 'warning',
+  })
   return kyc
 }

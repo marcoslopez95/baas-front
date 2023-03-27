@@ -181,6 +181,7 @@
       "birthdate": "Birthdate",
       "city": "City",
       "address": "Address",
+      "phone":"Phone number",
       "image-front": {
         "title": "Front",
         "description": "Upload an image front of your DNI"

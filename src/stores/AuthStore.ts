@@ -38,6 +38,7 @@ export const authStore = defineStore('auth', () => {
     data.append('city', form.city)
     data.append('address', form.address)
     data.append('birthdate', form.birthdate)
+    data.append('phone_number', form.phone_number)    
     data.append('selfie', (form.selfie) as Blob)
     data.append('front_document', (form.front_document) as Blob)
     if(form.reverse_document)
@@ -153,10 +154,12 @@ export const authStore = defineStore('auth', () => {
     let url = '/api/auth/forgot-password'
     let params = { email }
     // console.log('data',data)
-    helper.http(url, 'get', { params }, 'correo enviado').then(res => {
+    helper.http(url, 'get', { params }, 'Código enviado').then(res => {
       confirm_code.value = true
     })
   }
+  
+  
 
   const confirmForgotPassword = (form: FormConfirmForgotPassword, type:string) => {
     let url = '/api/auth/verify-password-recovery'
@@ -164,6 +167,27 @@ export const authStore = defineStore('auth', () => {
     helper.http(url, 'post', { data }, 'contraseña cambiada').then(res => {
       
       type == 'Recover'? router.push('/login'):router.push('/profile')
+    })
+  }
+const sendCode = ref(false)
+  const getResendCodeEmail = (email: string) => {
+    let url = '/api/auth/change-email'
+    let params = { email }
+    // console.log('data',data)
+    sendCode.value = false
+    helper.http(url, 'get', { params }, 'Código enviado').then(res => {
+      // confirm_code.value = true
+    sendCode.value = true
+
+    })
+  }
+
+  const getVerifyUpdateEmail = (sms_token: string) => {
+    let url = '/api/auth/verify-change-email'
+    let params = { sms_token }
+    // console.log('data',data)
+    helper.http(url, 'get', { params }, 'Correo actualizado correctamente').then(res => {
+      // confirm_code.value = true
     })
   }
   const lang = ref<langTypes>('')
@@ -200,7 +224,10 @@ export const authStore = defineStore('auth', () => {
     changeLang,
     lang,
     getUser,
-    updateProfile
+    updateProfile,
+    getResendCodeEmail,
+    getVerifyUpdateEmail,
+    sendCode
   }
 
   interface FormConfirmForgotPassword {
@@ -241,7 +268,8 @@ export const authStore = defineStore('auth', () => {
     country_id: number | null
     city: string
     address: string
-    birthdate: string
+    birthdate: string,
+    phone_number: string,
     selfie: object | '' | string | Blob
     front_document: object | '' | string | Blob
     reverse_document: object | '' | string | Blob

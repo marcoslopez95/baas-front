@@ -2,12 +2,16 @@
 import { configStore } from '@/stores/configsStore';
 import { required } from '@/validator';
 import { useRoute } from 'vue-router';
+import { VueTelInput } from 'vue-tel-input';
+import 'vue-tel-input/dist/vue-tel-input.css';
 const props =  defineProps({
     formData:{
         type: Object,
         required: true
     },
 })
+const phone = ref('')
+const isNumberValid = ref(false)
 
 const emit = defineEmits(['stepValue'])
 const store = configStore()
@@ -20,7 +24,15 @@ console.log(document)
 const form = ref(props.formData)
 store.getCountries()
 store.getDocumentTypes()
-
+const phoneEvent = (objectphone:any) => {
+  console.log(objectphone)
+  if(objectphone.valid) {
+    form.value.phone_number = objectphone.nationalNumber
+    isNumberValid.value = true
+    return
+  }
+  isNumberValid.value = false
+}
 const changeDocumentType= (e: any) => {
   store.setTypeDocument(e)
   form.value.document_type_id = e.id
@@ -56,16 +68,38 @@ const nextStep = async () => {
               :label="$t('views.kyc.type-document')"
             />
           </VCol>
+          <!-- phone_number  -->
+          
           <VCol
             cols="12"
             md="6"
           >
+
             <VTextField
               :rules="[validator.required]"
               :label="$t('views.kyc.birthdate')"
               type="date"
               v-model="form.birthdate"
               :max="new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)"
+            />
+          </VCol>
+          <VCol
+            cols="12"
+            md="6"
+          >
+          <!-- <VueTelInput 
+                  class="h-100 border-primary" 
+                  v-model="phone"
+                  autoDefaultCountry
+                  autoFormat
+                  @validate="phoneEvent"
+                  mode="international"
+                  inputOptions.showDialCode
+                  ></VueTelInput> -->
+            <VTextField
+              :label="$t('views.kyc.phone')"
+              v-model="form.phone_number"
+              :rules="[validator.required]"
             />
           </VCol>
           <VCol
