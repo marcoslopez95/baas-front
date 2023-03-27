@@ -10,6 +10,14 @@ export default {
     // set v-badge default color to primary
     color: 'primary',
   },
+  VBtnPrimary:{
+    color: 'primary',
+    variant: 'flat'
+  },
+  VBtnSecondary:{
+    color: 'primary',
+    variant: 'tonal'
+  },
   VBtn: {
     // set v-btn default color to primary
     color: 'primary',

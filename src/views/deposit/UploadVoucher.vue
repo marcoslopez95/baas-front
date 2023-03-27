@@ -23,7 +23,7 @@
       <VRow class="text-center d-flex flex-column  ml-4">
         <div class="text-left row mb">
           <b class="text-lg">Detail deposit </b><br />
-          <b>Monto:</b> {{ item.amount ?? '' }} <br />
+          <b>Monto:</b> {{ Intl.NumberFormat(["ban", "id"]).format(item.amount) ?? '' }} <br />
           <b>Account:</b> {{ item.destination?.accountNumber ?? '' }} <br />
         </div>
         <label for="voucher" style="border: 1px solid gray; border-radius: 8px;" class="my-4 py-4">

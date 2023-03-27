@@ -41,7 +41,7 @@ const desserts = computed(() => {
     helper.items.map((res: Deposit) => array.push(
       {
         ...res, desserts: {
-          id: res.transactionNumber, date: dayjs(res.createdAt).format('DD/MM/YYYY'), account: res.destination?.accountNumber, amount: res.amount, currency: res.destination?.currency?.abbreviation, status: res.operationStatus?.name
+          id: res.transactionNumber, date: dayjs(res.createdAt).format('DD/MM/YYYY'), account: res.destination?.accountNumber, amount:  Intl.NumberFormat(["ban", "id"]).format(res.amount), currency: res.destination?.currency?.abbreviation, status: res.operationStatus?.name
         }
       }))
   return array

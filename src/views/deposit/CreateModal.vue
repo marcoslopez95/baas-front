@@ -1,5 +1,5 @@
 <template>
-  <VBtn @click="r_redirect" min-width="100px">Create</VBtn>
+  <VBtnPrimary @click="r_redirect" min-width="100px">Create</VBtnPrimary>
 </template>
 
 <script setup lang="ts">

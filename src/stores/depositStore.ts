@@ -1,6 +1,8 @@
 import { useRouter } from 'vue-router'
 import { helperStore } from './../helper'
 import { toast, ToastOptions } from 'vue3-toastify';
+import { transformAmount } from '@/validator';
+
 
 export const depositStore = defineStore('deposit', () => {
   const helper = helperStore()
@@ -13,10 +15,10 @@ export const depositStore = defineStore('deposit', () => {
   const router = useRouter()
 
   const form = ref({
-    business_bank_account_id: 0,
+    business_bank_account_id: null,
     payment_method_id: 0,
     account_id: '',
-    amount: '',
+    amount: "0,00",
     comments: '',
   })
 const loadingList = ref<boolean>(false)
@@ -78,22 +80,22 @@ const loadingList = ref<boolean>(false)
 
   const createDeposit = () => {
   baseUrl.value = import.meta.env.VITE_RECHEARBLE_API
-
+console.log(transformAmount(form.value.amount))
     let url = `api/clients/recharges`
     let data = {
       business_bank_account_id: form.value.business_bank_account_id,
       account_id: form.value.account_id,
-      amount: form.value.amount,
+      amount:transformAmount(form.value.amount),
       comments: form.value.comments,
     }
 
     helper.http(url, 'post', { data },'Deposito creado correctamente',).then(res => {
       steps.value = 1
       form.value = {
-        business_bank_account_id: 0,
+        business_bank_account_id: null,
         payment_method_id: 0,
         account_id: '',
-        amount: '',
+        amount: "0,00",
         comments: '',
       }
       index()
