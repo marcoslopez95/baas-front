@@ -1,8 +1,8 @@
-import { AxiosResponse } from 'axios';
-import { defineStore } from 'pinia';
-import { useRouter } from 'vue-router';
-import { helperStore } from './../helper';
-import { langTypes } from './../lang/index';
+import { AxiosResponse } from 'axios'
+import { defineStore } from 'pinia'
+import { useRouter } from 'vue-router'
+import { helperStore } from './../helper'
+import { langTypes } from './../lang/index'
 
 export const authStore = defineStore('auth', () => {
   const helper = helperStore()
@@ -38,11 +38,10 @@ export const authStore = defineStore('auth', () => {
     data.append('city', form.city)
     data.append('address', form.address)
     data.append('birthdate', form.birthdate)
-    data.append('phone_number', form.phone_number)    
-    data.append('selfie', (form.selfie) as Blob)
-    data.append('front_document', (form.front_document) as Blob)
-    if(form.reverse_document)
-    data.append('reverse_document', (form.reverse_document) as Blob)
+    data.append('phone_number', form.phone_number)
+    data.append('selfie', form.selfie as Blob)
+    data.append('front_document', form.front_document as Blob)
+    if (form.reverse_document) data.append('reverse_document', form.reverse_document as Blob)
     loading.value = true
     let url = '/api/auth/kyc-verification'
     helper
@@ -56,17 +55,15 @@ export const authStore = defineStore('auth', () => {
         loading.value = false
         await getUser()
 
-        if(err.response.status == 423){
-          helper.showNotify(`${err.response.data.message}, tus documentos pasaran a verificacion manual`,{
+        if (err.response.status == 423) {
+          helper.showNotify(`${err.response.data.message}, tus documentos pasaran a verificacion manual`, {
             type: 'error',
           })
           router.push('/profile')
-        }else if(err.response?.data?.data?.body){
+        } else if (err.response?.data?.data?.body) {
           steps.value = 3
           errorsKyc.value = JSON.parse(err.response.data.data.body)
         }
-       
-
       })
   }
   const register = (form: formRegisterInterface) => {
@@ -83,19 +80,23 @@ export const authStore = defineStore('auth', () => {
         console.log('error', err)
       })
   }
+  const loadingProfile = ref(false)
 
   const updateProfile = (form: formRegisterInterface) => {
     let url = '/api/auth/update-profile'
+    loadingProfile.value = true
     helper
       .http(url, 'post', { data: form }, 'Perfil editado correctamente')
       .then(res => {
         getUser()
+        loadingProfile.value = false
       })
       .catch(err => {
+        loadingProfile.value = false
+
         console.log('error', err)
       })
   }
-  
 
   const user = ref<userModel>({
     id: 0,
@@ -111,7 +112,6 @@ export const authStore = defineStore('auth', () => {
     let user_local: userModel = JSON.parse(get_user)
     user.value = user_local
     statusKyc.value = user_local?.profile?.kycVerification?.general_status
-    
   }
 
   const getUser = () => {
@@ -146,7 +146,6 @@ export const authStore = defineStore('auth', () => {
       name: '',
       email: '',
     }
-
   }
 
   const confirm_code = ref(false)
@@ -158,42 +157,45 @@ export const authStore = defineStore('auth', () => {
       confirm_code.value = true
     })
   }
-  
-  
 
-  const confirmForgotPassword = (form: FormConfirmForgotPassword, type:string) => {
+  const confirmForgotPassword = (form: FormConfirmForgotPassword, type: string) => {
     let url = '/api/auth/verify-password-recovery'
     let data = { ...form }
     helper.http(url, 'post', { data }, 'contraseña cambiada').then(res => {
-      
-      type == 'Recover'? router.push('/login'):router.push('/profile')
+      type == 'Recover' ? router.push('/login') : router.push('/profile')
     })
   }
-const sendCode = ref(false)
-  const getResendCodeEmail = (email: string) => {
+  const sendCode = ref(false)
+  const formEmail = ref({ email_token: '',sms_token: '', email: '' })
+  const getResendCodeEmail = () => {
     let url = '/api/auth/change-email'
-    let params = { email }
+    let params = { email: formEmail.value.email }
     // console.log('data',data)
     sendCode.value = false
     helper.http(url, 'get', { params }, 'Código enviado').then(res => {
       // confirm_code.value = true
-    sendCode.value = true
-
+      sendCode.value = true
     })
   }
 
-  const getVerifyUpdateEmail = (sms_token: string) => {
+  const getVerifyUpdateEmail =() => {
     let url = '/api/auth/verify-change-email'
-    let params = { sms_token }
+    let data = { ...formEmail.value }
+
     // console.log('data',data)
-    helper.http(url, 'get', { params }, 'Correo actualizado correctamente').then(res => {
-      // confirm_code.value = true
+    helper.http(url, 'post', {data}, 'Correo actualizado correctamente').then(res => {
+   formEmail.value = { email_token: '',sms_token: '', email: '' }
+
+    sendCode.value = false
+
+      getUser()
+
     })
   }
   const lang = ref<langTypes>('')
-  lang.value =  localStorage.getItem('lang')
+  lang.value = localStorage.getItem('lang')
   watch(lang, () => {
-    if(localStorage.getItem('lang')){
+    if (localStorage.getItem('lang')) {
       localStorage.removeItem('lang')
     }
     localStorage.setItem('lang', lang.value)
@@ -201,7 +203,7 @@ const sendCode = ref(false)
 
   const changeLang = (lang_i: langTypes) => {
     lang.value = lang_i
-    if(localStorage.getItem('lang')){
+    if (localStorage.getItem('lang')) {
       localStorage.removeItem('lang')
     }
     localStorage.setItem('lang', lang.value)
@@ -227,7 +229,9 @@ const sendCode = ref(false)
     updateProfile,
     getResendCodeEmail,
     getVerifyUpdateEmail,
-    sendCode
+    loadingProfile,
+    sendCode,
+    formEmail
   }
 
   interface FormConfirmForgotPassword {
@@ -235,7 +239,11 @@ const sendCode = ref(false)
     password: string
     password_confirmation: string
   }
-
+  interface FormConfirmVerifyEmail {
+    sms_token: string
+    email_token: string
+    email: string
+  }
   interface userModel {
     id: number
     business_id: number
@@ -268,8 +276,8 @@ const sendCode = ref(false)
     country_id: number | null
     city: string
     address: string
-    birthdate: string,
-    phone_number: string,
+    birthdate: string
+    phone_number: string
     selfie: object | '' | string | Blob
     front_document: object | '' | string | Blob
     reverse_document: object | '' | string | Blob

@@ -20,7 +20,9 @@ console.log(auth.user)
 <template>
   <VBadge v-bind="avatarBadgeProps">
     <VAvatar style="cursor: pointer;" color="primary" variant="tonal">
-      <VImg :src="avatar1" />
+      <!-- <VImg :src="avatar1" /> -->
+      <VIcon>mdi-user</VIcon>
+
 
       <!-- SECTION Menu -->
       <VMenu activator="parent" width="230" location="bottom end" offset="14px">
@@ -31,7 +33,8 @@ console.log(auth.user)
               <VListItemAction start>
                 <VBadge v-bind="avatarBadgeProps">
                   <VAvatar color="primary" size="40" variant="tonal">
-                    <VImg :src="avatar1" />
+                    <!-- <VImg :src="avatar1" /> -->
+                    <VIcon>mdi-user</VIcon>
                   </VAvatar>
                 </VBadge>
               </VListItemAction>

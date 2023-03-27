@@ -3,7 +3,6 @@
     <VRow class="mx-4 " style="gap: 80px;">
       <VCol cols="12">
         <VRow>
-
           <VCol cols="12" md="9">
             <VRow class="d-flex gap-4">
               <VBtn min-width="200px" :class="form.payment_method_id == item.id ? 'text-white' : ''"
@@ -11,7 +10,6 @@
                 @click="selectPaymentMethod(item)" :color="form.payment_method_id == item.id ? '#774488' : '#D684F1'">
                 {{ item.name }}
               </VBtn>
-
             </VRow>
           </VCol>
         </VRow>

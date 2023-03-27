@@ -39,12 +39,20 @@ export const helperStore = defineStore('helper',() => {
         }
         resolve(response)
       }catch(error: AxiosResponse | any){
-        if(error.response.data.message)
+        console.log(error.response)
+        if(error.response.data?.errors)
+        getErrors(error.response.data.errors)
+
+        else if(error.response.data?.message )
         toast(error.response.data.message, {
           theme: 'colored',          
           type: 'error'
         }); 
-        getErrors(error.response.data.errors)
+        else if(error.response.data?.data?.message )
+        toast(error.response.data.data.message, {
+          theme: 'colored',          
+          type: 'error'
+        }); 
         if(error.response && error.response.status === 401){
           // console.log('aq2')
           localStorage.removeItem('token')

@@ -1,15 +1,20 @@
 <template>
-  <VCard min-height="300px">
-    <VCardTitle>{{ titleCard }}</VCardTitle>
-    <VCardText class="pa-4" >
-      <SelectPaymentMethod v-if="deposit.steps === 1"></SelectPaymentMethod>
-      <SecondStep v-if="deposit.steps === 2"></SecondStep>
-      <ThreeStep v-if="deposit.steps === 3"></ThreeStep>
-    </VCardText>
-    <VCardActions>
-
-    </VCardActions>
-  </VCard>
+  <div>
+    <VCard class="mb-4">
+      <VCardTitle>Crear deposito</VCardTitle>
+    </VCard>
+    <VCard min-height="300px" class="pt-4">
+      <!-- <VCardTitle>Crear deposito</VCardTitle> -->
+      <VCardSubtitle>{{ titleCard }}</VCardSubtitle>
+      <VCardText class="pa-4">
+        <SelectPaymentMethod v-if="deposit.steps === 1"></SelectPaymentMethod>
+        <SecondStep v-if="deposit.steps === 1"></SecondStep>
+        <ThreeStep v-if="deposit.steps === 3"></ThreeStep>
+      </VCardText>
+      <VCardActions>
+      </VCardActions>
+    </VCard>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -27,10 +32,10 @@ const goSecondStep = () => {
 }
 const titleCard = computed(() => {
   let title = ''
-  
+
   switch (deposit.steps) {
     case 1:
-      title = 'Payment method'
+      title = 'Select payment method'
       break;
     case 2:
       title = 'Select Account'

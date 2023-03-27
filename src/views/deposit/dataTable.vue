@@ -175,7 +175,7 @@ const colorText = (item: Deposit) => {
     </VCol>
     <VCol></VCol>
   </VRow>
-  <UploadVoucher>
+  <UploadVoucher v-if="showModal">
   </UploadVoucher>
 </template>
 

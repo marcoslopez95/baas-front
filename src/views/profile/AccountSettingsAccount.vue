@@ -188,7 +188,7 @@ config.getCountries()
 
               <!-- 👉 Form Actions -->
               <VCol cols="12" class="d-flex flex-wrap gap-4">
-                <VBtn type="submit" min-width="100px">Save changes</VBtn>
+                <VBtn type="submit" :loading="store.loadingProfile" min-width="100px">Save changes</VBtn>
               </VCol>
             </VRow>
           </VForm>

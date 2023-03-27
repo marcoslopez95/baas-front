@@ -26,7 +26,7 @@
           <b>Monto:</b> {{ item.amount ?? '' }} <br />
           <b>Account:</b> {{ item.destination?.accountNumber ?? '' }} <br />
         </div>
-        <label for="voucher">
+        <label for="voucher" style="border: 1px solid gray; border-radius: 8px;" class="my-4 py-4">
           <VIcon v-if="prevImg == ''" size="150px" icon="mdi-upload" style="cursor: pointer;">
           </VIcon>
           <img v-else :src="prevImg" style="width: 150px; height: 150px" alt="voucher" />

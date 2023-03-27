@@ -6,24 +6,24 @@ import { authStore } from '@/stores/AuthStore';
 import { required, email } from '@/validator';
 const validator = { required, email }
 const auth = authStore()
-const { sendCode } = storeToRefs(auth)
+const { sendCode,formEmail } = storeToRefs(auth)
 console.log(sendCode)
 const formUpdateEmail = ref<any>()
-const form = ref({ code: '', email: '' })
+// const form = ref({ email_token: '',sms_token: '', email: '' })
 
 const validateUpdateEmail = async () => {
   console.log('pasa')
   const { valid } = await formUpdateEmail.value.validate()
   if (!valid) return
-  auth.getResendCodeEmail(form.value.email)
-  sendCode.value = true
+  auth.getResendCodeEmail()
+  // sendCode.value = true
 }
 
 const verifyEmail = async () => {
   const { valid } = await formUpdateEmail.value.validate()
   if (!valid) return
-  auth.getVerifyUpdateEmail(form.value.code)
-  sendCode.value = false
+  auth.getVerifyUpdateEmail()
+  // sendCode.value = false
 }
 
 
@@ -46,16 +46,19 @@ const verifyEmail = async () => {
           <VRow>
 
             <VCol cols="12" md="6">
-              <VTextField :rules="[validator.required, validator.email]" :readonly="sendCode" v-model="form.email"
+              <VTextField :rules="[validator.required, validator.email]" :readonly="sendCode" v-model="formEmail.email"
                 label="E-mail" type="email" />
             </VCol>
             <VCol  cols="12" md="6">
-              <VTextField :rules="[validator.required]" v-if="sendCode" v-model="form.code" label="Code" />
+              <VTextField :rules="[validator.required]" v-if="sendCode" v-model="formEmail.sms_token" label="Token sms" />
+            </VCol>
+            <VCol  cols="12" md="6">
+              <VTextField :rules="[validator.required]" v-if="sendCode" v-model="formEmail.email_token" label="Token email" />
             </VCol>
 
             <!-- 👉 Form Actions -->
             <VCol cols="12" class="d-flex flex-wrap gap-4">
-              <VBtn v-if="sendCode" @click="auth.getResendCodeEmail(form.email)" color="primary" variant="tonal">
+              <VBtn v-if="sendCode" @click="auth.getResendCodeEmail()" color="primary" variant="tonal">
                 Resend code
               </VBtn>
               <VBtn @click="sendCode ? verifyEmail() : validateUpdateEmail()" min-width="100px">{{ sendCode ? 'Verify' : 'Update' }}

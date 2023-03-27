@@ -3,7 +3,6 @@
     <VRow   class="mx-4 " style="gap: 80px;">
       <VCol cols="12">
         <VRow no-gutters>
-
           <VCol
             cols="12"
             md="9"
