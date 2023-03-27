@@ -211,7 +211,8 @@
       "wait-kyc": "Identity in verifity",
       "verify-identity": "Verify",
       "update-phone": "Update Phone",
-      "edit-phone": "Edit Phone"
+      "edit-phone": "Edit Phone",
+      "code": "Code"
     }
   },
   "assign-permissions-to-role": "Assign PermissionsTo Role",
