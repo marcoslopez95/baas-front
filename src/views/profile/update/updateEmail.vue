@@ -3,7 +3,7 @@
 <script setup lang="ts">
 import { authStore } from '@/stores/AuthStore';
 
-import { required, email } from '@/validator';
+import { email, required } from '@/validator';
 const validator = { required, email }
 const auth = authStore()
 const { sendCode,formEmail } = storeToRefs(auth)
@@ -36,7 +36,7 @@ const verifyEmail = async () => {
         <!-- <VAvatar rounded="xl" class="mr-4" size="40" variant="tonal" color="primary"> -->
         <VIcon size="30" color="primary" class="mr-4" icon="mdi-email"></VIcon>
         <!-- </VAvatar> -->
-        <span>Actualizar Email</span>
+        <span> {{$t('views.profile.update-email')}}</span>
       </VCardTitle>
 
       <VDivider />
@@ -47,21 +47,21 @@ const verifyEmail = async () => {
 
             <VCol cols="12" md="6">
               <VTextField :rules="[validator.required, validator.email]" :readonly="sendCode" v-model="formEmail.email"
-                label="E-mail" type="email" />
+                :label="$t('commons.e-mail')" type="email" />
             </VCol>
             <VCol  cols="12" md="6">
-              <VTextField :rules="[validator.required]" v-if="sendCode" v-model="formEmail.sms_token" label="Token sms" />
+              <VTextField :rules="[validator.required]" v-if="sendCode" v-model="formEmail.sms_token"  :label="$t('views.profile.token-sms')" />
             </VCol>
             <VCol  cols="12" md="6">
-              <VTextField :rules="[validator.required]" v-if="sendCode" v-model="formEmail.email_token" label="Token email" />
+              <VTextField :rules="[validator.required]" v-if="sendCode" v-model="formEmail.email_token"  :label="$t('views.profile.token-email')" />
             </VCol>
 
             <!-- 👉 Form Actions -->
             <VCol cols="12" class="d-flex flex-wrap gap-4">
               <VBtnSecondary v-if="sendCode" @click="auth.getResendCodeEmail()" color="primary" variant="tonal">
-                Resend code
+                  {{$t('views.profile.resend-code')}}
               </VBtnSecondary>
-              <VBtnPrimary @click="sendCode ? verifyEmail() : validateUpdateEmail()" min-width="100px">{{ sendCode ? 'Verify' : 'Update' }}
+              <VBtnPrimary @click="sendCode ? verifyEmail() : validateUpdateEmail()" min-width="100px">{{ sendCode ?  $t('views.profile.verify') : $t('commons.update') }}
               </VBtnPrimary>
 
             </VCol>

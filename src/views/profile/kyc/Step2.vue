@@ -131,7 +131,7 @@ const sendData = () => {
             </VRow>
         </VForm>
         <div class="mt-4 text-end">
-            <VBtn class="mr-2" min-width="150px" variant="tonal" @click="$emit('stepValue', 1)">Back</VBtn>
+            <VBtn class="mr-2" min-width="150px" variant="tonal" @click="$emit('stepValue', 1)">{{$t('commons.back')}}</VBtn>
             <VBtn @click="sendData" :loading="store.loading"
                 :disabled="!form.front_document || (document?.name != 'Passport' && !form.reverse_document) || !form.selfie"
                 min-width="150px"> {{$t('comons.send')}} </VBtn>

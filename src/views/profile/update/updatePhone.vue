@@ -30,17 +30,17 @@
             </VCol>
             <VCol cols="12" md="6">
               <VTextField :rules="[validator.required]" v-if="confirmationCodePhone" v-model="formPhone.email_token"
-                label="Token email" />
+                :label="$t('views.profile.token-email')" />
             </VCol>
             <!-- 👉 Form Actions -->
             <VCol cols="12" class="d-flex flex-wrap gap-4">
               <VBtnSecondary v-if="confirmationCodePhone" @click="auth.getResendCodePhone()" color="primary"
                 variant="tonal">
-                Resend code
+                {{$t('views.profile.resend-code')}}
               </VBtnSecondary>
               <VBtnPrimary :disabled="!confirmationCodePhone && !isNumberValid"
                 @click="confirmationCodePhone ? verifyPhone() : sendCode()" min-width="100px">{{ confirmationCodePhone ?
-                  'Verify' : 'Update' }}
+                  $t('views.profile.verify') : $t('commons.update') }}
               </VBtnPrimary>
 
             </VCol>
@@ -62,14 +62,13 @@
 </template>
 <script lang="ts" setup>
 import { helperStore } from '@/helper';
+import { authStore } from '@/stores/AuthStore';
+import * as validator from '@/validator';
 import { ref } from 'vue';
 import { VueTelInput } from 'vue-tel-input';
-import { authStore } from '@/stores/AuthStore';
 import 'vue-tel-input/dist/vue-tel-input.css';
-import { required } from '@/validator';
 
 const auth = authStore()
-const validator = { required }
 
 // 746520616d6f646f726f
 const helper = helperStore()

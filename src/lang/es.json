@@ -29,7 +29,16 @@
     "next": "Siguiente",
     "change": "Cambiar",
     "upload": "Subir",
-    "try-again": "Volver a intentar"
+    "try-again": "Volver a intentar",
+    "update": "Actualizar",
+    "e-mail": "Correo Electrónico",
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "phone": "Teléfono",
+    "city": "Ciudad",
+    "address": "Dirección",
+    "save-changes": "Guardar Cambios",
+    "back": "Regresar"
   },
   "tables": {
     "headers": {
@@ -181,7 +190,7 @@
       "birthdate": "Fecha de Nacimiento",
       "city": "Ciudad",
       "address": "Dirección",
-      "phone":"Número de teléfono",
+      "phone": "Número de teléfono",
       "image-front": {
         "title": "Frontal",
         "description": "Cargue una foto de su documento de identidad frontal"
@@ -211,7 +220,14 @@
       "verify-identity": "Verificar",
       "update-phone": "Actualizar Teléfono",
       "edit-phone": "Editar telefono",
-      "code": "Código"
+      "code": "Código",
+      "resend-code": "Reenviar Código",
+      "verify": "Verificar",
+      "token-email": "Token Email",
+      "token-sms": "Token sms",
+      "update-email": "Actualizar Email",
+      "account-details": "Detalles de Cuenta",
+      "birthday": "Fecha de Nacimiento"
     }
   },
   "assign-permissions-to-role": "Asignar permisos al Rol",
