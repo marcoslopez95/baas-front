@@ -30,7 +30,7 @@ const phoneEvent = (objectphone:any) => {
     form.value.phone_number = objectphone.nationalNumber
     isNumberValid.value = true
     return
-  }
+  }else form.value.phone_number = ''
   isNumberValid.value = false
 }
 const changeDocumentType= (e: any) => {
@@ -87,20 +87,16 @@ const nextStep = async () => {
             cols="12"
             md="6"
           >
-          <!-- <VueTelInput 
-                  class="h-100 border-primary" 
+          <VueTelInput 
+                  class="h-80 border-primary" 
                   v-model="phone"
                   autoDefaultCountry
                   autoFormat
                   @validate="phoneEvent"
                   mode="international"
                   inputOptions.showDialCode
-                  ></VueTelInput> -->
-            <VTextField
-              :label="$t('views.kyc.phone')"
-              v-model="form.phone_number"
-              :rules="[validator.required]"
-            />
+                  ></VueTelInput>
+         
           </VCol>
           <VCol
             cols="12"
@@ -142,6 +138,7 @@ const nextStep = async () => {
       ><VBtn
         min-width="150px"
         @click="nextStep"
+        :disabled="!form.phone_number"
         variant="tonal"
         >{{$t('commons.next')}}</VBtn
       ></VCardActions
