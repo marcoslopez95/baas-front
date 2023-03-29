@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import formTransfers from '@/views/transfers/FormTransfers/vue'
+import formTransfers from '@/views/transfers/FormTransfers.vue'
 </script>
 
 <template>

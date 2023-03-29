@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { helperStore } from './../helper';
 import { toast, ToastOptions } from 'vue3-toastify';
 
-export const trasnfersStore = defineStore('transfers', ()=>{
+export const transfersStore = defineStore('transfers', ()=>{
   const helper = helperStore()
   const {baseUrl} = storeToRefs(helper)
 

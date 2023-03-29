@@ -1,10 +1,10 @@
 
 <script setup lang="ts">
-import { trasnfersStore } from '@/stores/TransferStore';
+import { transfersStore } from '@/stores/TransfersStore';
 import { requiredAmount,required, amountFormat } from '@/validator';
 const validator = { required,requiredAmount  }
 
-const transfer = trasnfersStore()
+const transfer = transfersStore()
 
 const {formInner} = storeToRefs(transfer)
 const moneyInput = (event: string) => {
