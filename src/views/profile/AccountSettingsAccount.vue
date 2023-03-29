@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import avatar1 from '@/assets/images/avatars/avatar-1.png';
 import { authStore } from '@/stores/AuthStore';
 import { configStore } from '@/stores/configsStore';
 import { required } from '@/validator';
-import updatePhone from './update/updatePhone.vue';
 import updateEmail from './update/updateEmail.vue';
+import updatePhone from './update/updatePhone.vue';
 
 const formUpdateProfile = ref<any>()
 
@@ -90,7 +89,7 @@ config.getCountries()
           <!-- <VAvatar rounded="xl" class="mr-4" size="40" variant="tonal" color="primary"> -->
             <VIcon size="30"  color="primary" class="mr-4">mdi-user</VIcon>
           <!-- </VAvatar> -->
-          <span>Account Details</span> 
+          <span>{{$t('views.profile.account-details')}}</span> 
           <!-- 👉 Upload Photo
           <form ref="refForm" class="d-flex flex-column justify-center gap-5">
             <div class="d-flex flex-wrap gap-2">
@@ -121,19 +120,19 @@ config.getCountries()
             <VRow>
               <!-- 👉 First Name -->
               <VCol md="6" cols="12">
-                <VTextField readonly v-model="formUser.name" label="Name" />
+                <VTextField readonly v-model="formUser.name" :label="$t('commons.name')" />
               </VCol>
               <!-- 👉 Email -->
               <VCol cols="12" md="6">
-                <VTextField readonly v-model="formUser.email" label="E-mail" type="email" />
+                <VTextField readonly v-model="formUser.email" :label="$t('commons.email')" type="email" />
               </VCol>
               <VCol cols="12" md="6">
-                <VTextField readonly v-model="phoneNumber" label="Phone" />
+                <VTextField readonly v-model="phoneNumber" :label="$t('commons.phone')" />
               </VCol>
               <!-- 👉 Phone -->
               <VCol cols="12" md="6">
                 <VTextField readonly :rules="[validator.required]" append-inner-icon="mdi-calendar"
-                  v-model="formUser.birthdate" label="Birthdate" />
+                  v-model="formUser.birthdate" :label="$t('views.profile.birthday')" />
               </VCol>
               <!-- 👉 Country -->
               <VCol cols="12" md="6">
@@ -142,16 +141,16 @@ config.getCountries()
               </VCol>
               <!-- 👉 City -->
               <VCol cols="12" md="6">
-                <VTextField :rules="[validator.required]" v-model="formUser.city" label="City" />
+                <VTextField :rules="[validator.required]" v-model="formUser.city" :label="$t('commons.city')" />
               </VCol>
               <!-- 👉 Address -->
               <VCol cols="12" md="6">
-                <VTextField :rules="[validator.required]" v-model="formUser.address" label="Address" />
+                <VTextField :rules="[validator.required]" v-model="formUser.address" :label="$t('commons.address')" />
               </VCol>
 
               <!-- 👉 Form Actions -->
               <VCol cols="12" class="d-flex flex-wrap gap-4">
-                <VBtn type="submit" :loading="store.loadingProfile" min-width="100px">Save changes</VBtn>
+                <VBtn type="submit" :loading="store.loadingProfile" min-width="100px">{{$t('commons.save-changes')}}</VBtn>
               </VCol>
             </VRow>
           </VForm>

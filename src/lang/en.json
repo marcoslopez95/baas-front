@@ -29,7 +29,16 @@
     "next": "Next",
     "change": "Change",
     "upload": "Upload",
-    "try-again": "Try Again"
+    "try-again": "Try Again",
+    "update": "Update",
+    "e-mail": "E-mail",
+    "name": "Name",
+    "email": "E-mail",
+    "phone": "Phone",
+    "city": "City",
+    "address": "Addres",
+    "save-changes": "Save Changes",
+    "back": "Back"
   },
   "tables": {
     "headers": {
@@ -181,7 +190,7 @@
       "birthdate": "Birthdate",
       "city": "City",
       "address": "Address",
-      "phone":"Phone number",
+      "phone": "Phone number",
       "image-front": {
         "title": "Front",
         "description": "Upload an image front of your DNI"
@@ -212,7 +221,14 @@
       "verify-identity": "Verify",
       "update-phone": "Update Phone",
       "edit-phone": "Edit Phone",
-      "code": "Code"
+      "code": "Code",
+      "resend-code": "Resend Code",
+      "verify": "Verify",
+      "token-email": "Token Email",
+      "token-sms": "Token Sms",
+      "update-email": "Update Email",
+      "account-details": "Account Details",
+      "birthday": "Birthday"
     }
   },
   "assign-permissions-to-role": "Assign PermissionsTo Role",
