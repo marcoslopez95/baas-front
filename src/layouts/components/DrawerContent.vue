@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import upgradeBannerDark from '@/assets/images/pro/upgrade-banner-dark.png'
-import upgradeBannerLight from '@/assets/images/pro/upgrade-banner-light.png'
+import upgradeBannerDark from '@/assets/images/pro/upgrade-banner-dark.png';
+import upgradeBannerLight from '@/assets/images/pro/upgrade-banner-light.png';
+import logo from '@/assets/logo.svg?raw';
 import {
-  VerticalListItem,
-  VerticalListSection,
-  VerticalListGroup,
+VerticalListGroup, VerticalListItem,
+VerticalListSection
 } from "@layouts";
-import logo from '@/assets/logo.svg?raw'
-import { useTheme } from 'vuetify'
+import { useTheme } from 'vuetify';
 
 const vuetifyTheme = useTheme()
 const upgradeBanner = computed(() => {
@@ -19,46 +18,47 @@ const optionsMenu = ref([])
 const open = ref(["Users"]);
 
 optionsMenu.value = [
+  //54652071756965726f206d7563686f20636f6e2064656d61736961646f
   {
     title: "Dashboard",
-    to: "index",
+    to: "/index",
     icon: { icon: "mdi-home-outline" },
   },
   { heading: "Modules" },
 
   {
     title: "Accounts",
-    to: "accounts-user",
+    to: "/accounts-user",
     icon: { icon: "mdi-account-cash" },
   },
   {
     title: 'Deposits',
-    to: 'deposit',
+    to: '/deposit',
     icon: { icon: 'mdi-cash-fast' }
   },
   {
       title: "Transfers",
-      to: "dashboard-analytics",
+      to: "/dashboard-analytics",
       icon: { icon: "mdi-key-outline" },
       children: [
         {
           title: "Internas",
-          to: "transfers/inner-transfers",
+          to: "/transfers/inner-transfers",
           icon: { icon: "mdi-circle-outline" },
         },
         {
           title: "Propias",
-          to: "transfers/own-transfers",
+          to: "/transfers/own-transfers",
           icon: { icon: "mdi-circle-outline" },
         },
         {
           title: "Otros",
-          to: "transfers/outer-transfers",
+          to: "/transfers/outer-transfers",
           icon: { icon: "mdi-circle-outline" },
         },
         {
           title: "Crypto",
-          to: "transfers/crypto-transfers",
+          to: "/transfers/crypto-transfers",
           icon: { icon: "mdi-circle-outline" },
         }
         
