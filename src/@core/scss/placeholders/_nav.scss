@@ -31,3 +31,10 @@
     color: inherit;
   }
 }
+%nav-link-group-active {
+  background: rgb(var(--v-theme-grey-200));
+  color: rgb(var(--v-theme-grey-800));
+
+  // @include mixins_elevation.elevation(3);
+}
+

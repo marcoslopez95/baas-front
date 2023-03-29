@@ -82,6 +82,7 @@ const langs = [
 
     <!-- 👉 Pages -->
     <div class="layout-page-content">
+      
       <RouterView />
     </div>
 

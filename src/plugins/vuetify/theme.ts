@@ -1,13 +1,14 @@
 import type { VuetifyOptions } from 'vuetify'
-
+const colorPrimary = ref(localStorage.getItem('primary'))
+const colorSecondary = ref(localStorage.getItem('secondary'))
 const theme: VuetifyOptions['theme'] = {
   defaultTheme: 'light',
   themes: {
     light: {
       dark: false,
       colors: {
-        'primary': '#1c298c',
-        'secondary': '#8A8D93',
+        'primary': `${colorPrimary.value}`,
+        'secondary': `${colorSecondary.value}`,
         'on-secondary': '#fff',
         'success': '#56CA00',
         'info': '#16B1FF',
@@ -44,8 +45,8 @@ const theme: VuetifyOptions['theme'] = {
     dark: {
       dark: true,
       colors: {
-        'primary': '#1c298c',
-        'secondary': '#8A8D93',
+        'primary': `${colorPrimary.value}`,
+        'secondary': `${colorSecondary.value}`,
         'on-secondary': '#fff',
         'success': '#56CA00',
         'info': '#16B1FF',

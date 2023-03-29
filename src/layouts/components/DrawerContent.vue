@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import upgradeBannerDark from '@/assets/images/pro/upgrade-banner-dark.png'
 import upgradeBannerLight from '@/assets/images/pro/upgrade-banner-light.png'
+import {
+  VerticalListItem,
+  VerticalListSection,
+  VerticalListGroup,
+} from "@layouts";
 import logo from '@/assets/logo.svg?raw'
-import { VerticalNavLink } from '@layouts'
 import { useTheme } from 'vuetify'
 
 const vuetifyTheme = useTheme()
@@ -11,137 +15,101 @@ const upgradeBanner = computed(() => {
     ? upgradeBannerLight
     : upgradeBannerDark
 })
-</script>
+const optionsMenu = ref([])
+const open = ref(["Users"]);
+
+optionsMenu.value = [
+  {
+    title: "Dashboard",
+    to: "index",
+    icon: { icon: "mdi-home-outline" },
+  },
+  { heading: "Modules" },
+
+  {
+    title: "Accounts",
+    to: "accounts-user",
+    icon: { icon: "mdi-account-cash" },
+  },
+  {
+    title: 'Deposits',
+    to: 'deposit',
+    icon: { icon: 'mdi-cash-fast' }
+  },
+  {
+      title: "Transfers",
+      to: "dashboard-analytics",
+      icon: { icon: "mdi-key-outline" },
+      children: [
+        {
+          title: "Internas",
+          to: "transfers/inner-transfers",
+          icon: { icon: "mdi-circle-outline" },
+        },
+        {
+          title: "Propias",
+          to: "transfers/own-transfers",
+          icon: { icon: "mdi-circle-outline" },
+        },
+        {
+          title: "Otros",
+          to: "transfers/outer-transfers",
+          icon: { icon: "mdi-circle-outline" },
+        },
+        {
+          title: "Crypto",
+          to: "transfers/crypto-transfers",
+          icon: { icon: "mdi-circle-outline" },
+        }
+        
+      ],
+    },]
+  const options = computed(() => {
+  return optionsMenu.value;
+});</script>
 
 <template>
   <!-- 👉 Nav header -->
   <div class="nav-header mx-auto" style="padding:1rem 0.25rem 1rem 0.3em !important">
-    <RouterLink
-      to="/"
-      class="app-logo d-flex align-center gap-x-3 app-title-wrapper"
-    >
+    <RouterLink to="/" class="app-logo d-flex align-center gap-x-3 app-title-wrapper">
       <!-- ℹ️ You can also use img tag or VImg here -->
       <div v-html="logo" />
 
-      
+
     </RouterLink>
   </div>
 
   <!-- 👉 Nav items -->
-  <ul>
-    <VerticalNavLink
-      :item="{
-        title: 'Dashboard',
-        to: 'index',
-        icon: { icon: 'mdi-home-outline' }
-      }"
-    />
-    <VerticalNavLink
-      :item="{
-        title: 'Accounts',
-        to: 'accounts-user',
-        icon: { icon: 'mdi-account-cash' }
-      }"
-    />
-    <VerticalNavLink
-      :item="{
-        title: 'Deposits',
-        to: 'deposit',
-        icon: { icon: 'mdi-cash-fast' }
-      }"
-    />
-    <!-- <VerticalNavLink
-      :item="{
-        title: 'Account Settings',
-        to: 'account-settings',
-        icon: { icon: 'mdi-account-cog-outline' }
-      }"
-    /> -->
-    <!-- 👉 Pages 
-    <VerticalNavSectionTitle :item="{ heading: 'Pages' }" />
-    <VerticalNavLink
-      :item="{
-        title: 'Login',
-        to: 'login',
-        target: '_blank',
-        icon: { icon: 'mdi-login' }
-      }"
-    />
-    <VerticalNavLink
-      :item="{
-        title: 'Register',
-        to: 'register',
-        target: '_blank',
-        icon: { icon: 'mdi-account-plus-outline' }
-      }"
-    />
--->
-    <!-- ℹ️ This path doesn't exist so 404 route will catch this undefined path 
-    <VerticalNavLink
-      :item="{
-        title: 'Error',
-        to: { path: '/error' },
-        target: '_blank',
-        icon: { icon: 'mdi-alert-circle-outline' }
-      }"
-    />
--->
-    <!-- 👉 User Interface
-    <VerticalNavSectionTitle :item="{ heading: 'User Interface' }" />
-
-    <VerticalNavLink
-      :item="{
-        title: 'Typography',
-        to: 'typography',
-        icon: { icon: 'mdi-alpha-t-box-outline' }
-      }"
-    />
-    <VerticalNavLink
-      :item="{
-        title: 'Icons',
-        to: 'icons',
-        icon: { icon: 'mdi-eye-outline' }
-      }"
-    />
-    <VerticalNavLink
-      :item="{
-        title: 'Cards',
-        to: 'card-basic',
-        icon: { icon: 'mdi-credit-card-outline' }
-      }"
-    />
-    <VerticalNavLink
-      :item="{
-        title: 'Tables',
-        to: 'tables',
-        icon: { icon: 'mdi-table' }
-      }"
-    />
-    <VerticalNavLink
-      :item="{
-        title: 'Form Layouts',
-        to: 'form-layouts',
-        icon: { icon: 'mdi-form-select' }
-      }"
-    /> -->
-  </ul>
-
-
-  <!-- 👉 illustration
-  <a
-    href="https://themeselection.com/item/materio-vuetify-vuejs-admin-template"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <img
-      :src="upgradeBanner"
-      alt="upgrade-banner"
-      transition="scale-transition"
-      class="upgrade-banner mx-auto"
-      style="max-width: 230px"
-    >
-  </a>
-   -->
+  <!-- <ul>
+      <VerticalNavLink
+        :item="{
+          title: 'Dashboard',
+          to: 'index',
+          icon: { icon: 'mdi-home-outline' }
+        }"
+      />
+      <VerticalNavLink
+        :item="{
+          title: 'Accounts',
+          to: 'accounts-user',
+          icon: { icon: 'mdi-account-cash' }
+        }"
+      />
+      <VerticalNavLink
+        :item="{
+          title: 'Deposits',
+          to: 'deposit',
+          icon: { icon: 'mdi-cash-fast' }
+        }"></VerticalNavLink>
+    </ul> -->
+  <VList class="nav-list" v-model:opened="open" v-if="options && options.length > 0">
+    <div v-for="(item, i) in options" :key="i">
+      <VerticalListGroup :item="item" v-if="item.children" />
+      <VerticalListItem :item="item" v-else-if="!item.children && item.to
+      " />
+      <VerticalListSection :item="item" v-else-if="item.heading" />
+    </div>
+  </VList>
 </template>
 
 <style lang="scss">

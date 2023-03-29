@@ -136,5 +136,87 @@
         @include vuetifyStates.states($active: false);
       }
     }
+    //####### Nav-list
+    .nav-list{
+      padding-right:10px;
+      background: transparent; 
+      
+    }
+    //####### Nav-list-item
+
+      .nav-list-item {
+        overflow: hidden;
+        @extend %vertical-nav-item-interactive;  
+        > :first-child {          
+          // ℹ️ Update the margin-inline-end when vertical nav is in mini state. We done same for section title.
+          @at-root {
+            .layout-nav-type-vertical.layout-vertical-nav-collapsed .layout-vertical-nav:not(.hovered) .nav-list-item  > :first-child, .layout-nav-type-vertical .layout-vertical-nav .nav-group > :first-child {
+              margin-inline: 0 5px;
+            }
+          }
+        }  
+        .nav-item-icon {
+          @extend %vertical-nav-items-icon;
+        }
+  
+        &.disabled {
+          opacity: var(--v-disabled-opacity);
+          pointer-events: none;
+        }
+      }
+      .nav-list-item  {
+        @extend %nav-link;
+        > a {
+          // Adds before psudo element to style hover state
+          @include mixins.before-pseudo;
+  
+          // Adds vuetify states
+          @include vuetifyStates.states($active: false);
+        }
+      }
+    .nav-list-item.v-list-item--active{
+      @extend %nav-link-active;
+      >.v-list-item__overlay{
+        opacity: 0;
+      }
+        }
+         //####### Nav-list-item-group
+
+      .nav-list-item-group {
+        overflow: hidden;
+        @extend %vertical-nav-item-interactive;  
+        > :first-child {          
+          // ℹ️ Update the margin-inline-end when vertical nav is in mini state. We done same for section title.
+          @at-root {
+            .layout-nav-type-vertical.layout-vertical-nav-collapsed .layout-vertical-nav:not(.hovered) .nav-list-item-group  > :first-child, .layout-nav-type-vertical .layout-vertical-nav .nav-group > :first-child {
+              margin-inline: 0 5px;
+            }
+          }
+        }  
+        .nav-item-icon {
+          @extend %vertical-nav-items-icon;
+        }
+  
+        &.disabled {
+          opacity: var(--v-disabled-opacity);
+          pointer-events: none;
+        }
+      }
+      .nav-list-item-group  {
+        @extend %nav-link;
+        > a {
+          // Adds before psudo element to style hover state
+          @include mixins.before-pseudo;
+  
+          // Adds vuetify states
+          @include vuetifyStates.states($active: false);
+        }
+      }
+    .nav-list-item-group.v-list-item--active{
+      @extend %nav-link-group-active;
+      >.v-list-item__overlay{
+        opacity: 0;
+      }
+        }
   }
 }

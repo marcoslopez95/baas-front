@@ -15,7 +15,6 @@ import axios from 'axios'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import { createI18n } from 'vue-i18n'
-
 loadFonts()
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL

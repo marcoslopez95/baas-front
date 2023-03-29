@@ -11,6 +11,10 @@ auth.getUser()
 if(auth.user.name == ''){
   auth.setUser()
 }
+
+
+localStorage.setItem('primary','#8c1c7f')
+localStorage.setItem('secondary','#8c1c7f')
 </script>
 
 <template>
