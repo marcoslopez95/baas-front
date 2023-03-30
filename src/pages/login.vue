@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import logo from '@/assets/logo.svg?raw'
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import { useTheme } from 'vuetify'
 
@@ -17,7 +16,10 @@ const form = ref({
 })
 
 const router = useRouter()
-
+const urlFront = ref(import.meta.env.VITE_URL_FRONT)
+const logo = computed(() => {
+  return auth.setting?.logo == 'logo.png' ? `${urlFront.value}${auth.setting?.logo}` : auth.setting?.logo
+})
 const vuetifyTheme = useTheme()
 const authThemeMask = computed(() => {
   return vuetifyTheme.global.name.value === 'light'
@@ -41,7 +43,7 @@ const redirectPassword = () => {
       <VCardItem class="justify-center">
         <template #prepend>
           <div class="d-flex">
-            <div v-html="logo" />
+            <img :src="logo"/>
           </div>
         </template>
       </VCardItem>

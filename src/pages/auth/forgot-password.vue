@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import logo from '@/assets/logo.svg?raw';
 import { useTheme } from 'vuetify'
 
 import { authStore } from '@/stores/AuthStore';
@@ -10,6 +9,11 @@ import authV1Tree from '@/assets/images/pages/auth-v1-tree.svg'
 import FormForgotPassword from '@/views/pages/authentication/FormForgotPassword.vue';
 import VerifyForgotPassword from '@/views/pages/authentication/VerifyForgotPassword.vue';
 const auth = authStore()
+
+const urlFront = ref(import.meta.env.VITE_URL_FRONT)
+const logo = computed(() => {
+  return auth.setting?.logo == 'logo.png' ? `${urlFront.value}${auth.setting?.logo}` : auth.setting?.logo
+})
 const vuetifyTheme = useTheme()
 const authThemeMask = computed(() => {
   return vuetifyTheme.global.name.value === 'light'
@@ -39,7 +43,7 @@ const codeExist = () =>{
       <VCardItem class="justify-center">
         <template #prepend>
           <div class="d-flex">
-            <div v-html="logo" />
+            <img :src="logo"/>
           </div>
         </template>
 

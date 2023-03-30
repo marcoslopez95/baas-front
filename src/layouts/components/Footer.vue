@@ -1,24 +1,15 @@
 <template>
-  <div class="w-100 h-100 d-flex align-center justify-space-between">
+  <div class="w-100 h-100 d-flex justify-center">
     <!-- 👉 Footer: left content -->
-    <span class="d-flex align-center">
+    <span class="d-flex text-center">
       &copy;
       {{ new Date().getFullYear() }}
-      Made With
-      <VIcon
-        icon="mdi-heart-outline"
-        color="error"
-        size="1.25rem"
-        class="mx-1"
-      />
-      By <a
-        href="https://themeselection.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-primary ms-1"
-      >ThemeSelection</a>
+      {{ auth.setting?.name }}
+
+
+
     </span>
-    <!-- 👉 Footer: right content -->
+    <!-- 👉 Footer: right content
     <span class="d-md-flex gap-x-4 text-primary d-none">
       <a
         href="https://themeselection.com/license/"
@@ -33,5 +24,14 @@
         target="noopener noreferrer"
       >Documentation</a>
     </span>
+     -->
   </div>
 </template>
+
+<script lang="ts" setup>
+import { authStore } from '@/stores/AuthStore';
+const auth = authStore()
+
+
+
+</script>

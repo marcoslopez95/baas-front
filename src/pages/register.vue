@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import logo from '@/assets/logo.svg?raw'
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import { useTheme } from 'vuetify'
 
@@ -28,6 +27,12 @@ const isPasswordVisible = ref(false)
 const isPasswordVisible2 = ref(false)
 
 const auth = authStore()
+
+const urlFront = ref(import.meta.env.VITE_URL_FRONT)
+const logo = computed(() => {
+  console.log('setting',auth)
+  return auth.setting?.logo == 'logo.png' ? `${urlFront.value}${auth.setting?.logo}` : auth.setting?.logo
+})
 </script>
 
 <template>
@@ -39,7 +44,7 @@ const auth = authStore()
       <VCardItem class="justify-center">
         <template #prepend>
           <div class="d-flex">
-            <div v-html="logo" />
+            <img :src="logo"/>
           </div>
         </template>
 

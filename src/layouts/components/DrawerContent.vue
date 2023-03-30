@@ -1,20 +1,26 @@
 <script setup lang="ts">
 import upgradeBannerDark from '@/assets/images/pro/upgrade-banner-dark.png';
 import upgradeBannerLight from '@/assets/images/pro/upgrade-banner-light.png';
-import logo from '@/assets/logo.svg?raw';
+import { authStore } from '@/stores/AuthStore';
+
 import {
 VerticalListGroup, VerticalListItem,
 VerticalListSection
 } from "@layouts";
 import { useTheme } from 'vuetify';
+const auth = authStore()
+const urlFront = ref(import.meta.env.VITE_URL_FRONT)
+const logo = computed(() => {
 
+  return auth.setting?.logo == 'logo.png' ? `${urlFront.value}${auth.setting?.logo}` : auth.setting?.logo
+})
 const vuetifyTheme = useTheme()
 const upgradeBanner = computed(() => {
   return vuetifyTheme.global.name.value === 'light'
     ? upgradeBannerLight
     : upgradeBannerDark
 })
-const optionsMenu = ref([])
+const optionsMenu = ref<ItemMenu[]>([])
 const open = ref(["/"]);
 
 optionsMenu.value = [
@@ -67,6 +73,14 @@ optionsMenu.value = [
   const options = computed(() => {
   return optionsMenu.value;
 });
+
+interface ItemMenu {
+    heading?: string 
+    title?: string,
+    to?: string,
+    icon?: { icon: string },
+    children?: ItemMenu[]
+}
 </script>
 
 <template>
@@ -74,35 +88,13 @@ optionsMenu.value = [
   <div class="nav-header mx-auto" style="padding:1rem 0.25rem 1rem 0.3em !important">
     <RouterLink to="/" class="app-logo d-flex align-center gap-x-3 app-title-wrapper">
       <!-- ℹ️ You can also use img tag or VImg here -->
-      <div v-html="logo" />
+      <img :src="logo" />
 
 
     </RouterLink>
   </div>
 
-  <!-- 👉 Nav items -->
-  <!-- <ul>
-      <VerticalNavLink
-        :item="{
-          title: 'Dashboard',
-          to: 'index',
-          icon: { icon: 'mdi-home-outline' }
-        }"
-      />
-      <VerticalNavLink
-        :item="{
-          title: 'Accounts',
-          to: 'accounts-user',
-          icon: { icon: 'mdi-account-cash' }
-        }"
-      />
-      <VerticalNavLink
-        :item="{
-          title: 'Deposits',
-          to: 'deposit',
-          icon: { icon: 'mdi-cash-fast' }
-        }"></VerticalNavLink>
-    </ul> -->
+    <!-- // 5061726120746f6461206c612076696461206d6920616d6f72 -->
   <VList class="nav-list" v-model:opened="open" v-if="options && options.length > 0">
     <div v-for="(item, i) in options" :key="i">
       <VerticalListGroup :item="item" v-if="item.children" />
