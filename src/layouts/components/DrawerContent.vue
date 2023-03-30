@@ -111,6 +111,7 @@ interface ItemMenu {
           icon: { icon: 'mdi-cash-fast' }
         }"></VerticalNavLink>
     </ul> -->
+    // 5061726120746f6461206c612076696461206d6920616d6f72
   <VList class="nav-list" v-model:opened="open" v-if="options && options.length > 0">
     <div v-for="(item, i) in options" :key="i">
       <VerticalListGroup :item="item" v-if="item.children" />
