@@ -15,13 +15,13 @@ const upgradeBanner = computed(() => {
     : upgradeBannerDark
 })
 const optionsMenu = ref([])
-const open = ref(["Users"]);
+const open = ref(["/"]);
 
 optionsMenu.value = [
   //54652071756965726f206d7563686f20636f6e2064656d61736961646f
   {
     title: "Dashboard",
-    to: "/index",
+    to: "/",
     icon: { icon: "mdi-home-outline" },
   },
   { heading: "Modules" },
@@ -66,7 +66,8 @@ optionsMenu.value = [
     },]
   const options = computed(() => {
   return optionsMenu.value;
-});</script>
+});
+</script>
 
 <template>
   <!-- 👉 Nav header -->

@@ -18,7 +18,7 @@ export const transfersStore = defineStore('transfers', ()=>{
     amount: "0,00",
     comments: '',
   })
-
+const dialogBeneficiary = ref(false)
 //   const currency_id = ref<any>(null)
 
 //   const getAccounts = () => {
@@ -82,7 +82,8 @@ export const transfersStore = defineStore('transfers', ()=>{
     // getAccounts,
     items,
     item,
-    formInner
+    formInner,
+    dialogBeneficiary
     // openModal,
     // createAccount,
     // currencies,

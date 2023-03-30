@@ -3,6 +3,7 @@
         <template #title>{{ title }}</template>
         <template #content>
             {{ content }}
+            <slot></slot>
         </template>
         <template #actions>
           <VRow class="mx-auto text-center justify-center">

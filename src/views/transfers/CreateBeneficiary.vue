@@ -1,0 +1,43 @@
+<script setup lang="ts">
+import { accountUserStore } from '@/stores/AccountUserStore';
+import { required } from '@/validator';
+import DialogBase from '@/views/global/Dialog.vue'
+import { transfersStore } from '@/stores/TransfersStore';
+const transfer = transfersStore()
+const { dialogBeneficiary } = storeToRefs(transfer)
+
+const validator = { required }
+
+const account = accountUserStore()
+account.getCurrencies()
+const formCreateAccount = ref<any>()
+
+
+const createStore = async () => {
+  const { valid } = await formCreateAccount.value.validate()
+  console.log(valid, account.currency_id)
+  if (!valid) return
+  account.createAccount(account.currency_id)
+}
+
+</script>
+
+<template>
+    <DialogBase :dialog="dialogBeneficiary" :widthDialog="'400px'" @close="dialogBeneficiary = false">
+      <template #title><span>Create Beneficiary</span></template>
+      <template #content>
+        <VForm ref="formCreateAccount" @submit.prevent="createStore()">
+          <VSelect v-model="account.currency_id" :rules="[validator.required]" :items="account.currencies"
+            item-title="name" item-value="id" label="Currency">
+          </VSelect>
+
+        </VForm>
+      </template>
+      <template #actions>
+        <VRow class="mx-auto text-center justify-center">
+            <VBtn @click="createStore()" variant="flat">Store</VBtn>
+        </VRow>
+      </template>
+
+    </DialogBase>
+</template>

@@ -113,6 +113,15 @@ export const authStore = defineStore('auth', () => {
     user.value = user_local
     statusKyc.value = user_local?.profile?.kycVerification?.general_status
   }
+  const setting = ref({})
+
+  const setSetting = () => {
+    let business = localStorage.getItem("settings")
+
+    if(!business) return null
+    setting.value = JSON.parse(business)
+
+  }
 
   const getUser = () => {
     return new Promise(async (resolve, reject) => {
@@ -125,7 +134,17 @@ export const authStore = defineStore('auth', () => {
       try {
         let res: AxiosResponse = await helper.http(url, 'get', { headers })
         localStorage.setItem('user', JSON.stringify(res.data.data))
+        localStorage.setItem("settings",JSON.stringify({        
+          icon: res.data?.data?.business?.business?.icon,
+          logo:res.data?.data?.business?.business?.logo,
+          primaryColor: res.data?.data?.business?.business?.primaryColor,
+          secondaryColor: res.data?.data?.business?.business?.secondaryColor,
+          name: res.data?.data?.business?.business?.name
+      }))
+  
         setUser()
+      setSetting()
+
         resolve(true)
       } catch (err) {
         // console.log("error",err);
@@ -259,6 +278,7 @@ export const authStore = defineStore('auth', () => {
     confirmationCodePhone,
     getVerifyUpdatePhone,
     formPhone,
+    setting
   }
 
   interface FormConfirmForgotPassword {

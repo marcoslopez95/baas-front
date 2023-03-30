@@ -29,7 +29,7 @@ const nextPassword = async () => {
   const { valid } = await formPasswordSecond.value.validate()
   console.log(valid)
   if (!valid) return
-  auth.confirmForgotPassword(form.value, type)
+  auth.confirmForgotPassword(form.value, props.type)
 }
 </script>
 

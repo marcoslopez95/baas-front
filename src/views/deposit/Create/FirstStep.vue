@@ -8,7 +8,7 @@
               <p>Select payment method</p>
 
               <VRow class="d-flex gap-4 mb-2 mb-md-8  pa-4 " style="border:1px solid #beb9b9; border-radius: 8px;">
-                <VBtn min-width="200px" icon 
+                <VBtn min-width="200px"  
                   :variant="form.payment_method_id == item.id ? 'tonal' : 'outlined'" v-for="item in deposit.payment_methods"
                   @click="selectPaymentMethod(item)" :color="form.payment_method_id == item.id ? 'primary' : 'primary'">
                   {{ item.name }}

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" href="https://latinbank.io/favicon.ico" />
+  <link rel="icon" href="/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ausbank</title>
   <link rel="stylesheet" type="text/css" href="/loader.css" />
@@ -12,10 +12,10 @@
 <body>
   <div id="app">
     <div id="loading-bg">
-      <div class="loading-logo " >
-        <img src="/logo.png" height="50" alt="Logo" />
+      <div class="loading-logo">
+        <img src="/logo.png" height="50" alt="Logo" id="logo-index" />
       </div>
-      <div class="loading" >
+      <div class="loading">
         <div class="effect-1 effects"></div>
         <div class="effect-2 effects"></div>
         <div class="effect-3 effects"></div>
@@ -24,13 +24,24 @@
   </div>
   <script type="module" src="/src/main.ts"></script>
   <script>
-    const loaderColor = localStorage.getItem('Materio-initial-loader-bg') || '#FFFFFF'
-    const primaryColor = localStorage.getItem('primary') || '#1c298c'
+    let urlFront = 'https://latinbank.io/'
 
+    const loaderColor = localStorage.getItem('Materio-initial-loader-bg') || '#FFFFFF'
+    let loader = document.getElementById('logo-index')
+    let link = document.querySelector("link");
+    let setting = localStorage.getItem("settings")
+    let primaryColor = setting ? JSON.parse(setting).primaryColor : '#1c298c'
+    loader.src =  setting ? JSON.parse(setting).logo : '/logo.png'
+    let icon = setting ? JSON.parse(setting).icon :  '/favicon.ico'
+    let name = setting ? JSON.parse(setting).name : 'Ausbank'
+    if (link && link.rel == 'icon')
+      link.href = icon == 'favicon.ico' ? `${urlFront}${icon}` : icon
+    if(name) document.title = name
     if (loaderColor)
       document.documentElement.style.setProperty('--initial-loader-bg', loaderColor)
     if (primaryColor)
       document.documentElement.style.setProperty('--initial-loader-color', primaryColor)
+
 
   </script>
 </body>
