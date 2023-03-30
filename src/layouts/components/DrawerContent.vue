@@ -14,7 +14,7 @@ const upgradeBanner = computed(() => {
     ? upgradeBannerLight
     : upgradeBannerDark
 })
-const optionsMenu = ref([])
+const optionsMenu = ref<ItemMenu[]>([])
 const open = ref(["Users"]);
 
 optionsMenu.value = [
@@ -66,7 +66,16 @@ optionsMenu.value = [
     },]
   const options = computed(() => {
   return optionsMenu.value;
-});</script>
+});
+
+interface ItemMenu {
+    heading?: string 
+    title?: string,
+    to?: string,
+    icon?: { icon: string },
+    children?: ItemMenu[]
+}
+</script>
 
 <template>
   <!-- 👉 Nav header -->
