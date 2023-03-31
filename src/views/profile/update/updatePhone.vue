@@ -105,9 +105,11 @@ const verifyPhone = async () => {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+//vue-tel-input
+
 .vue-tel-input:focus-within {
   border-width: 2px;
-  border-color: #1c298c
+  border-color:  rgb(var(--v-theme-primary))
 }
 </style>

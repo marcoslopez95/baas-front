@@ -2,7 +2,8 @@
 import upgradeBannerDark from '@/assets/images/pro/upgrade-banner-dark.png';
 import upgradeBannerLight from '@/assets/images/pro/upgrade-banner-light.png';
 import { authStore } from '@/stores/AuthStore';
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n()
 import {
 VerticalListGroup, VerticalListItem,
 VerticalListSection
@@ -33,37 +34,37 @@ optionsMenu.value = [
   { heading: "Modules" },
 
   {
-    title: "Accounts",
+    title: t('menu.myaccounts'),
     to: "/accounts-user",
     icon: { icon: "mdi-account-cash" },
   },
   {
-    title: 'Deposits',
+    title: t('menu.Deposits'),
     to: '/deposit',
     icon: { icon: 'mdi-cash-fast' }
   },
   {
-      title: "Transfers",
+      title: t('menu.transfers'),
       to: "/dashboard-analytics",
       icon: { icon: "mdi-key-outline" },
       children: [
         {
-          title: "Internas",
+          title: t('menu.inner'),
           to: "/transfers/inner-transfers",
           icon: { icon: "mdi-circle-outline" },
         },
         {
-          title: "Propias",
+          title:t('menu.own'),
           to: "/transfers/own-transfers",
           icon: { icon: "mdi-circle-outline" },
         },
         {
-          title: "Otros",
+          title: t('menu.other'),
           to: "/transfers/outer-transfers",
           icon: { icon: "mdi-circle-outline" },
         },
         {
-          title: "Crypto",
+          title: t('menu.Other'),
           to: "/transfers/crypto-transfers",
           icon: { icon: "mdi-circle-outline" },
         }

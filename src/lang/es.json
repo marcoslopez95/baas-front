@@ -89,7 +89,13 @@
     "branch-users": "Admins. Sucursales",
     "users": "Usuarios",
     "Centralized-Accounts-Category": "Categ. de Ctas. Centralizadas",
-    "Document-types": "Tipos de Documento"
+    "Document-types": "Tipos de Documento",
+    "transfers": "Transferencias",
+    "inner": "Internas",
+    "own": "Propio",
+    "other": "Otros",
+    "crypto": "Crypto",
+    "myaccounts": "Mis cuentas"
   },
   "buttons": {
     "create": "Crear"
@@ -186,21 +192,27 @@
     },
     "kyc": {
       "verify-identity": "Verificar Identidad",
+      "subtitle": " Verifica tu identidad para que puedas acceder a las demás funcionalidades de el sistema",
       "type-document": "Tipo de Documento",
       "birthdate": "Fecha de Nacimiento",
       "city": "Ciudad",
       "address": "Dirección",
       "phone": "Número de teléfono",
       "image-front": {
-        "title": "Frontal",
-        "description": "Cargue una foto de su documento de identidad frontal"
+        "title": "FOTO DEL DOCUMENTO DE IDENTIDAD ANVERSO",
+        "title2": "FOTO DEL ANVERSO DE SU PASAPORTE",
+        "description": "Carga una foto del anverso de tu carnet de identificación",
+        "description2": "Carga una foto del anverso de tu passaporte"
       },
       "image-back": {
-        "description": "Sube una imagen del reverso de su Documento"
+        "title": "FOTO DEL DOCUMENTO DE IDENTIDAD REVERSO",
+        "description": "Carga una foto del reverso de tu carnet de identificación"
       },
       "image-selfie": {
-        "title": "Selfie",
-        "description": "Cargue una selfie"
+        "title": "SELFIE",
+        "description": "Carga una foto de tu rostro sonriendo y sosteniendo tu carnet de identificación.",
+        "description2": "Carga una foto de tu rostro sonriendo y sosteniendo tu passaporte.",
+        "description3": "Evita el uso de indocumentaria que impida la visibilidad de el rostro. No se aceptan fotos con pocos contraste y sombras"
       },
       "failed": "Lo sentimos no ha superado la verificación de identidad, revisa las siguientes sugerencias eh intentalo nuevamente.",
       "errors": {

@@ -63,7 +63,13 @@ const verify = (() => {
 <template>
   <div>
     <VCard class="mb-4">
-      <VCardTitle>{{$t('views.kyc.verify-identity')}}</VCardTitle>
+      <VCardTitle class="d-flex">
+          <VIcon size="30" color="primary" class="mr-4">mdi-account-card-details</VIcon>
+          <span>{{ $t('views.kyc.verify-identity') }}</span> 
+          </VCardTitle>
+          <VCardSubtitle style="    white-space: normal;" class="py-4">
+            {{ $t('views.kyc.subtitle') }}
+          </VCardSubtitle>
     </VCard> 
     <Component :formData="store.steps == 1 ? formDataStep1 : formDataStep2" :is="componentStep" @verify="verify()"
       @send="sendData()" @stepValue="store.steps = $event" />
