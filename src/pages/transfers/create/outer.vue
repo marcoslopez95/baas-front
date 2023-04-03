@@ -15,11 +15,11 @@ const createBeneficiary = () =>{
 <template>
     <div>
       <VCard class="mb-4">
-        <VCardTitle>Crear transferencia interna</VCardTitle>
+        <VCardTitle>Crear transferencia otros</VCardTitle>
       </VCard>
       <VCard min-height="300px" class="pt-4">
         <VCardText class="pa-4">
-         <FormTransfersInnerOwn @createBeneficiary="createBeneficiary" :type="'inner'"></FormTransfersInnerOwn> />
+         <FormTransfersInnerOwn :type="'outer'" @createBeneficiary="createBeneficiary" />
         </VCardText>
         <VCardActions>
         </VCardActions>

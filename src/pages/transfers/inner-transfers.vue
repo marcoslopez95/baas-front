@@ -172,7 +172,7 @@ const colorText = (item: Deposit) => {
 </VCol>
 <!-- fixed header -->
 <VCol cols="12">
-  <VCard title="Deposits" :loading="deposit.loadingList">
+  <VCard title="Transferencias internas" :loading="deposit.loadingList">
     <VCardText>
   <TableBasic @selectDeposit="selectDeposit($event)" :iconVoucher="true" :headers="headers" :desserts="desserts" />
   <VRow class="mt-2 px-5 py-2">
