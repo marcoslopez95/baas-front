@@ -5,8 +5,8 @@ import { requiredAmount, required, amountFormat } from '@/validator';
 import { accountUserStore } from '@/stores/AccountUserStore';
 import DialogConfirm from '@/views/global/DialogConfirm.vue';
 
-const account = accountUserStore()
 
+const account = accountUserStore()
 const validator = { required, requiredAmount }
 
 const transfer = transfersStore()
@@ -68,7 +68,7 @@ const processTransfer = async () => {
             label="Account origin"></VSelect>
         </VCol>
         <VCol cols="12" md="9" class="mx-auto ">
-          <VBtnSecondary density="compact" class="mb-1" @click="$emit('createBeneficiary')">Agregar beneficiario</VBtnSecondary>
+          <VBtnSecondary density="compact"  class="mb-1" @click="$emit('createBeneficiary')">Agregar beneficiario</VBtnSecondary>
 
           <VSelect v-model="accountDestination" :disabled="disabledForm" @update:model-value="changeDestination"
             return-object item-title="accountNumberFormat" item-value="id" :rules="[validator.required]"
@@ -117,7 +117,7 @@ const processTransfer = async () => {
               </VListItem>
               <VListItem>
                 <VListItemTitle>
-                  <VBtnSecondary @click="disabledForm = !disabledForm">Update</VBtnSecondary>
+                  <VBtnSecondary @click="disabledForm = !disabledForm" class="mr-2" min-width="100px">Update</VBtnSecondary>
                   <VBtnPrimary @click="confirmTransfer">Procesar transferencia</VBtnPrimary>
                 </VListItemTitle>
               </VListItem>

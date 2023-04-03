@@ -88,7 +88,8 @@ const nextStep = async () => {
             md="6"
           >
           <VueTelInput 
-                  class="h-80 border-primary" 
+                  class="h-48 border-primary" 
+                  style="height: 46px !important;"
                   v-model="phone"
                   autoDefaultCountry
                   autoFormat
@@ -135,13 +136,19 @@ const nextStep = async () => {
       </VForm>
     </VCardText>
     <VCardActions class="justify-end"
-      ><VBtn
+      ><VBtnSecondary
         min-width="150px"
         @click="nextStep"
         :disabled="!form.phone_number"
-        variant="tonal"
-        >{{$t('commons.next')}}</VBtn
+        >{{$t('commons.next')}}</VBtnSecondary
       ></VCardActions
     >
   </VCard>
 </template>
+<style >
+
+.vue-tel-input:focus-within {
+  border-width: 2px;
+  border-color:  rgb(var(--v-theme-primary))
+}
+</style>

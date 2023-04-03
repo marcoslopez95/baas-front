@@ -28,7 +28,7 @@ const createStore = async () => {
       <template #content>
         <VForm ref="formCreateAccount" @submit.prevent="createStore()">
           <VSelect v-model="account.currency_id" :rules="[validator.required]" :items="account.currencies"
-            item-title="name" item-value="id" label="Currency">
+            item-title="name" item-value="id" label="Cuen">
           </VSelect>
 
         </VForm>

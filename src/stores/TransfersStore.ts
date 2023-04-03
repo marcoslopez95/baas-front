@@ -12,12 +12,13 @@ export const transfersStore = defineStore('transfers', ()=>{
   const items = ref<transferInterfaz[]>([])
   const item = ref<transferInterfaz>()
 
-  const formInner = ref({
+  const form = ref({
     destination_account_id: null,
     origin_account_id: null,
     amount: "0,00",
     comments: '',
   })
+
 const dialogBeneficiary = ref(false)
 //   const currency_id = ref<any>(null)
 
@@ -82,7 +83,7 @@ const dialogBeneficiary = ref(false)
     // getAccounts,
     items,
     item,
-    formInner,
+    form,
     dialogBeneficiary
     // openModal,
     // createAccount,

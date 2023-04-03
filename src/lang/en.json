@@ -89,7 +89,13 @@
     "branch-users": "Branch Admins",
     "users": "Users",
     "Centralized-Accounts-Category": "Centralized Account Categories",
-    "Document-types": "Document Types"
+    "Document-types": "Document Types",
+    "transfers": "Transfers",
+    "inner": "Inner",
+    "own": "Own",
+    "other": "Other",
+    "Other": "Crypto",
+    "myaccounts": "My Accounts"
   },
   "buttons": {
     "create": "Create"
@@ -186,22 +192,27 @@
     },
     "kyc": {
       "verify-identity": "Verify Identity",
+      "subtitle": " Verify your identity so that you can access the other features of the system",
       "type-document": "Type Document",
       "birthdate": "Birthdate",
       "city": "City",
       "address": "Address",
       "phone": "Phone number",
       "image-front": {
-        "title": "Front",
-        "description": "Upload an image front of your DNI"
+        "title": "PICTURE OF REVERSE IDENTITY DOCUMENT",
+        "title2": "PHOTO OF THE FRONT OF YOUR PASSPORT",
+        "description": "Upload a photo of the front of your ID card",
+        "description2": "Upload a photo of the front of your passport"
       },
       "image-back": {
-        "title": "Back Image",
-        "description": "Upload an imagen back of your DNI"
+        "title": "PHOTO OF REVERSE IDENTITY DOCUMENT",
+        "description": "Upload a photo of the back of your ID"
       },
       "image-selfie": {
-        "title": "Selfie",
-        "description": "Upload a selfie"
+        "title": "SELFIE",
+        "description": "Upload a picture of your face smiling and holding your ID",
+        "description2": "Upload a picture of your face smiling and holding your ID",
+        "description3":  "Avoid the use of undocumentary that prevents the visibility of the face. Photos with low contrast and shadows are not accepted."
       },
       "failed": "Sorry you have not passed the identity check, check the following suggestions and try again.",
       "errors": {

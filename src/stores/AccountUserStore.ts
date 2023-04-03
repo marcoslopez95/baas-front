@@ -19,7 +19,7 @@ export const accountUserStore = defineStore('account-user', ()=>{
     helper.http(url,'get')
 
         .then((res:any) => {
-          
+          items.value = []
           res.data.data.map(res=>  items.value.push({...res, accountNumberFormat: `${res.accountNumber} (${Intl.NumberFormat(["ban", "id"]).format(res.balance)} ${res?.currency?.abbreviation})` }))
         })
         .catch(err => {
