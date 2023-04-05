@@ -12,7 +12,6 @@ const props = defineProps({
   }
 })
 
-
 const auth = authStore()
 const account = accountUserStore()
 const validator = { required, requiredAmount }
@@ -20,13 +19,15 @@ const validator = { required, requiredAmount }
 const transfer = transfersStore()
 account.getAccounts()
 
-const { form, addressesInner, addressesOuter, addressesCrypto, dialogConfirm, sms_token} = storeToRefs(transfer)
-form.value ={
-    destination_account_id: null,
-    origin_account_id: null,
-    amount: "0,00",
-    comments: '',
-  }
+const { form, addressesInner, addressesOuter, addressesCrypto, dialogConfirm, sms_token, paramsSimule, disabledForm, objectSimule } = storeToRefs(transfer)
+disabledForm.value = false
+
+form.value = {
+  destination_account_id: null,
+  origin_account_id: null,
+  amount: "0,00",
+  comments: '',
+}
 sms_token.value = null
 const { sendCodeSms } = storeToRefs(auth)
 const moneyInput = (event: string) => {
@@ -37,122 +38,129 @@ const formCodeTransfer = ref<any>()
 const formCreateTransfer = ref<any>()
 const { items: user_accounts } = storeToRefs(account)
 
-const accountsDetination = ref([])
-const accountsOrigin = ref([])
 const accountOrigin = ref(null)
 const accountDestination = ref(null)
 const userAccountsDestination = ref([])
-const disabledForm = ref(false)
-const code = ref(null)
 
-// const selectPaymentMethod = computed(()=> {
-
-// })
 
 const changeOrigin = () => {
   form.value.origin_account_id = accountOrigin?.value.id
   form.value.destination_account_id = null
   accountDestination.value = null
+  paramsSimule.value.from = accountOrigin?.value.currency?.abbreviation
   switch (props.type) {
-    case 'onw':
-      userAccountsDestination.value = user_accounts.value.filter(res => ((res.currency.id == accountOrigin?.value.currency?.id) && (res.id != accountOrigin?.value.id)))
-      
+    case 'own':
+      userAccountsDestination.value = user_accounts.value.filter(res => (res.id != accountOrigin?.value.id))
       break;
-      case 'inner':
-        console.log('addressesInner', addressesInner)
-      userAccountsDestination.value = addressesInner.value.filter(res => ((res.account?.currency?.id == accountOrigin?.value.currency?.id) && (res.account?.id != accountOrigin?.value.id)))
+    case 'inner':
+      userAccountsDestination.value = addressesInner.value
       userAccountsDestination.value.map(res => {
-         res.accountNumberFormat = `${res.account?.accountNumber} ( ${res?.account?.currency?.abbreviation})`
-         res.accountNumber = res.account?.accountNumber
-      }) 
+        res.accountNumberFormat = `${res.account?.accountNumber} ( ${res?.account?.currency?.abbreviation})`
+        res.accountNumber = res.account?.accountNumber
+      })
       break;
-      case 'outer':
-        console.log('addressesOuter', addressesOuter)
-      userAccountsDestination.value = addressesOuter.value.filter(res => ((res.currency?.id == accountOrigin?.value.currency?.id)))
+    case 'outer':
+      userAccountsDestination.value = addressesOuter.value
       userAccountsDestination.value.map(res => {
-         res.accountNumberFormat = `${res?.accountNumber} ( ${res?.currency?.abbreviation})`
-      }) 
+        res.accountNumberFormat = `${res?.accountNumber} ( ${res?.currency?.abbreviation})`
+      })
       break;
-      case 'crypto':
-        console.log('addressesCrypto', addressesCrypto)
-      userAccountsDestination.value = addressesCrypto.value.filter(res => ((res.account?.currency?.id == accountOrigin?.value.currency?.id) && (res.account?.id != accountOrigin?.value.id)))
+    case 'crypto':
+      userAccountsDestination.value = addressesCrypto.value.filter(res => (res.currency?.id == accountOrigin?.value.currency?.id))
       userAccountsDestination.value.map(res => {
-         res.accountNumberFormat = `${res.account?.accountNumber} ( ${res?.account?.currency?.abbreviation})`
-         res.accountNumber = res.account?.accountNumber
-      }) 
+        res.accountNumberFormat = `${res.walletAddress} ( ${res?.currency?.abbreviation})`
+        res.accountNumber = res.walletAddress
+      })
       break;
-  
+
     default:
       break;
   }
-  
+
 
 }
 const changeDestination = () => {
   form.value.destination_account_id = accountDestination?.value.id
+  switch (props.type) {
+    case 'own':
+      paramsSimule.value.to = accountDestination?.value.currency?.abbreviation
+      break;
+    case 'inner':
+      paramsSimule.value.to = accountDestination?.value.account?.currency?.abbreviation
+      break;
+    case 'outer':
+      paramsSimule.value.to = accountDestination?.value.currency?.abbreviation
+      break;
+    case 'crypto':
+      paramsSimule.value.to = accountDestination?.value.currency?.abbreviation
+      break;
+
+    default:
+      break;
+  }
+
 }
 const confirmTransfer = () => {
-  console.log(form)
-  if(props.type == "own")
-  transfer.createTranferOwn()
-  else { 
+  if (props.type == "own")
+    transfer.createTranferOwn()
+  else {
     auth.getResendCodeSms()
     dialogConfirm.value = true
   }
-
 }
 
-
 const createTransfer = async () => {
-  console.log(form, user_accounts)
-
   const { valid } = await formCreateTransfer.value.validate()
   if (!valid) return
-  disabledForm.value = true
+  if (paramsSimule.value.to != paramsSimule.value.from)
+    transfer.getSimuleTransfer()
+  else disabledForm.value = true
 
 }
 const processTransfer = async () => {
-  console.log(form)
   const { valid } = await formCodeTransfer.value.validate()
   if (!valid) return
-  console.log('creada')
-  if(sendCodeSms.value){
-  
-  switch (props.type) {
-    case 'own':
-  transfer.createTranferOwn()
-    break;
-  case 'inner':
-    
-  transfer.createTranferInner()
-    break;
-    case 'outer':
-  transfer.createTranferOuter()
-    break;
-    case 'crypto':
-  transfer.createTranferCrypto()
-    break;
+  if (sendCodeSms.value) {
 
-  default:
-    break;
- 
+    switch (props.type) {
+      case 'own':
+        transfer.createTranferOwn()
+        break;
+      case 'inner':
 
+        transfer.createTranferInner()
+        break;
+      case 'outer':
+        transfer.createTranferOuter()
+        break;
+      case 'crypto':
+        transfer.createTranferCrypto()
+        break;
+
+      default:
+        break;
+
+
+    }
   }
-}
 
 }
-
-console.log('type',props.type)
 
 switch (props.type) {
+  case 'own':
+    paramsSimule.value.operation_category_id = 2
+    break;
   case 'inner':
-  transfer.getAddressInner()
+    transfer.getAddressInner()
+    paramsSimule.value.operation_category_id = 3
     break;
-    case 'outer':
-  transfer.getAddressOuter()
+  case 'outer':
+    transfer.getAddressOuter()
+    paramsSimule.value.operation_category_id = 4
     break;
-    case 'crypto':
-  transfer.getAddressCrypto()
+  case 'crypto':
+    transfer.getAddressCrypto()
+    paramsSimule.value.operation_category_id = 5
     break;
 
   default:
@@ -171,19 +179,21 @@ switch (props.type) {
             label="Account origin"></VSelect>
         </VCol>
         <VCol cols="12" md="9" class="mx-auto ">
-          <VBtnSecondary density="compact" :disabled="disabledForm"  v-if="type != 'own'" class="mb-2" @click="$emit('createBeneficiary')">Agregar
+          <VBtnSecondary density="compact" :disabled="disabledForm" v-if="type != 'own'" class="mb-2"
+            @click="$emit('createBeneficiary')">Agregar
             beneficiario</VBtnSecondary>
 
-          <VSelect v-model="accountDestination" :disabled="disabledForm || !accountOrigin?.id" @update:model-value="changeDestination"
-            return-object item-title="accountNumberFormat" item-value="id" :rules="[validator.required]"
-            :items="userAccountsDestination" label="Account destino"></VSelect>
+          <VSelect v-model="accountDestination" :disabled="disabledForm || !accountOrigin?.id"
+            @update:model-value="changeDestination" return-object item-title="accountNumberFormat" item-value="id"
+            :rules="[validator.required]" :items="userAccountsDestination"
+            :label="type == 'crypto' ? 'Wallet address:' : 'Cuenta destino:'"></VSelect>
         </VCol>
         <VCol cols="12" md="9" class="mx-auto">
           <VTextField v-model="form.amount" :disabled="disabledForm" @keyup="moneyInput($event)"
             :rules="[validator.requiredAmount]" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
             type="text" label="Amount" />
         </VCol>
-        <VCol cols="12" md="9" class="mx-auto" v-if="type != 'outer' && type!='crypto'">
+        <VCol cols="12" md="9" class="mx-auto" v-if="type != 'outer' && type != 'crypto'">
           <VTextarea v-model="form.comments" :disabled="disabledForm" label="Comments (optional)" />
         </VCol>
         <VCol cols="12" md="9" class="mx-auto justify-end">
@@ -198,7 +208,7 @@ switch (props.type) {
           <VCardTitle>Detalle de la transferencia</VCardTitle>
           <VCardText>
             <VList>
-              <VListItem  v-if="type == 'outer'">
+              <VListItem v-if="type == 'outer'">
                 <VListItemTitle>
                   Payment method: {{ accountDestination?.paymentMethod?.name }}
                 </VListItemTitle>
@@ -208,17 +218,28 @@ switch (props.type) {
                   Cuenta origen: {{ accountOrigin?.accountNumber }}
                 </VListItemTitle>
               </VListItem>
-              <VListItem>
+              <VListItem v-if="type == 'crypto'">
                 <VListItemTitle>
-                  Cuenta destino: {{ accountDestination?.accountNumber }}
+                  Network: {{ accountDestination?.cryptoCurrencyNetwork?.name }}
                 </VListItemTitle>
               </VListItem>
               <VListItem>
                 <VListItemTitle>
-                  Monto: {{ form.amount }} {{ accountOrigin?.currency?.abbreviation }}
+                  {{ type == 'crypto' ? 'Wallet address:' : 'Cuenta destino:' }} {{ accountDestination?.accountNumber }}
                 </VListItemTitle>
               </VListItem>
-              <VListItem  v-if="type != 'outer' && type!='crypto'">
+              <VListItem>
+                <VListItemTitle>
+                  Enviarás: {{ form.amount }} {{ accountOrigin?.currency?.abbreviation }}
+                </VListItemTitle>
+              </VListItem>
+              <VListItem v-if="paramsSimule?.to != paramsSimule?.from">
+                <VListItemTitle>
+                  Recibirás: {{ Intl.NumberFormat(["ban", "id"]).format(objectSimule?.rates[paramsSimule.to]) }} {{
+                    paramsSimule.to }}
+                </VListItemTitle>
+              </VListItem>
+              <VListItem v-if="type != 'outer' && type != 'crypto'">
                 <VListItemTitle>
                   Comments: {{ form.comments }}
                 </VListItemTitle>
@@ -238,7 +259,8 @@ switch (props.type) {
 
     </VRow>
     <DialogConfirm :title="'Confirmar transferencia'" :content="'Ingresa el codigo que fue enviado a tu tlf'"
-      :dialog="dialogConfirm" @close="dialogConfirm = false" @cancel="auth.getResendCodeSms()"  :btnCancelText="'Resend code'" :btnAcceptText="'Confirm'" @ok="processTransfer">
+      :dialog="dialogConfirm" @close="dialogConfirm = false" @cancel="auth.getResendCodeSms()"
+      :btnCancelText="'Resend code'" :btnAcceptText="'Confirm'" @ok="processTransfer">
 
       <VForm ref="formCodeTransfer">
         <VRow class="mt-2">

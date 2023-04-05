@@ -38,7 +38,8 @@
     "city": "Ciudad",
     "address": "Dirección",
     "save-changes": "Guardar Cambios",
-    "back": "Regresar"
+    "back": "Regresar",
+    "id": "id"
   },
   "tables": {
     "headers": {
@@ -240,6 +241,18 @@
       "update-email": "Actualizar Email",
       "account-details": "Detalles de Cuenta",
       "birthday": "Fecha de Nacimiento"
+    },
+    "transfers": {
+      "own": {
+        "header": {
+          "transaction-number": "Número Transacción",
+          "amount": "Monto",
+          "account-origin": "Cuenta Origen",
+          "account-destination": "Cuenta de Destino",
+          "operation-category": "Operación Categoría",
+          "operation-status": "Estado Operación"
+        }
+      }
     }
   },
   "assign-permissions-to-role": "Asignar permisos al Rol",

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { required } from '@/validator';
+import { required, email } from '@/validator';
 import DialogBase from '@/views/global/Dialog.vue'
 import { transfersStore } from '@/stores/TransfersStore';
 import { depositStore } from '@/stores/depositStore';
@@ -20,7 +20,7 @@ const props = defineProps({
     required: true,
   }
 })
-const validator = { required }
+const validator = { required, email }
 const currenciesWithSelectPaymentMethod = computed(() => {
   if (bussinness_bank.value.length === 0) return []
   let currencies: currencyInterfaz[] = []
@@ -60,7 +60,6 @@ const formCreateBeneficiaryCrypto = ref<createBeneficiaryCrypto>({
 const formCreateAccount = ref<any>()
 
 const changePayment = () => {
-  console.log(formCreateBeneficiaryOuter.value)
   formCreateBeneficiaryOuter.value.currency_id = null
 }
 const createStore = async () => {
@@ -86,9 +85,6 @@ const createStore = async () => {
 
 
 }
-// networksCrypto
-
-console.log('type', props.type)
 
 switch (props.type) {
   case 'outer':
@@ -188,27 +184,27 @@ interface createBeneficiaryCrypto {
             <VTextField v-model="formCreateBeneficiaryOuter.reference" density="compact" label="Reference" />
           </VCol>
         </VRow>
-        <VRow v-else-if="props.type == 'crypto'">          
+        <VRow v-else-if="props.type == 'crypto'">
           <VCol cols="12" md="6">
-            <VSelect item-title="name"  item-value="id"
-              :items="networksCrypto" v-model="formCreateBeneficiaryCrypto.crypto_currency_network_id"
-              density="compact" :rules="[validator.required]" label="Network"></VSelect>
+            <VSelect item-title="name" item-value="id" :items="networksCrypto"
+              v-model="formCreateBeneficiaryCrypto.crypto_currency_network_id" density="compact"
+              :rules="[validator.required]" label="Network"></VSelect>
           </VCol>
           <VCol cols="12" md="6">
-            <VSelect item-title="abbreviation"  item-value="id"
-              :items="account.currencies" v-model="formCreateBeneficiaryCrypto.currency_id"
-              density="compact" :rules="[validator.required]" label="Currency"></VSelect>
+            <VSelect item-title="abbreviation" item-value="id" :items="account.currencies"
+              v-model="formCreateBeneficiaryCrypto.currency_id" density="compact" :rules="[validator.required]"
+              label="Currency"></VSelect>
           </VCol>
           <VCol cols="12" md="6">
-            <VTextField v-model="formCreateBeneficiaryCrypto.name" density="compact" label="name"
+            <VTextField v-model="formCreateBeneficiaryCrypto.name" density="compact" label="Name"
               :rules="[validator.required]" />
           </VCol>
           <VCol cols="12" md="6">
-            <VTextField v-model="formCreateBeneficiaryCrypto.email" density="compact" label="email"
-              :rules="[validator.required]" />
+            <VTextField v-model="formCreateBeneficiaryCrypto.email" density="compact" label="Email"
+              :rules="[validator.required, validator.email]" />
           </VCol>
           <VCol cols="12" md="6">
-            <VTextField v-model="formCreateBeneficiaryCrypto.wallet_address" density="compact" label="wallet_address"
+            <VTextField v-model="formCreateBeneficiaryCrypto.wallet_address" density="compact" label="Wallet address"
               :rules="[validator.required]" />
           </VCol>
         </VRow>

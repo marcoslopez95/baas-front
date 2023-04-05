@@ -7,6 +7,7 @@ import { langTypes } from './../lang/index'
 export const authStore = defineStore('auth', () => {
   const helper = helperStore()
   const router = useRouter()
+  const { baseUrl } = storeToRefs(helper)
 
   const login = (form: formLoginInterface) => {
     let url = '/api/auth/client-login'
@@ -168,6 +169,8 @@ export const authStore = defineStore('auth', () => {
   }
   const sendCodeSms = ref(false)
   const getResendCodeSms = () => {
+    baseUrl.value = import.meta.env.VITE_API_URL
+
     let url = '/api/auth/send-sms'
     // console.log('data',data)
     sendCodeSms.value = false

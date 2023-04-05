@@ -38,7 +38,8 @@
     "city": "City",
     "address": "Addres",
     "save-changes": "Save Changes",
-    "back": "Back"
+    "back": "Back",
+    "id": "id"
   },
   "tables": {
     "headers": {
@@ -240,6 +241,18 @@
       "update-email": "Update Email",
       "account-details": "Account Details",
       "birthday": "Birthday"
+    },
+    "transfers": {
+      "own": {
+        "header": {
+          "transaction-number": "Transaction Number",
+          "amount": "Amount",
+          "account-origin": "Account Origin",
+          "account-destination": "Account Destination",
+          "operation-category": "Operation Category",
+          "operation-status": "Operation Status"
+        }
+      }
     }
   },
   "assign-permissions-to-role": "Assign PermissionsTo Role",
