@@ -68,7 +68,7 @@ interface accountTypeInterfaz {
       <VCol v-for="data in store.items" :key="data.id" cols="12" md="6" lg="4">
         <VCard class="rounded-xl pa-4">
           <VCardTitle class="text-dark" @click="openModal(data)">
-            {{ data.accountType.name }}
+            {{  data.currency.name }}
           </VCardTitle>
           <VDivider></VDivider>
 
@@ -76,7 +76,7 @@ interface accountTypeInterfaz {
             <VRow>
               <VCol cols="10">
                 {{ data.accountNumber }}<br />
-                {{ data.balance }} {{ data.currency.abbreviation }} <br />
+                {{ Intl.NumberFormat(["ban", "id"]).format(data.balance) }} {{ data.currency.abbreviation }} <br />
               </VCol>
               <VCol cols="2">
                 <VBtn class="" icon variant="tonal" color="primary">
@@ -90,7 +90,7 @@ interface accountTypeInterfaz {
         </VCard>
       </VCol>
       <DialogConfirm :title="'Eliminar cuenta'" :content="'¿Estas seguro de eliminar la cuenta?'" :dialog="dialogDelete"
-        @close="dialogDelete = false" @ok="deleteConfirm" />
+        @close="dialogDelete = false"   @cancel="dialogDelete = false"  @ok="deleteConfirm" />
 
       <v-dialog v-if="dialog" v-model="dialog" max-width="500px" class="" persistent>
         <v-card class="rounded-xl px-4 py-3">

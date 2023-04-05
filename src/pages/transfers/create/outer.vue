@@ -24,6 +24,6 @@ const createBeneficiary = () =>{
         <VCardActions>
         </VCardActions>
       </VCard>
-      <CreateBeneficiary v-if="dialogBeneficiary" />
+      <CreateBeneficiary :type="'outer'" v-if="dialogBeneficiary" />
     </div>
   </template>

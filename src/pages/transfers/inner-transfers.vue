@@ -1,29 +1,25 @@
 <script lang="ts" setup>
 import { helperStore } from '@/helper';
-import { depositStore } from '@/stores/depositStore';
+import { transfersStore } from '@/stores/TransfersStore';
 import dayjs from 'dayjs';
-import UploadVoucher from '@/views/deposit/UploadVoucher.vue';
 import { useI18n } from 'vue-i18n';
 import TableBasic from '@/views/global/Table.vue'
 import CreateModal from '@/views/deposit/CreateModal.vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-
 const redirectCreate = () => {  router.push('create/inner') }
-
 const { t } = useI18n()
-// const item = ref<Deposit>()
 const helper = helperStore()
 
 const { url, baseUrl } = storeToRefs(helper)
 baseUrl.value = import.meta.env.VITE_RECHEARBLE_API
-url.value = '/api/clients/recharges'
+url.value = '/api/clients/inner-transfers'
 
-const deposit = depositStore()
-deposit.index()
+const transfer = transfersStore()
+transfer.indexInner()
 
-const { showModal } = storeToRefs(deposit)
+// const { showModal } = storeToRefs(transfer)
 const { item } = storeToRefs(helper)
 const headers = ref([
   t('tables.headersDeposits.Id'),
@@ -35,10 +31,10 @@ const headers = ref([
   t('tables.headersDeposits.Actions')
 
 ])
-const selectDeposit = (deposit: Deposit) => {
-  item.value = deposit;
-  showModal.value = true;
-}
+// const selectDeposit = (deposit: Deposit) => {
+//   item.value = deposit;
+//   showModal.value = true;
+// }
 
 const desserts = computed(() => {
   let array: Array<object> = []
@@ -47,7 +43,12 @@ const desserts = computed(() => {
     helper.items.map((res: Deposit) => array.push(
       {
         ...res, desserts: {
-          id: res.transactionNumber, date: dayjs(res.createdAt).format('DD/MM/YYYY'), account: res.destination?.accountNumber, amount:  Intl.NumberFormat(["ban", "id"]).format(res.amount), currency: res.destination?.currency?.abbreviation, status: res.operationStatus?.name
+          // id: res.transactionNumber,
+           date: dayjs(res.createdAt).format('DD/MM/YYYY'),
+            // account: res.destination?.accountNumber, 
+            // amount:  Intl.NumberFormat(["ban", "id"]).format(res.amount),
+            //  currency: res.destination?.currency?.abbreviation, 
+            //  status: res.operationStatus?.name
         }
       }))
   return array
@@ -172,27 +173,26 @@ const colorText = (item: Deposit) => {
 </VCol>
 <!-- fixed header -->
 <VCol cols="12">
-  <VCard title="Transferencias internas" :loading="deposit.loadingList">
+  <VCard title="Transferencias internas" :loading="transfer.loadingList">
     <VCardText>
-  <TableBasic @selectDeposit="selectDeposit($event)" :iconVoucher="true" :headers="headers" :desserts="desserts" />
+  <TableBasic  :iconVoucher="true" :headers="headers" :desserts="desserts" />
   <VRow class="mt-2 px-5 py-2">
     <VCol>
       <VRow>
         <VCol cols="4">
           <VSelect v-model="helper.pagination.perPage" :items="helper.perPage" label="Pagination"
-            @update:modelValue="deposit.index()">
+            @update:modelValue="transfer.indexInner()">
           </VSelect>
         </VCol>
       </VRow>
     </VCol>
     <VCol>
       <VPagination v-model="helper.pagination.currentPage" :length="helper.pagination.total"
-        @update:model-value="helper.index"></VPagination>
+        @update:model-value="helper.index()"></VPagination>
     </VCol>
     <VCol></VCol>
   </VRow>
-  <UploadVoucher v-if="showModal">
-  </UploadVoucher>
+ 
   </VCardText>
   </VCard>
   </VCol>

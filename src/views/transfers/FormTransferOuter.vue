@@ -128,7 +128,7 @@ const processTransfer = async () => {
 
     </VRow>
     <DialogConfirm :title="'Confirmar transferencia'" :content="'Ingresa el codigo que fue enviado a tu tlf'"
-      :dialog="dialogConfirm" @close="dialogConfirm = false" :btnAcceptText="'Confirm'" @ok="processTransfer">
+      :dialog="dialogConfirm" @close="dialogConfirm = false"   @cancel="dialogDelete = false"  :btnAcceptText="'Confirm'" @ok="processTransfer">
 
       <VForm ref="formCodeTransfer">
         <VRow class="mt-2">

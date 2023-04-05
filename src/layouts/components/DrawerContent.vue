@@ -89,14 +89,14 @@ interface ItemMenu {
   <div class="nav-header mx-auto" style="padding:1rem 0.25rem 1rem 0.3em !important">
     <RouterLink to="/" class="app-logo d-flex align-center gap-x-3 app-title-wrapper">
       <!-- ℹ️ You can also use img tag or VImg here -->
-      <img :src="logo" />
+      <img :src="logo" style="max-width: 100px;"/>
 
 
     </RouterLink>
   </div>
 
     <!-- // 5061726120746f6461206c612076696461206d6920616d6f72 -->
-  <VList class="nav-list" v-model:opened="open" v-if="options && options.length > 0">
+  <VList style="overflow: auto !important; " class="nav-list" v-model:opened="open" v-if="options && options.length > 0">
     <div v-for="(item, i) in options" :key="i">
       <VerticalListGroup :item="item" v-if="item.children" />
       <VerticalListItem :item="item" v-else-if="!item.children && item.to

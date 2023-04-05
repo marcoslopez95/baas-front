@@ -166,7 +166,16 @@ export const authStore = defineStore('auth', () => {
       email: '',
     }
   }
-
+  const sendCodeSms = ref(false)
+  const getResendCodeSms = () => {
+    let url = '/api/auth/send-sms'
+    // console.log('data',data)
+    sendCodeSms.value = false
+    helper.http(url, 'get', { }, 'Código enviado').then(res => {
+      // confirm_code.value = true
+      sendCodeSms.value = true
+    }).catch(err =>  sendCodeSms.value = false)
+  }
   const confirm_code = ref(false)
   const getForgotPassword = (email: string) => {
     let url = '/api/auth/forgot-password'
@@ -196,6 +205,8 @@ export const authStore = defineStore('auth', () => {
       sendCode.value = true
     })
   }
+
+  
   const getVerifyUpdateEmail = () => {
     let url = '/api/auth/verify-change-email'
     let data = { ...formEmail.value }
@@ -278,7 +289,9 @@ export const authStore = defineStore('auth', () => {
     confirmationCodePhone,
     getVerifyUpdatePhone,
     formPhone,
-    setting
+    setting,
+    getResendCodeSms,
+    sendCodeSms
   }
 
   interface FormConfirmForgotPassword {

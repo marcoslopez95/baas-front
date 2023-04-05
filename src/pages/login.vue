@@ -43,7 +43,7 @@ const redirectPassword = () => {
       <VCardItem class="justify-center">
         <template #prepend>
           <div class="d-flex">
-            <img :src="logo"/>
+            <img :src="logo" style="max-width: 100px;"/>
           </div>
         </template>
       </VCardItem>

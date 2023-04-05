@@ -7,7 +7,7 @@
         </template>
         <template #actions>
           <VRow class="mx-auto text-center justify-center">
-              <VBtn @click="$emit('close')" min-width="100px" variant="tonal">{{ btnCancelText }}</VBtn>
+              <VBtn @click="$emit('cancel')" min-width="100px" variant="tonal">{{ btnCancelText }}</VBtn>
               <VBtn @click="$emit('ok')" min-width="100px"  variant="flat">{{ btnAcceptText }}</VBtn>
           </VRow>
         </template>

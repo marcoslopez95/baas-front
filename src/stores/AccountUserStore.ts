@@ -14,6 +14,7 @@ export const accountUserStore = defineStore('account-user', ()=>{
   const currency_id = ref<any>(null)
 
   const getAccounts = () => {
+  baseUrl.value = import.meta.env.VITE_API_URL
     
     let url = '/api/accounts'
     helper.http(url,'get')
@@ -29,6 +30,7 @@ export const accountUserStore = defineStore('account-user', ()=>{
   
   const openModal = ref(false);
   const createAccount = (currency:number) => {
+    baseUrl.value = import.meta.env.VITE_API_URL
     let url = '/api/accounts'
     let data = {
       currency_id : currency
@@ -50,6 +52,7 @@ export const accountUserStore = defineStore('account-user', ()=>{
   const currencies = ref<Currency[]>([])
 
   const getCurrencies = () => {
+    baseUrl.value = import.meta.env.VITE_API_URL
     let url = `/api/currencies`
 
     helper.http(url, 'get').then(
