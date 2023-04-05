@@ -16,7 +16,7 @@ const props = defineProps({
       <VListItem class="nav-list-item-group"  :prepend-icon="item.icon.icon" v-bind="props" :title="item.title"></VListItem>
     </template>
     <div v-for="(chil, i) in item.children" :key="i" >
-    <VerticalListItem v-if="chil.permission ? isPermitted(chil.permission) :true"  :item="chil"></VerticalListItem>
+    <VerticalListItem style="padding-inline-start:30px !important"  v-if="chil.permission ? isPermitted(chil.permission) :true"  :item="chil"></VerticalListItem>
     </div>
   </VListGroup>
 </template>

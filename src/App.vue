@@ -10,6 +10,7 @@ if(helper.isAutenticated())
 auth.getUser()
 if(auth.user.name == ''){
   auth.setUser()
+  auth.setSetting()
 }
 
 

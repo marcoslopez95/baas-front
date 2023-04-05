@@ -294,7 +294,8 @@ export const authStore = defineStore('auth', () => {
     formPhone,
     setting,
     getResendCodeSms,
-    sendCodeSms
+    sendCodeSms,
+    setSetting
   }
 
   interface FormConfirmForgotPassword {

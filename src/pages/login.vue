@@ -16,9 +16,9 @@ const form = ref({
 })
 
 const router = useRouter()
-const urlFront = ref(import.meta.env.VITE_URL_FRONT)
+let urlFront =  window.location.protocol+'//'+window.location.host;
 const logo = computed(() => {
-  return auth.setting?.logo == 'logo.png' ? `${urlFront.value}${auth.setting?.logo}` : auth.setting?.logo
+  return auth.setting?.logo == 'logo.png' ? `${urlFront}${auth.setting?.logo}` : auth.setting?.logo
 })
 const vuetifyTheme = useTheme()
 const authThemeMask = computed(() => {
