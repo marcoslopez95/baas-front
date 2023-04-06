@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import FormTransfers from '@/views/transfers/FormTransfers.vue.js'
+import FormTransfers from '@/views/transfers/FormTransfers.vue'
 import CreateBeneficiary from '@/views/transfers/CreateBeneficiary.vue'
 import { transfersStore } from '@/stores/TransfersStore';
 const transfer = transfersStore()
