@@ -25,9 +25,6 @@ console.log(text)
         case "EN VERIFICACION":
             status = "Verification"
             break;
-        case "EN VERIFICACION":
-            status = "Verification"
-            break;
         case "EN ESPERA DE COMPROBANTE":
             status = "Awaiting"
             break;
