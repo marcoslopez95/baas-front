@@ -25,7 +25,7 @@ const formUser = ref({
   country_id: store.user.profile?.country?.id,
 
 })
-const phoneNumber = ref(`+${store.user.profile?.phoneNumber}`)
+const phoneNumber = store.user.profile?.phoneNumber ? ref(`+${store.user.profile?.phoneNumber}`) : ref('')
 
 const refInputEl = ref<HTMLElement>()
 
