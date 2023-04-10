@@ -22,9 +22,9 @@ transfer.indexInner()
 
 const { item } = storeToRefs(helper)
 const headers: Head[] = [
-  {
-    name: t('commons.id'),
-    value: 'id',
+{
+    name: t('tables.headersDeposits.Date'),
+    value: 'createdAt',
   },
   {
     name: t('views.transfers.own.header.transaction-number'),
@@ -61,10 +61,12 @@ const headers: Head[] = [
     <VCol cols="12">
       <VCard title="Transferencias internas" :loading="transfer.loadingList">
         <VCardText>
-          <TableComponent :optionsHabilit="true" :iconShow="true" :items="helper.items" :headers="headers">
+          <TableComponent :optionsHabilit="false" :iconShow="false" :items="helper.items" :headers="headers">
             <template #cel-amount="{ data }">
               <span>{{ Intl.NumberFormat(["ban", "id"]).format(data.amount) }}</span>
-
+            </template>
+            <template #cel-createdAt="{ data }">
+              <span>{{ data.createdAt.substr(0, 10) }}</span>
             </template>
           </TableComponent>
         </VCardText>
