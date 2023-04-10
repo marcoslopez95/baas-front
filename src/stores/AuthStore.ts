@@ -1,3 +1,6 @@
+import { FormConfirmForgotPassword, FormLoginInterface, FormRegisterInterface } from '@/interfaces/Auth/Auth.model'
+import { FormKycInterface, UserCreateDto } from '@/interfaces/User/User.dto'
+import { User } from '@/interfaces/User/User.model'
 import { AxiosResponse } from 'axios'
 import { defineStore } from 'pinia'
 import { useRouter } from 'vue-router'
@@ -9,7 +12,7 @@ export const authStore = defineStore('auth', () => {
   const router = useRouter()
   const { baseUrl } = storeToRefs(helper)
 
-  const login = (form: formLoginInterface) => {
+  const login = (form: FormLoginInterface) => {
     let url = '/api/auth/client-login'
 
     helper
@@ -31,7 +34,7 @@ export const authStore = defineStore('auth', () => {
 
   const loading = ref(false)
   const errorsKyc = ref()
-  const validateKyc = (form: formKycInterface) => {
+  const validateKyc = (form: FormKycInterface) => {
     console.log(form)
     let data = new FormData()
     data.append('document_type_id', `${form.document_type_id}`)
@@ -67,7 +70,7 @@ export const authStore = defineStore('auth', () => {
         }
       })
   }
-  const register = (form: formRegisterInterface) => {
+  const register = (form: FormRegisterInterface) => {
     let url = '/api/auth/register'
     let headers = {
       'business-key': import.meta.env.VITE_BUSSINESS_KEY,
@@ -83,7 +86,7 @@ export const authStore = defineStore('auth', () => {
   }
   const loadingProfile = ref(false)
 
-  const updateProfile = (form: formRegisterInterface) => {
+  const updateProfile = (form: FormRegisterInterface) => {
     let url = '/api/auth/update-profile'
     loadingProfile.value = true
     helper
@@ -99,7 +102,7 @@ export const authStore = defineStore('auth', () => {
       })
   }
 
-  const user = ref<userModel>({
+  const user = ref<UserCreateDto>({
     id: 0,
     business_id: 0,
     code: '',
@@ -110,7 +113,7 @@ export const authStore = defineStore('auth', () => {
   const setUser = () => {
     let get_user = localStorage.getItem('user')
     if (!get_user) return null
-    let user_local: userModel = JSON.parse(get_user)
+    let user_local: User = JSON.parse(get_user)
     user.value = user_local
     statusKyc.value = user_local?.profile?.kycVerification?.general_status
   }
@@ -133,7 +136,7 @@ export const authStore = defineStore('auth', () => {
         Authorization: `Bearer ${token}`,
       }
       try {
-        let res: AxiosResponse = await helper.http(url, 'get', { headers })
+        let res: AxiosResponse = await helper.http(url, 'get', { headers }) as AxiosResponse
         localStorage.setItem('user', JSON.stringify(res.data.data))
         localStorage.setItem("settings",JSON.stringify({        
           icon: res.data?.data?.business?.business?.icon,
@@ -249,12 +252,12 @@ export const authStore = defineStore('auth', () => {
     })
   }
   const lang = ref<langTypes>('')
-  lang.value = localStorage.getItem('lang')
+  lang.value = localStorage.getItem('lang') as langTypes
   watch(lang, () => {
     if (localStorage.getItem('lang')) {
       localStorage.removeItem('lang')
     }
-    localStorage.setItem('lang', lang.value)
+    localStorage.setItem('lang', lang.value!)
   })
 
   const changeLang = (lang_i: langTypes) => {
@@ -262,7 +265,7 @@ export const authStore = defineStore('auth', () => {
     if (localStorage.getItem('lang')) {
       localStorage.removeItem('lang')
     }
-    localStorage.setItem('lang', lang.value)
+    localStorage.setItem('lang', lang.value!)
     window.location.reload()
   }
   return {
@@ -298,52 +301,4 @@ export const authStore = defineStore('auth', () => {
     setSetting
   }
 
-  interface FormConfirmForgotPassword {
-    code: string
-    password: string
-    password_confirmation: string
-  }
-  interface FormConfirmVerifyEmail {
-    sms_token: string
-    email_token: string
-    email: string
-  }
-  interface userModel {
-    id: number
-    business_id: number
-    code: string
-    name: string
-    email: string
-    parent_id?: null
-    root_id?: null
-    password?: string
-    // created_at?: "2023-01-26T16:42:08.000000Z",
-    // updated_at: "2023-01-26T16:42:08.000000Z",
-    // deleted_at: null
-  }
-
-  interface formLoginInterface {
-    email: string
-    password: string
-  }
-
-  interface formRegisterInterface {
-    business_code: string
-    name: string
-    email: string
-    password: string
-    password_confirmation: string
-  }
-
-  interface formKycInterface {
-    document_type_id: number | null
-    country_id: number | null
-    city: string
-    address: string
-    birthdate: string
-    phone_number: string
-    selfie: object | '' | string | Blob
-    front_document: object | '' | string | Blob
-    reverse_document: object | '' | string | Blob
-  }
 })

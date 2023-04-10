@@ -1,7 +1,9 @@
+import { Account } from '@/interfaces/Account/Account.model';
+import { Currency } from '@/interfaces/Currency/Currency.model';
 import { defineStore } from 'pinia';
 import { ref } from "vue";
+import { toast } from 'vue3-toastify';
 import { helperStore } from './../helper';
-import { toast, ToastOptions } from 'vue3-toastify';
 
 export const accountUserStore = defineStore('account-user', ()=>{
   const helper = helperStore()
@@ -9,8 +11,8 @@ export const accountUserStore = defineStore('account-user', ()=>{
 
   baseUrl.value = import.meta.env.VITE_API_URL
 
-  const items = ref<accountUserInterfaz[]>([])
-  const item = ref<accountUserInterfaz>()
+  const items = ref<Account[]>([])
+  const item = ref<Account>()
   const currency_id = ref<any>(null)
 
   const getAccounts = () => {
@@ -21,7 +23,7 @@ export const accountUserStore = defineStore('account-user', ()=>{
 
         .then((res:any) => {
           items.value = []
-          res.data.data.map(res=>  items.value.push({...res, accountNumberFormat: `${res.accountNumber} (${Intl.NumberFormat(["ban", "id"]).format(res.balance)} ${res?.currency?.abbreviation})` }))
+          res.data.data.map((res:any)=>  items.value.push({...res, accountNumberFormat: `${res.accountNumber} (${Intl.NumberFormat(["ban", "id"]).format(res.balance)} ${res?.currency?.abbreviation})` }))
         })
         .catch(err => {
           console.log(err)
@@ -84,43 +86,6 @@ export const accountUserStore = defineStore('account-user', ()=>{
     getCurrencies,
     deleteAccount,
     currency_id
-  }
-
-  
-interface Currency {
-  id: number
-  name: string
-  abbreviation: string
-  symbol: string
-  description: string
-  createdAt?: any
-}
-
-  interface accountUserInterfaz {
-    "id": number,
-    "accountNumber": string,
-    "balance": number,
-    "transferAccountantBalance": number,
-    "rechargeAccountantBalance": number,
-    "createdAt": Date,
-    "currency": currencyInterfaz,
-    "accountType": accountTypeInterfaz
-  }
-
-  interface currencyInterfaz{
-    "id": number,
-    "name": string,
-    "abbreviation": string,
-    "symbol": string,
-    "description": string,
-    "createdAt"?: Date
-  }
-  interface accountTypeInterfaz{
-    "id": number,
-    "name": string,
-    "description": string,
-    "createdAt": Date,
-    "updatedAt": Date
   }
  
 })

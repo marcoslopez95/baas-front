@@ -54,6 +54,9 @@
 </template>
 
 <script setup lang="ts">
+import { Account } from '@/interfaces/Account/Account.model';
+import { BussinessBankAcount } from '@/interfaces/BussinessBankAccount/BussinessBankAccount.model';
+import { Currency } from '@/interfaces/Currency/Currency.model';
 import { accountUserStore } from '@/stores/AccountUserStore';
 import { depositStore } from '@/stores/depositStore';
 
@@ -70,8 +73,8 @@ const goNextStep = () => {
 }
 const filterAccounts = computed(() => {
   if (user_accounts.value.length === 0) return []
-  let accounts: accountUserInterfaz[] = []
-  user_accounts.value.map((element: accountUserInterfaz) => {
+  let accounts: Account[] = []
+  user_accounts.value.forEach((element: Account) => {
     for (let currency of currenciesWithSelectPaymentMethod.value) {
       if (element.currency.id == currency.id) {
         accounts.push(element)
@@ -83,8 +86,8 @@ const filterAccounts = computed(() => {
 
 const currenciesWithSelectPaymentMethod = computed(() => {
   if (bussinness_bank.value.length === 0) return []
-  let currencies: currencyInterfaz[] = []
-  bussinness_bank.value.map((element: any) => {
+  let currencies: Currency[] = []
+  bussinness_bank.value.forEach((element: BussinessBankAcount) => {
     if(element.paymentMethod){
       if (form.value.payment_method_id === element.paymentMethod.id) {
         currencies.push(element.currency)
@@ -98,30 +101,4 @@ const selectAccount = (element: any) => {
   form.value.account_id = element.id
 }
 
-interface accountUserInterfaz {
-  id: number
-  accountNumber: string
-  balance: number
-  transferAccountantBalance: number
-  rechargeAccountantBalance: number
-  createdAt: Date
-  currency: currencyInterfaz
-  accountType: accountTypeInterfaz
-}
-
-interface currencyInterfaz {
-  id: number
-  name: string
-  abbreviation: string
-  symbol: string
-  description: string
-  createdAt?: Date
-}
-interface accountTypeInterfaz {
-  id: number
-  name: string
-  description: string
-  createdAt: Date
-  updatedAt: Date
-}
 </script>

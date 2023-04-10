@@ -6,4 +6,4 @@ export default {
   es
 }
 
-export type langTypes = 'en' | 'es' | ''
+export type langTypes = 'en' | 'es' | '' | null

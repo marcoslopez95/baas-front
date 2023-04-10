@@ -25,7 +25,7 @@
       <VCol cols="12" lg="6" v-if="selectBank">
 
         <VCard class="text-center">
-          <v-btn title="Copiar datos para el deposito" @click="clipBoard(selectBank)" icon variant="tonal"
+          <v-btn title="Copiar datos para el deposito" @click="clipBoard(selectBank!)" icon variant="tonal"
             position="absolute" style="right: 0px;">
             <v-icon color="primary">mdi-clipboard-text-outline</v-icon>
           </v-btn>
@@ -64,10 +64,11 @@
 </template>
 
 <script setup lang="ts">
+import { BussinessBankAcount } from '@/interfaces/BussinessBankAccount/BussinessBankAccount.model';
 import { accountUserStore } from '@/stores/AccountUserStore';
 import { depositStore } from '@/stores/depositStore';
-import { toast, ToastOptions } from 'vue3-toastify';
-import { requiredAmount,required, amountFormat } from '@/validator';
+import { amountFormat, required, requiredAmount } from '@/validator';
+import { toast } from 'vue3-toastify';
 
 const formDeposit = ref<any>()
   const validator = { required, requiredAmount }
@@ -79,8 +80,8 @@ const { items: user_accounts } = storeToRefs(account)
 
 const filterBussinessAccount = computed(() => {
   if (bussinness_bank.value.length === 0) return []
-  let bank_accounts: BussinessAccountInterfaz[] = []
-  bussinness_bank.value.map((element: BussinessAccountInterfaz) => {
+  let bank_accounts: BussinessBankAcount[] = []
+  bussinness_bank.value.forEach((element: BussinessBankAcount) => {
     if (element.paymentMethod) {
       if (element.paymentMethod.id == form.value.payment_method_id) {
         bank_accounts.push(element)
@@ -94,11 +95,11 @@ const moneyInput = (event: string) => {
 }
 const selectBank = computed(() => {
   if (!form.value.business_bank_account_id) return null
-  let bank: BussinessAccountInterfaz = bussinness_bank.value.find((element: BussinessAccountInterfaz) => element.id === form.value.business_bank_account_id)
+  let bank: BussinessBankAcount = bussinness_bank.value.find((element: BussinessBankAcount) => element.id === form.value.business_bank_account_id)!
   // console.log('banco',bank)
   return bank
 })
-const clipBoard = (item: BussinessAccountInterfaz) => {
+const clipBoard = (item: BussinessBankAcount) => {
   console.log(item)
   navigator.clipboard.writeText(`Account Holder: ${item.accountHolder},
                                 Account Number:${item.accountNumber},
@@ -125,52 +126,4 @@ const selectAccount = (element: any) => {
   form.value.account_id = element.id
 }
 
-interface PaymentMethod {
-  id: number
-  name: string
-  description: string
-  created_at: Date
-}
-
-interface Currency {
-  id: number
-  name: string
-  abbreviation: string
-  symbol: string
-  description: string
-  createdAt: Date
-}
-
-interface BankAccountType {
-  id: number
-  name: string
-  description: string
-  created_at: Date
-}
-
-interface Country {
-  id: number
-  name: string
-  abbreviation: string
-  phone_code: string
-  citizenship: string
-  description?: any
-  created_at: Date
-}
-
-interface BussinessAccountInterfaz {
-  id: number
-  bank: string
-  swiftCode: string
-  accountHolder: string
-  accountNumber: string
-  address: string
-  iban: string
-  reference?: any
-  createdAt: Date
-  paymentMethod: PaymentMethod
-  currency: Currency
-  bankAccountType: BankAccountType
-  country: Country
-}
 </script>
