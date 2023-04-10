@@ -15,7 +15,7 @@ export default {
     variant: 'flat'
   },
   VBtnSecondary:{
-    color: 'primary',
+    color: 'secondary',
     variant: 'tonal'
   },
   VBtn: {
