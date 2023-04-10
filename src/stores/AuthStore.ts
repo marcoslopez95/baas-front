@@ -72,6 +72,7 @@ export const authStore = defineStore('auth', () => {
   }
   const register = (form: FormRegisterInterface) => {
     let url = '/api/auth/register'
+    baseUrl.value = import.meta.env.VITE_API_URL
     let headers = {
       'business-key': import.meta.env.VITE_BUSSINESS_KEY,
     }
