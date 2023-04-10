@@ -2,6 +2,7 @@
 import CreateModal from '@/views/deposit/CreateModal.vue';
 import TableFixedHeader from '@/views/deposit/dataTable.vue';
 import { depositStore } from '@/stores/depositStore';
+
 const deposit = depositStore()
 
 </script>
@@ -17,6 +18,7 @@ const deposit = depositStore()
       <VCard title="Deposits" :loading="deposit.loadingList">
         <VCardText>
         <TableFixedHeader />
+     
       </VCardText>
       </VCard>
     </VCol>

@@ -74,11 +74,11 @@ interface accountTypeInterfaz {
 
           <VCardText class="text-dark">
             <VRow>
-              <VCol cols="10">
+              <VCol cols="10" md="9" lg="10">
                 {{ data.accountNumber }}<br />
                 {{ Intl.NumberFormat(["ban", "id"]).format(data.balance) }} {{ data.currency.abbreviation }} <br />
               </VCol>
-              <VCol cols="2">
+              <VCol cols="2" md="3" lg="2">
                 <VBtn class="" icon variant="tonal" color="primary">
                   <VIcon size="20px" color="bg-primary" icon="mdi-delete" @click="deleteAccount(data.id)"></VIcon>
                 </VBtn>

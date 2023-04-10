@@ -101,12 +101,33 @@ const changeDestination = () => {
 
 }
 const confirmTransfer = () => {
-  if (props.type == "own")
-    transfer.createTranferOwn()
-  else {
-    auth.getResendCodeSms()
+  switch (props.type) {
+      case 'own':
+        transfer.createTranferOwn()
+        break;
+      case 'inner':
+      auth.getResendCodeSms()
     dialogConfirm.value = true
-  }
+        break;
+      case 'outer':
+        transfer.createTranferOuter()
+        break;
+      case 'crypto':
+        transfer.createTranferCrypto()
+        break;
+
+      default:
+        break;
+
+
+    }
+
+  // if (props.type == "own")
+  //   transfer.createTranferOwn()
+  // else {
+  //   auth.getResendCodeSms()
+  //   dialogConfirm.value = true
+  // }
 }
 
 const createTransfer = async () => {

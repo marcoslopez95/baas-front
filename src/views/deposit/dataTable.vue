@@ -4,7 +4,9 @@ import { depositStore } from '@/stores/depositStore';
 import dayjs from 'dayjs';
 import UploadVoucher from './UploadVoucher.vue';
 import { useI18n } from 'vue-i18n';
-import TableBasic from '@/views/global/Table.vue'
+// import TableBasic from '@/views/global/Table.vue'
+import TableComponent from '@/views/global/TableComponent.vue';
+import { Head } from '@/Types';
 
 const { t } = useI18n()
 // const item = ref<Deposit>()
@@ -19,33 +21,60 @@ deposit.index()
 
 const { showModal } = storeToRefs(deposit)
 const { item } = storeToRefs(helper)
-const headers = ref([
-  t('tables.headersDeposits.Id'),
-  t('tables.headersDeposits.Date'),
-  t('tables.headersDeposits.Account'),
-  t('tables.headersDeposits.Amount'),
-  t('tables.headersDeposits.Currency'),
-  t('tables.headersDeposits.Status'),
-  t('tables.headersDeposits.Actions')
+// const headers = ref([
+//   t('tables.headersDeposits.Id'),
+//   t('tables.headersDeposits.Date'),
+//   t('tables.headersDeposits.Account'),
+//   t('tables.headersDeposits.Amount'),
+//   t('tables.headersDeposits.Currency'),
+//   t('tables.headersDeposits.Status'),
+//   t('tables.headersDeposits.Actions')
 
-])
+// ])
+
+const headers: Head[] = [
+  {
+    name: t('tables.headersDeposits.Id'),
+    value: 'transactionNumber',
+  },
+  {
+    name: t('tables.headersDeposits.Date'),
+    value: 'createdAt',
+  },
+  {
+    name: t('tables.headersDeposits.Account'),
+    value: 'destination.accountNumber',
+  },
+  {
+    name: t('tables.headersDeposits.Amount'),
+    value: 'amount',
+  },
+  {
+    name: t('tables.headersDeposits.Currency'),
+    value: 'destination.currency.abbreviation',
+  },
+  {
+    name: t('tables.headersDeposits.Status'),
+    value: 'operationStatus.name',
+  }
+]
 const selectDeposit = (deposit: Deposit) => {
   item.value = deposit;
   showModal.value = true;
 }
 
-const desserts = computed(() => {
-  let array: Array<object> = []
-  console.log(helper.items)
-  if (helper.items)
-    helper.items.map((res: Deposit) => array.push(
-      {
-        ...res, desserts: {
-          id: res.transactionNumber, date: dayjs(res.createdAt).format('DD/MM/YYYY'), account: res.destination?.accountNumber, amount:  Intl.NumberFormat(["ban", "id"]).format(res.amount), currency: res.destination?.currency?.abbreviation, status: res.operationStatus?.name
-        }
-      }))
-  return array
-})
+// const desserts = computed(() => {
+//   let array: Array<object> = []
+//   console.log(helper.items)
+//   if (helper.items)
+//     helper.items.map((res: Deposit) => array.push(
+//       {
+//         ...res, desserts: {
+//           id: res.transactionNumber, date: dayjs(res.createdAt).format('DD/MM/YYYY'), account: res.destination?.accountNumber, amount:  Intl.NumberFormat(["ban", "id"]).format(res.amount), currency: res.destination?.currency?.abbreviation, status: res.operationStatus?.name
+//         }
+//       }))
+//   return array
+// })
 
 interface Deposit {
   id: number
@@ -158,23 +187,33 @@ const colorText = (item: Deposit) => {
 </script>
 
 <template>
-  <TableBasic @selectDeposit="selectDeposit($event)" :iconVoucher="true" :headers="headers" :desserts="desserts" />
-  <VRow class="mt-2 px-5 py-2">
-    <VCol>
-      <VRow>
-        <VCol cols="4">
-          <VSelect v-model="helper.pagination.perPage" :items="helper.perPage" label="Pagination"
-            @update:modelValue="deposit.index()">
-          </VSelect>
-        </VCol>
-      </VRow>
-    </VCol>
-    <VCol>
-      <VPagination v-model="helper.pagination.currentPage" :length="helper.pagination.total"
-        @update:model-value="helper.index"></VPagination>
-    </VCol>
-    <VCol></VCol>
-  </VRow>
+  <!-- <TableBasic @selectDeposit="selectDeposit($event)" :iconVoucher="true" :headers="headers" :desserts="desserts" /> -->
+  <TableComponent :optionsHabilit="true" @selectDeposit="selectDeposit($event)" :iconVoucher="true"  :items="helper.items" :headers="headers">
+    <template #cel-amount="{ data }">
+      <span>{{ Intl.NumberFormat(["ban", "id"]).format(data.amount) }}</span>
+
+    </template>
+    <template #cel-createdAt="{ data }">
+      <span>{{ data.createdAt.substr(0, 10) }}</span>
+
+    </template>
+  </TableComponent>
+  <!-- <VRow class="mt-2 px-5 py-2">
+      <VCol>
+        <VRow>
+          <VCol cols="4">
+            <VSelect v-model="helper.pagination.perPage" :items="helper.perPage" label="Pagination"
+              @update:modelValue="deposit.index()">
+            </VSelect>
+          </VCol>
+        </VRow>
+      </VCol>
+      <VCol>
+        <VPagination v-model="helper.pagination.currentPage" :length="helper.pagination.total"
+          @update:model-value="helper.index"></VPagination>
+      </VCol>
+      <VCol></VCol>
+    </VRow> -->
   <UploadVoucher v-if="showModal">
   </UploadVoucher>
 </template>

@@ -91,6 +91,7 @@ interface Props {
         </thead>
         <tbody>
             <tr v-for="(item, i) in items" :key="i">
+              
                 <td v-for="(head, j) in headers" :key="j" class="text-center">
                   <slot :name="`cel-${head.value}`" :data="item" >
                   <!-- 54 6f 64 6f 20 65 73 74 6f 20 6c 6f 20 68 61 67 6f 20 70 6f 72 20 65 6c 6c 61 20 3c 33 -->
@@ -109,6 +110,10 @@ interface Props {
                               <VIcon @click="$emit('delete', item.id)" size="24"
                                   :icon="item.desserts.status ? 'mdi-delete' : 'mdi-delete-restore'" />
                           </VBtn>
+                          <VBtn v-if="iconVoucher && item.operationStatus.name == 'EN ESPERA DE COMPROBANTE'" :title="'Upload voucher'" color="transparent" size="x-small" elevation="0"
+                            icon>
+                            <VIcon @click="$emit('selectDeposit', item)" size="24" :icon="'mdi-upload'" />
+                        </VBtn>
                       </div>
                       <span v-else>{{ getValue(item, head.value) }}</span>
 

@@ -36,11 +36,11 @@ const headers: Head[] = [
   },
   {
     name: t('views.transfers.own.header.account-origin'),
-    value: 'origin.accountNumber',
+    value: 'origin.account_number',
   },
   {
     name: t('views.transfers.own.header.account-destination'),
-    value: 'destination.accountNumber',
+    value: 'destination.wallet_address',
   },
   {
     name: t('views.transfers.own.header.operation-status'),

@@ -143,8 +143,8 @@ export const transfersStore = defineStore('transfers', () => {
         amount: '0,00',
         comments: '',
       }
-      indexInner()
-      router.push('/transfers/inner-transfers')
+      indexCrypto()
+      router.push('/transfers/crypto-transfers')
     })
   }
 
