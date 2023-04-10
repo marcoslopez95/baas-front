@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import { useTheme } from 'vuetify'
 
 
@@ -50,7 +49,7 @@ const redirectPassword = () => {
 
       <VCardText class="pt-2">
         <h5 class="text-h5 font-weight-semibold mb-1">
-          Welcome to Auslander! 👋🏻
+          Welcome! 👋🏻
         </h5>
         <p class="mb-0">
           Please sign-in to your account and start the adventure
