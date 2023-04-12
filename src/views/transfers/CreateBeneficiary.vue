@@ -191,7 +191,7 @@ interface createBeneficiaryCrypto {
               :rules="[validator.required]" label="Network"></VSelect>
           </VCol>
           <VCol cols="12" md="6">
-            <VSelect item-title="abbreviation" item-value="id" :items="account.currencies"
+            <VSelect item-title="abbreviation" item-value="id" :items="account.currencies.filter(res => res.category?.name == 'CRYPTO')"
               v-model="formCreateBeneficiaryCrypto.currency_id" density="compact" :rules="[validator.required]"
               label="Currency"></VSelect>
           </VCol>
