@@ -5,6 +5,10 @@ import { requiredAmount, required, amountFormat } from '@/validator';
 import { accountUserStore } from '@/stores/AccountUserStore';
 import { authStore } from '@/stores/AuthStore';
 import DialogConfirm from '@/views/global/DialogConfirm.vue';
+import { useDisplay } from 'vuetify'
+
+const { lgAndUp, mdAndDown, xlAndUp } = useDisplay()
+
 const props = defineProps({
   type: {
     type: String,
@@ -56,10 +60,14 @@ const changeOrigin = () => {
   switch (props.type) {
     case 'own':
       userAccountsDestination.value = user_accounts.value.filter(res => (res.id != accountOrigin?.value.id))
+      userAccountsDestination.value.map(res => {
+        res.idAccount = res.id
+      })
       break;
     case 'inner':
       userAccountsDestination.value = addressesInner.value
       userAccountsDestination.value.map(res => {
+        res.idAccount = res.account?.id
         res.accountNumberFormat = `${res.account?.accountNumber} ( ${res?.account?.currency?.abbreviation})`
         res.accountNumber = res.account?.accountNumber
       })
@@ -67,12 +75,14 @@ const changeOrigin = () => {
     case 'outer':
       userAccountsDestination.value = addressesOuter.value
       userAccountsDestination.value.map(res => {
+        res.idAccount = res.id
         res.accountNumberFormat = `${res?.accountNumber} ( ${res?.currency?.abbreviation})`
       })
       break;
     case 'crypto':
       userAccountsDestination.value = addressesCrypto.value.filter(res => (res.currency?.id == accountOrigin?.value.currency?.id))
       userAccountsDestination.value.map(res => {
+        res.idAccount = res.id
         res.accountNumberFormat = `${res.walletAddress} ( ${res?.currency?.abbreviation})`
         res.accountNumber = res.walletAddress
       })
@@ -85,7 +95,7 @@ const changeOrigin = () => {
 
 }
 const changeDestination = () => {
-  form.value.destination_account_id = accountDestination?.value.id
+  form.value.destination_account_id = accountDestination?.value.idAccount
   switch (props.type) {
     case 'own':
       paramsSimule.value.to = accountDestination?.value.currency?.abbreviation
@@ -200,6 +210,7 @@ switch (props.type) {
   <VForm @submit.prevent="createTransfer" ref="formCreateTransfer">
     <VRow>
       <VCol cols="12" md="6">
+       <!-- <pre> {{ userAccountsDestination }}</pre> -->
         <VCol cols="12" md="9" class="mx-auto">
           <VSelect v-model="accountOrigin" :disabled="disabledForm" @update:model-value="changeOrigin" return-object
             item-title="accountNumberFormat" item-value="id" :rules="[validator.required]" :items="accountsUser"
@@ -209,9 +220,8 @@ switch (props.type) {
           <VBtnSecondary density="compact" :disabled="disabledForm" v-if="type != 'own'" class="mb-2"
             @click="$emit('createBeneficiary')">Agregar
             beneficiario</VBtnSecondary>
-
           <VSelect v-model="accountDestination" :disabled="disabledForm || !accountOrigin?.id"
-            @update:model-value="changeDestination" return-object item-title="accountNumberFormat" item-value="id"
+            @update:model-value="changeDestination" return-object item-title="accountNumberFormat" item-value="idAccount"
             :rules="[validator.required]" :items="userAccountsDestination"
             :label="type == 'crypto' ? 'Wallet address:' : 'Cuenta destino:'"></VSelect>
         </VCol>
@@ -228,7 +238,7 @@ switch (props.type) {
         </VCol>
       </VCol>
       <VCol cols="1" v-if="disabledForm">
-        <VIcon size="100">mdi-chevron-double-right</VIcon>
+        <VIcon :size="xlAndUp ? '100' :'50'" >mdi-chevron-double-right</VIcon>
       </VCol>
       <VCol cols="12" md="5" v-if="disabledForm">
         <VCard elevation="0" border>
@@ -271,14 +281,13 @@ switch (props.type) {
                   Comments: {{ form.comments }}
                 </VListItemTitle>
               </VListItem>
-              <VListItem>
-                <VListItemTitle>
-                  <VBtnSecondary @click="disabledForm = !disabledForm" class="mr-2" min-width="100px">Update
+              
+            </VList>
+            <VRow class="justify-center">
+              <VBtnSecondary @click="disabledForm = !disabledForm" class="mr-2" min-width="100px">Update
                   </VBtnSecondary>
                   <VBtnPrimary @click="confirmTransfer">Procesar transferencia</VBtnPrimary>
-                </VListItemTitle>
-              </VListItem>
-            </VList>
+            </VRow>
           </VCardText>
         </VCard>
 
