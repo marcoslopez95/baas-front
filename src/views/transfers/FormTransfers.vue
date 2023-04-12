@@ -68,7 +68,7 @@ const changeOrigin = () => {
       userAccountsDestination.value = addressesInner.value
       userAccountsDestination.value.map(res => {
         res.idAccount = res.account?.id
-        res.accountNumberFormat = `${res.account?.accountNumber} ( ${res?.account?.currency?.abbreviation})`
+        res.accountNumberFormat = `${res.account?.accountNumber}  (${res?.account?.currency?.abbreviation}) -- ${res?.comments}`
         res.accountNumber = res.account?.accountNumber
       })
       break;
@@ -76,14 +76,14 @@ const changeOrigin = () => {
       userAccountsDestination.value = addressesOuter.value
       userAccountsDestination.value.map(res => {
         res.idAccount = res.id
-        res.accountNumberFormat = `${res?.accountNumber} ( ${res?.currency?.abbreviation})`
+        res.accountNumberFormat = `${res?.accountNumber}  (${res?.currency?.abbreviation}) -- ${res?.name}`
       })
       break;
     case 'crypto':
       userAccountsDestination.value = addressesCrypto.value.filter(res => (res.currency?.id == accountOrigin?.value.currency?.id))
       userAccountsDestination.value.map(res => {
         res.idAccount = res.id
-        res.accountNumberFormat = `${res.walletAddress} ( ${res?.currency?.abbreviation})`
+        res.accountNumberFormat = `${res.walletAddress}  (${res?.currency?.abbreviation}) -- ${res?.name}`
         res.accountNumber = res.walletAddress
       })
       break;
