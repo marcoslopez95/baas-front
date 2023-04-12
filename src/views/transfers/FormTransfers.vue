@@ -1,7 +1,7 @@
 
 <script setup lang="ts">
 import { transfersStore } from '@/stores/TransfersStore';
-import { requiredAmount, required, amountFormat } from '@/validator';
+import { requiredAmount, required, amountFormat, transformAmount } from '@/validator';
 import { accountUserStore } from '@/stores/AccountUserStore';
 import { authStore } from '@/stores/AuthStore';
 import DialogConfirm from '@/views/global/DialogConfirm.vue';
@@ -270,10 +270,24 @@ switch (props.type) {
                   Enviarás: {{ form.amount }} {{ accountOrigin?.currency?.abbreviation }}
                 </VListItemTitle>
               </VListItem>
+            
               <VListItem v-if="paramsSimule?.to != paramsSimule?.from">
                 <VListItemTitle>
                   Recibirás: {{ Intl.NumberFormat(["ban", "id"]).format(objectSimule?.rates[paramsSimule.to]) }} {{
                     paramsSimule.to }}
+                </VListItemTitle>
+              </VListItem>
+              <VListItem v-if="paramsSimule?.to != paramsSimule?.from">
+                <VListItemTitle>
+                  Procentaje commission: {{ Intl.NumberFormat(["ban", "id"]).format(parseFloat(objectSimule?.commission)) }} %
+                </VListItemTitle>
+              </VListItem>
+              <VListItem v-if="paramsSimule?.to != paramsSimule?.from">
+                <!-- <pre>{{ transformAmount(form.amount) }}</pre>
+                <pre>{{ (parseFloat(2.00) / 100) * transformAmount(form.amount) }}</pre> -->
+                <VListItemTitle>
+                  Amount commission: {{ Intl.NumberFormat(["ban", "id"]).format((parseFloat(objectSimule?.commission) / 100) * transformAmount(form.amount)) }} {{
+                    paramsSimule.from }}
                 </VListItemTitle>
               </VListItem>
               <VListItem v-if="type != 'outer' && type != 'crypto'">
