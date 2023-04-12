@@ -41,7 +41,12 @@ const { items: user_accounts } = storeToRefs(account)
 const accountOrigin = ref(null)
 const accountDestination = ref(null)
 const userAccountsDestination = ref([])
-
+const accountsUser = computed(()=> {
+  if(props.type == 'crypto')
+  return user_accounts.value.filter(res => res.currency?.category?.name == 'CRYPTO')
+  else return user_accounts.value
+}
+)
 
 const changeOrigin = () => {
   form.value.origin_account_id = accountOrigin?.value.id
@@ -93,6 +98,7 @@ const changeDestination = () => {
       break;
     case 'crypto':
       paramsSimule.value.to = accountDestination?.value.currency?.abbreviation
+      
       break;
 
     default:
@@ -196,7 +202,7 @@ switch (props.type) {
       <VCol cols="12" md="6">
         <VCol cols="12" md="9" class="mx-auto">
           <VSelect v-model="accountOrigin" :disabled="disabledForm" @update:model-value="changeOrigin" return-object
-            item-title="accountNumberFormat" item-value="id" :rules="[validator.required]" :items="user_accounts"
+            item-title="accountNumberFormat" item-value="id" :rules="[validator.required]" :items="accountsUser"
             label="Account origin"></VSelect>
         </VCol>
         <VCol cols="12" md="9" class="mx-auto ">
