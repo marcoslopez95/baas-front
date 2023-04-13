@@ -44,55 +44,68 @@ const { items: user_accounts } = storeToRefs(account)
 
 const accountOrigin = ref(null)
 const accountDestination = ref(null)
-const userAccountsDestination = ref([])
-const accountsUser = computed(()=> {
-  if(props.type == 'crypto')
-  return user_accounts.value.filter(res => res.currency?.category?.name == 'CRYPTO')
-  else return user_accounts.value
-}
-)
+const userAccountsDestination = computed(() =>{
+  let accounts: any = []
 
-const changeOrigin = () => {
-  form.value.origin_account_id = accountOrigin?.value.id
-  form.value.destination_account_id = null
-  accountDestination.value = null
-  paramsSimule.value.from = accountOrigin?.value.currency?.abbreviation
   switch (props.type) {
     case 'own':
-      userAccountsDestination.value = user_accounts.value.filter(res => (res.id != accountOrigin?.value.id))
-      userAccountsDestination.value.map(res => {
+    console.log(accountOrigin)
+
+    if(accountOrigin.value?.id){
+      accounts = user_accounts.value.filter(res => (res.id != accountOrigin?.value.id) && res.currency?.category?.name == accountOrigin?.value.currency?.category?.name)
+      accounts.map(res => {
         res.idAccount = res.id
       })
+    }
       break;
     case 'inner':
-      userAccountsDestination.value = addressesInner.value
-      userAccountsDestination.value.map(res => {
+      // accounts = addressesInner.value.filter(res => res.account?.currency?.category?.name == accountOrigin?.value.currency?.category?.name)
+      accounts = addressesInner.value
+      accounts.map(res => {
         res.idAccount = res.account?.id
         res.accountNumberFormat = `${res.account?.accountNumber}  (${res?.account?.currency?.abbreviation}) -- ${res?.comments}`
         res.accountNumber = res.account?.accountNumber
       })
       break;
     case 'outer':
-      userAccountsDestination.value = addressesOuter.value
-      userAccountsDestination.value.map(res => {
+      accounts = addressesOuter.value
+      accounts.map(res => {
         res.idAccount = res.id
         res.accountNumberFormat = `${res?.accountNumber}  (${res?.currency?.abbreviation}) -- ${res?.name}`
       })
       break;
     case 'crypto':
-      userAccountsDestination.value = addressesCrypto.value.filter(res => (res.currency?.id == accountOrigin?.value.currency?.id))
-      userAccountsDestination.value.map(res => {
+      if(accountOrigin.value?.currency?.id){
+      accounts = addressesCrypto.value.filter(res => (res.currency?.id == accountOrigin?.value.currency?.id))
+      accounts.map(res => {
         res.idAccount = res.id
         res.accountNumberFormat = `${res.walletAddress}  (${res?.currency?.abbreviation}) -- ${res?.name}`
         res.accountNumber = res.walletAddress
       })
+    }
       break;
 
     default:
       break;
   }
+  console.log(accounts)
+return accounts;
+})
+const accountsUser = computed(()=> {
+  if(props.type == 'crypto')
+  return user_accounts.value.filter(res => res.currency?.category?.name == 'CRYPTO')
+  else return user_accounts.value
+  // .filter(res => res.currency?.category?.name == 'FIAT')
+}
+)
 
 
+
+const changeOrigin = () => {
+  form.value.origin_account_id = accountOrigin?.value.id
+  form.value.destination_account_id = null
+  accountDestination.value = null
+  paramsSimule.value.from = accountOrigin?.value.currency?.abbreviation
 }
 const changeDestination = () => {
   form.value.destination_account_id = accountDestination?.value.idAccount
