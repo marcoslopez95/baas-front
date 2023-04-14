@@ -5352,6 +5352,11 @@
     "picocolors" "^1.0.0"
     "yaml" "^2.1.1"
 
+"vite-plugin-remove-console@^2.1.0":
+  "integrity" "sha512-cil+h4rX3fDnnKMt73fexMGkwRSOV08+lTAzLGTRjGyxs9Ync3fqPWxnGrngJY7LyMMt3kEKf0hNOi+1DQ0j2g=="
+  "resolved" "https://registry.npmjs.org/vite-plugin-remove-console/-/vite-plugin-remove-console-2.1.0.tgz"
+  "version" "2.1.0"
+
 "vite-plugin-vue-layouts@^0.7.0":
   "integrity" "sha512-k5XDmRNFo4M/GmUjhbRXj2WmJiFcGoVI8l/uZ72RHyRDQr4wE/6Zq/KFq0lqXomWQxTSzakQRUswzNwtvZLE8A=="
   "resolved" "https://registry.npmjs.org/vite-plugin-vue-layouts/-/vite-plugin-vue-layouts-0.7.0.tgz"

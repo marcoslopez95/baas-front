@@ -8,6 +8,7 @@ import { defineConfig } from 'vite'
 import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
 import vuetify from 'vite-plugin-vuetify'
+import removeConsole from "vite-plugin-remove-console";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -32,6 +33,7 @@ export default defineConfig({
       vueTemplate: true,
     }),
     DefineOptions(),
+    removeConsole()
   ],
   define: { 'process.env': {} },
   resolve: {

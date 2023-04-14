@@ -6,6 +6,8 @@ import DrawerContent from './DrawerContent.vue'
 import Footer from '@/layouts/components/Footer.vue'
 import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
 import UserProfile from '@/layouts/components/UserProfile.vue'
+
+import changeLang from './ChangeLang.vue'
 import { authStore } from '@/stores/AuthStore'
 
 const auth = authStore()
@@ -40,7 +42,8 @@ const langs = [
         />
       </a> -->
       <NavbarThemeSwitcher />
-      <v-menu location="bottom">
+      <changeLang />
+      <!-- <v-menu location="bottom">
       <template v-slot:activator="{ props }">
         <v-btn
           color="primary"
@@ -59,7 +62,7 @@ const langs = [
           <v-list-item-title @click="auth.changeLang(item)">{{ item }}</v-list-item-title>
         </v-list-item>
       </v-list>
-    </v-menu>
+    </v-menu> -->
       <!-- <VBtn
         icon
         variant="text"

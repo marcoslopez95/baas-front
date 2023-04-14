@@ -142,7 +142,7 @@ interface createBeneficiaryCrypto {
               label="Account number" />
           </VCol>
           <VCol cols="12">
-            <VTextField v-model="formCreateBeneficiaryInner.comments" density="compact" label="Comments" />
+            <VTextField :rules="[validator.required]" v-model="formCreateBeneficiaryInner.comments" density="compact" label="Comments" />
           </VCol>
         </VRow>
         <VRow v-else-if="props.type == 'outer'">

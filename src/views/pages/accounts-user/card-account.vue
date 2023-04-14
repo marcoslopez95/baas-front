@@ -2,6 +2,7 @@
 import { accountUserStore } from '@/stores/AccountUserStore';
 import CreateAccount from './createAccount.vue';
 import DialogConfirm from '@/views/global/DialogConfirm.vue';
+import DialogBase from '@/views/global/Dialog.vue';
 import { helperStore } from '@/helper';
 
 const helper = helperStore()
@@ -68,7 +69,7 @@ interface accountTypeInterfaz {
       <VCol v-for="data in store.items" :key="data.id" cols="12" md="6" lg="4">
         <VCard class="rounded-xl pa-4">
           <VCardTitle class="text-dark" @click="openModal(data)">
-            {{  data.currency.name }}
+            {{ data.currency.name }} ({{ data.currency?.category?.name }})
           </VCardTitle>
           <VDivider></VDivider>
 
@@ -78,36 +79,27 @@ interface accountTypeInterfaz {
                 {{ data.accountNumber }}<br />
                 {{ Intl.NumberFormat(["ban", "id"]).format(data.balance) }} {{ data.currency.abbreviation }} <br />
               </VCol>
-              <VCol cols="2" md="3" lg="2">
-                <VBtn class="" icon variant="tonal" color="primary">
+              <VCol cols="2" md="3" lg="2" v>
+                <VBtn class="" icon variant="tonal" color="primary" v-if="!(data.balance > 0)">
                   <VIcon size="20px" color="bg-primary" icon="mdi-delete" @click="deleteAccount(data.id)"></VIcon>
                 </VBtn>
               </VCol>
             </VRow>
           </VCardText>
-
-
         </VCard>
       </VCol>
       <DialogConfirm :title="'Eliminar cuenta'" :content="'¿Estas seguro de eliminar la cuenta?'" :dialog="dialogDelete"
-        @close="dialogDelete = false"   @cancel="dialogDelete = false"  @ok="deleteConfirm" />
+        @close="dialogDelete = false" @cancel="dialogDelete = false" @ok="deleteConfirm" />
 
-      <v-dialog v-if="dialog" v-model="dialog" max-width="500px" class="" persistent>
-        <v-card class="rounded-xl px-4 py-3">
-          <v-card-title>
-            Datos de la cuenta {{ item?.accountType.name }} {{ item?.currency.symbol }}
-          </v-card-title>
-          <v-card-text>
-            Monto recargado: {{ item?.rechargeAccountantBalance }} <br>
-            Monto transferido: {{ item?.transferAccountantBalance }} {{ item?.currency.symbol }}
-          </v-card-text>
-          <v-card-actions>
-            <v-btn color="primary" variant="text" @click="dialog = false">
-              Close
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+      <DialogBase v-if="dialog" :dialog="dialog" @close="dialog = false">
+        <template #title> Datos de la cuenta {{ item?.accountNumber }}</template>
+        <template #content>
+          Monto recargado: {{ Intl.NumberFormat(["ban", "id"]).format(item?.rechargeAccountantBalance) }} {{
+            item?.currency.abbreviation }}<br>
+          Monto transferido: {{ Intl.NumberFormat(["ban", "id"]).format(item?.transferAccountantBalance) }} {{
+            item?.currency.abbreviation }}
+        </template>
+      </DialogBase>
     </VRow>
   </div>
 </template>

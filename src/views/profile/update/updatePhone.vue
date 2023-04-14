@@ -25,7 +25,7 @@
             </VCol>
             <VCol md="6" cols="12">
               <VTextField v-if="confirmationCodePhone" v-model="formPhone.sms_token" :rules="[validator.required]"
-                :label="$t('views.profile.code')">
+                :label="$t('views.profile.token-sms')">
               </VTextField>
             </VCol>
             <VCol cols="12" md="6">

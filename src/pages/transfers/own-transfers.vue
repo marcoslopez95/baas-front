@@ -9,13 +9,16 @@ import TableComponent from '@/views/global/TableComponent.vue';
 
 import { useRouter } from 'vue-router';
 import { Head, InnerTransfer } from '@/Types';
+import DetailsTranfers from '@/views/transfers/DetailsTranfers.vue';
 
 const router = useRouter();
 const redirectCreate = () => { router.push('create/own') }
 const { t } = useI18n()
 const helper = helperStore()
 
-const { url, baseUrl } = storeToRefs(helper)
+const { url, baseUrl, pagination } = storeToRefs(helper)
+pagination.value.currentPage = 1
+
 baseUrl.value = import.meta.env.VITE_RECHEARBLE_API
 url.value = '/api/clients/own-transfers'
 
@@ -38,11 +41,11 @@ const headers: Head[] = [
   },
   {
     name: t('views.transfers.own.header.account-origin'),
-    value: 'origin.accountNumber',
+    value: 'originAccountNumber',
   },
   {
     name: t('views.transfers.own.header.account-destination'),
-    value: 'destination.accountNumber',
+    value: 'destinationAccountNumber',
   },
   {
     name: t('views.transfers.own.header.operation-status'),
@@ -53,6 +56,13 @@ const headers: Head[] = [
 //   item.value = deposit;
 //   showModal.value = true;
 // }
+const transferItem = ref({})
+const showDetail = ref(false)
+const viewTransfer = (transfer: any) => {
+  console.log(transfer)
+  transferItem.value = transfer
+  showDetail.value = true;
+}
 
 </script>
 
@@ -64,9 +74,15 @@ const headers: Head[] = [
     <VCol cols="12">
       <VCard title="Transferencias propias" :loading="transfer.loadingList">
         <VCardText>
-          <TableComponent :optionsHabilit="false" :iconShow="false" :items="helper.items" :headers="headers">
+          <TableComponent :optionsHabilit="true" :iconShow="true" @show="viewTransfer($event)" :items="helper.items" :headers="headers">
             <template #cel-amount="{ data }">
               <span>{{ Intl.NumberFormat(["ban", "id"]).format(data.amount) }}</span>
+            </template>
+            <template #cel-originAccountNumber="{ data }">
+              <span>{{ data.origin.accountNumber }} ({{ data.origin.currency?.abbreviation }}) </span>
+            </template>
+            <template #cel-destinationAccountNumber="{ data }">
+              <span>{{ data.destination.accountNumber }} ({{ data.destination.currency?.abbreviation }}) </span>
             </template>
             <template #cel-createdAt="{ data }">
               <span>{{ data.createdAt.substr(0, 10) }}</span>
@@ -75,6 +91,8 @@ const headers: Head[] = [
         </VCardText>
       </VCard>
     </VCol>
+  <DetailsTranfers :showDetail="showDetail" :item="transferItem"  @showDetail="showDetail = $event"/>
+
   </VRow>
 </template>
 

@@ -7,6 +7,9 @@ import authV1MaskLight from '@/assets/images/pages/auth-v1-mask-light.png'
 import authV1Tree2 from '@/assets/images/pages/auth-v1-tree-2.png'
 import authV1Tree from '@/assets/images/pages/auth-v1-tree.png'
 import { authStore } from '@/stores/AuthStore'
+import changeLang from '@/layouts/components/ChangeLang.vue'
+
+import { required, onlyLetters, email, password, confirmPassword } from '@/validator';
 
 const form = ref({
     business_code : "123456",
@@ -15,6 +18,7 @@ const form = ref({
     password : "",
     password_confirmation : "",
 })
+const formRegister = ref<any>()
 
 const vuetifyTheme = useTheme()
 const authThemeMask = computed(() => {
@@ -33,12 +37,21 @@ const logo = computed(() => {
   console.log('setting',auth)
   return auth.setting?.logo == 'logo.png' ? `${urlFront}${auth.setting?.logo}` : auth.setting?.logo
 })
+const registerStore = async () =>{
+  const { valid } = await formRegister.value.validate()
+
+if (!valid) return
+auth.register(form.value)
+}
 </script>
 
 <template>
-  <div class="auth-wrapper d-flex align-center justify-center pa-4">
+  <div class="auth-wrapper d-flex flex-column pa-4">
+    <div class="text-end mb-4">
+      <changeLang />      
+    </div>
     <VCard
-      class="auth-card pa-4 pt-7"
+      class="auth-card mx-auto  pa-4 pt-7"
       max-width="448"
     >
       <VCardItem class="justify-center">
@@ -59,12 +72,13 @@ const logo = computed(() => {
       </VCardText>
 
       <VCardText>
-        <VForm @submit.prevent="()=> {}">
+        <VForm @submit.prevent="()=> registerStore" ref="formRegister">
           <VRow>
             <!-- Username -->
             <VCol cols="12">
               <VTextField
                 v-model="form.name"
+                :rules="[required, onlyLetters]"
                 label="Name"
               />
             </VCol>
@@ -72,6 +86,7 @@ const logo = computed(() => {
             <VCol cols="12">
               <VTextField
                 v-model="form.email"
+                :rules="[required, email]"
                 label="Email"
                 type="email"
               />
@@ -80,6 +95,7 @@ const logo = computed(() => {
               <VTextField
                 v-model="form.password"
                 label="Password"
+                :rules="[required, password]"
                 :type="isPasswordVisible ? 'text' : 'password'"
                 :append-inner-icon="isPasswordVisible ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
                 @click:append-inner="isPasswordVisible = !isPasswordVisible"
@@ -87,6 +103,7 @@ const logo = computed(() => {
             </VCol>
             <VCol cols="12">
               <VTextField
+                :rules="[required, confirmPassword(form.password, form.password_confirmation)]"
                 v-model="form.password_confirmation"
                 label="Confirm Password"
                 :type="isPasswordVisible2 ? 'text' : 'password'"
@@ -101,7 +118,6 @@ const logo = computed(() => {
               <VBtn
                 block
                 type="submit"
-                @click="auth.register(form)"
               >
                 Sign up
               </VBtn>

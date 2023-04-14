@@ -59,7 +59,7 @@ export const accountUserStore = defineStore('account-user', ()=>{
 
     helper.http(url, 'get').then(
         (res: any) => {
-          currencies.value = res.data.data
+          currencies.value = res.data.data.map((res:any) => { return { ...res, nameCategory: `${res.name} (${res.category?.name})` }})
         })
   }
 

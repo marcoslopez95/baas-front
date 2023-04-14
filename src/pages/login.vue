@@ -7,15 +7,19 @@ import authV1MaskLight from '@/assets/images/pages/auth-v1-mask-light.png'
 import authV1Tree2 from '@/assets/images/pages/auth-v1-tree-2.png'
 import authV1Tree from '@/assets/images/pages/auth-v1-tree.svg'
 import { authStore } from '@/stores/AuthStore'
+import changeLang from '@/layouts/components/ChangeLang.vue'
+import { required, email } from '@/validator';
+
 import { useRouter } from 'vue-router'
 const auth = authStore()
 const form = ref({
   email: '',
   password: '',
 })
+const formLogin = ref<any>()
 
 const router = useRouter()
-let urlFront =  window.location.protocol+'//'+window.location.host;
+let urlFront = window.location.protocol + '//' + window.location.host;
 const logo = computed(() => {
   return auth.setting?.logo == 'logo.png' ? `${urlFront}${auth.setting?.logo}` : auth.setting?.logo
 })
@@ -29,20 +33,26 @@ const authThemeMask = computed(() => {
 const isPasswordVisible = ref(false)
 const redirectPassword = () => {
   auth.confirm_code = false
-  router.push({name: 'auth-forgot-password'})
+  router.push({ name: 'auth-forgot-password' })
+}
+const loginStore = async () => {
+  const { valid } = await formLogin.value.validate()
+
+  if (!valid) return
+  auth.login(form.value)
 }
 </script>
 
 <template>
-  <div class="auth-wrapper d-flex align-center justify-center pa-4">
-    <VCard
-      class="auth-card pa-4 pt-7"
-      max-width="448"
-    >
+  <div class="auth-wrapper d-flex flex-column  pa-4">
+  <div class="text-end mb-4">
+    <changeLang />
+  </div>
+  <VCard class="auth-card pa-4 pt-7 mx-auto" max-width="448">
       <VCardItem class="justify-center">
         <template #prepend>
           <div class="d-flex">
-            <img :src="logo" style="max-width: 100px;"/>
+            <img :src="logo" style="max-width: 100px;" />
           </div>
         </template>
       </VCardItem>
@@ -57,105 +67,69 @@ const redirectPassword = () => {
       </VCardText>
 
       <VCardText>
-        <VForm @submit.prevent="() => {}">
+        <VForm @submit.prevent="loginStore" ref="formLogin">
           <VRow>
             <!-- email -->
             <VCol cols="12">
-              <VTextField
-                v-model="form.email"
-                label="Email"
-                type="email"
-              />
+              <VTextField v-model="form.email" :rules="[required, email]" label="Email" type="email" />
             </VCol>
 
             <!-- password -->
             <VCol cols="12">
-              <VTextField
-                v-model="form.password"
-                label="Password"
-                :type="isPasswordVisible ? 'text' : 'password'"
+              <VTextField :rules="[required]" v-model="form.password" label="Password" :type="isPasswordVisible ? 'text' : 'password'"
                 :append-inner-icon="isPasswordVisible ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
-                @click:append-inner="isPasswordVisible = !isPasswordVisible"
-              />
+                @click:append-inner="isPasswordVisible = !isPasswordVisible" />
 
               <!-- remember me checkbox -->
               <!-- <div class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4">
-                <VCheckbox
-                  v-model="auth.form.remember"
-                  label="Remember me"
-                />
+                  <VCheckbox
+                    v-model="auth.form.remember"
+                    label="Remember me"
+                  />
 
-                <a
-                  class="ms-2 mb-1"
-                  href="javascript:void(0)"
-                >
-                  Forgot Password?
-                </a>
-              </div> -->
+                  <a
+                    class="ms-2 mb-1"
+                    href="javascript:void(0)"
+                  >
+                    Forgot Password?
+                  </a>
+                </div> -->
 
               <!-- login button -->
             </VCol>
-            <VCol
-              cols="12"
-              class="text-end text-base"
-            >
-              <span
-                class="text-primary ms-2"
-                @click="redirectPassword"
-              >
+            <VCol cols="12" class="text-end text-base">
+              <span class="text-primary ms-2" @click="redirectPassword">
                 Forgot password?
               </span>
             </VCol>
             <VCol cols="12">
-              <VBtn
-                style="margin-top: 5px;"
-                block
-                type="submit"
-                @click="auth.login(form)"
-              >
+              <VBtn style="margin-top: 5px;" block type="submit">
                 Login
               </VBtn>
 
             </VCol>
 
             <!-- create account -->
-            <VCol
-              cols="12"
-              class="text-center text-base"
-            >
+            <VCol cols="12" class="text-center text-base">
               <span>New on our platform?</span>
-              <RouterLink
-                class="text-primary ms-2"
-                :to="{ name: 'register' }"
-              >
+              <RouterLink class="text-primary ms-2" :to="{ name: 'register' }">
                 Create an account
               </RouterLink>
             </VCol>
 
-         
+
 
           </VRow>
         </VForm>
       </VCardText>
     </VCard>
 
-    <VImg
-      class="auth-footer-start-tree d-none d-md-block"
-      :src="authV1Tree"
-      :width="250"
-    />
+    <VImg class="auth-footer-start-tree d-none d-md-block" :src="authV1Tree" :width="250" />
 
-    <VImg
-      :src="authV1Tree2"
-      class="auth-footer-end-tree d-none d-md-block"
-      :width="350"
-    />
+    <VImg :src="authV1Tree2" class="auth-footer-end-tree d-none d-md-block" :width="350" />
 
     <!-- bg img -->
-    <VImg
-      class="auth-footer-mask d-none d-md-block"
-      :src="authThemeMask"
-    />
+    <VImg class="auth-footer-mask d-none d-md-block" :src="authThemeMask" />
   </div>
 </template>
 

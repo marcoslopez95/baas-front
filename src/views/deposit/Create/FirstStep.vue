@@ -22,7 +22,7 @@
                 <VBtn min-width="200px"
                   :variant="form.account_id == item.id ? 'tonal' : 'outlined'" v-for="item in filterAccounts"
                   @click="selectAccount(item)" :color="form.account_id == item.id ? 'primary' : 'primary'">
-                  {{ item.accountNumber }} ( {{ item.balance }} {{ item.currency.abbreviation }})
+                  {{ item.accountNumber }} ( {{ Intl.NumberFormat(["ban", "id"]).format(item.balance) }} {{ item.currency.abbreviation }} )
                 </VBtn>
               </VRow>
             </div>

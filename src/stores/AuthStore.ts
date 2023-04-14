@@ -188,7 +188,7 @@ export const authStore = defineStore('auth', () => {
     let url = '/api/auth/forgot-password'
     let params = { email }
     // console.log('data',data)
-    helper.http(url, 'get', { params }, 'Código enviado').then(res => {
+    helper.http(url, 'get', { params }, 'Codigo enviado a su correo electrónico').then(res => {
       confirm_code.value = true
     })
   }
@@ -196,7 +196,7 @@ export const authStore = defineStore('auth', () => {
   const confirmForgotPassword = (form: FormConfirmForgotPassword, type: string) => {
     let url = '/api/auth/verify-password-recovery'
     let data = { ...form }
-    helper.http(url, 'post', { data }, 'contraseña cambiada').then(res => {
+    helper.http(url, 'post', { data }, 'Contraseña actualizada').then(res => {
       type == 'Recover' ? router.push('/login') : router.push('/profile')
     })
   }
@@ -207,7 +207,7 @@ export const authStore = defineStore('auth', () => {
     let params = { email: formEmail.value.email }
     // console.log('data',data)
     sendCode.value = false
-    helper.http(url, 'get', { params }, 'Código enviado').then(res => {
+    helper.http(url, 'get', { params }, 'Token enviado al teléfono registrado en el sistema, y al nuevo correo electrónico').then(res => {
       // confirm_code.value = true
       sendCode.value = true
     })
@@ -219,7 +219,7 @@ export const authStore = defineStore('auth', () => {
     let data = { ...formEmail.value }
 
     // console.log('data',data)
-    helper.http(url, 'post', { data }, 'Correo actualizado correctamente').then(res => {
+    helper.http(url, 'post', { data }, 'Correo electrónico actualizado correctamente').then(res => {
       formEmail.value = { email_token: '', sms_token: '', email: '' }
 
       sendCode.value = false
@@ -235,7 +235,7 @@ export const authStore = defineStore('auth', () => {
     let params = { phone_number: formPhone.value.phone_number }
     // console.log('data',data)
     confirmationCodePhone.value = false
-    helper.http(url, 'get', { params }, 'Código enviado').then(res => {
+    helper.http(url, 'get', { params }, 'Token enviado al correo electrónico registrado en el sistema, y al nuevo teléfono').then(res => {
       // confirm_code.value = true
       confirmationCodePhone.value = true
     })
@@ -246,7 +246,7 @@ export const authStore = defineStore('auth', () => {
     let data = { ...formPhone.value }
 
     // console.log('data',data)
-    helper.http(url, 'post', { data }, 'Telefono actualizado correctamente').then(res => {
+    helper.http(url, 'post', { data }, 'Teléfono actualizado correctamente').then(res => {
       formPhone.value = { email_token: '', sms_token: '', phone_number: '' }
       getUser()
       confirmationCodePhone.value = false
