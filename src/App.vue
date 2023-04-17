@@ -4,8 +4,9 @@ import { authStore } from './stores/AuthStore';
 
 const helper = helperStore()
 console.log('helper',helper.isAutenticated())
-const loadingO = ref(false)
-provide('loading',loadingO)
+
+// const loadingO = ref(false)
+// provide('loading',loadingO)
 
 const auth = authStore()
 if(helper.isAutenticated())
@@ -26,7 +27,7 @@ localStorage.setItem('secondary','#8c1c7f')
       <RouterView />
       <!-- <BuyNow /> -->
     </VLayout>
-    <v-overlay v-model="loadingO" class="overl">
+    <v-overlay v-model="helper.loading" class="overl">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
   </VApp>

@@ -40,9 +40,10 @@
 import { accountUserStore } from '@/stores/AccountUserStore';
 import { required } from '@/validator';
 import DialogBase from '@/views/global/Dialog.vue';
-import { Ref } from 'vue';
 const validator = { required }
-const loadingO = inject('loading') as Ref<boolean>
+
+// const loadingO = inject('loading') as Ref<boolean>
+
 const account = accountUserStore()
 account.getCurrencies()
 const formCreateAccount = ref<any>()
@@ -51,11 +52,11 @@ const createStore = async () => {
   const { valid } = await formCreateAccount.value.validate()
   console.log(valid, account.currency_id)
   if (!valid) return
-  loadingO.value = true
+  // loadingO.value = true
   console.log('true')
   await account.createAccount(account.currency_id)
   console.log('false')
-  loadingO.value = false
+  // loadingO.value = false
 }
 </script>
 

@@ -1,10 +1,11 @@
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
 import { defineStore } from 'pinia';
 import { useRouter } from 'vue-router';
-import { toast, ToastOptions } from 'vue3-toastify';
+import { ToastOptions, toast } from 'vue3-toastify';
 
 export const helperStore = defineStore('helper',() => {
   
+  const loading = ref(false);
   const baseUrl = ref(import.meta.env.VITE_API_URL)
   const items = ref()
   const item = ref()
@@ -21,6 +22,8 @@ export const helperStore = defineStore('helper',() => {
   const http = (url:string,method: Method = 'get', options: AxiosRequestConfig = {}, notification = '') => {
     return new Promise(async (resolve, reject) => {
       try{ 
+        loading.value = true;
+
         let config: AxiosRequestConfig = {
           url,
           method,
@@ -60,6 +63,9 @@ export const helperStore = defineStore('helper',() => {
           router.push('/login')
         }
         reject(error)
+      }
+      finally{
+        loading.value = false
       }
     })
   }
@@ -124,7 +130,8 @@ export const helperStore = defineStore('helper',() => {
     pagination,
     index,
     perPage,
-    url
+    url,
+    loading
   }
 })
 
