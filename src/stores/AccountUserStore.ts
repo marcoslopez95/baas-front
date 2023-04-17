@@ -31,22 +31,26 @@ export const accountUserStore = defineStore('account-user', ()=>{
   }
   
   const openModal = ref(false);
-  const createAccount = (currency:number) => {
-    baseUrl.value = import.meta.env.VITE_API_URL
-    let url = '/api/accounts'
-    let data = {
-      currency_id : currency
-    }
-    helper.http(url,'post',{data})
-    .then((res:any) => {
-      getAccounts()
-      toast('Cuenta creada correctamente', {
-        theme: 'colored',
-          type: 'success',
-        
-      })
-      currency_id.value = null
-      openModal.value= false
+  
+  const createAccount = (currency:number):Promise<boolean> => {
+    return new Promise( async (resolve) => {
+      baseUrl.value = import.meta.env.VITE_API_URL
+      let url = '/api/accounts'
+      let data = {
+        currency_id : currency
+      }
+      console.log('aqui2')
+      await helper.http(url,'post',{data})
+      console.log('terminado')
+        getAccounts()
+        toast('Cuenta creada correctamente', {
+          theme: 'colored',
+            type: 'success',
+          
+        })
+        currency_id.value = null
+        openModal.value= false
+        resolve(true)
     })
   }
 
