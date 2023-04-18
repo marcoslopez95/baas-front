@@ -83,7 +83,6 @@ const phone_number = ref('')
 const isNumberValid = ref(false)
 const { confirmationCodePhone, formPhone } = storeToRefs(auth)
 const phoneEvent = (objectphone: any) => {
-  console.log(objectphone)
   if (objectphone.valid) {
     formPhone.value.phone_number = objectphone.nationalNumber
     isNumberValid.value = true

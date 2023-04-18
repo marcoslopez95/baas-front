@@ -7,12 +7,10 @@ import { email, required } from '@/validator';
 const validator = { required, email }
 const auth = authStore()
 const { sendCode,formEmail } = storeToRefs(auth)
-console.log(sendCode)
 const formUpdateEmail = ref<any>()
 // const form = ref({ email_token: '',sms_token: '', email: '' })
 
 const validateUpdateEmail = async () => {
-  console.log('pasa')
   const { valid } = await formUpdateEmail.value.validate()
   if (!valid) return
   auth.getResendCodeEmail()
