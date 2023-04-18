@@ -35,7 +35,6 @@ const updateProfile = async () => {
   const { valid } = await formUpdateProfile.value.validate()
 
   if (!valid) return
-  console.log('pasa')
   store.updateProfile(formUser.value)
 }
 const validateUpdate = async () => {

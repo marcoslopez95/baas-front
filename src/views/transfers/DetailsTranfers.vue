@@ -14,7 +14,6 @@ interface Props {
 }
 const statusText = ((text: string | boolean) => {
   let status: string = ''
-  console.log(text)
   switch (text) {
     case true:
       status = "Active"

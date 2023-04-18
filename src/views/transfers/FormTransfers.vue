@@ -44,56 +44,60 @@ const { items: user_accounts } = storeToRefs(account)
 
 const accountOrigin = ref(null)
 const accountDestination = ref(null)
-const userAccountsDestination = computed(() =>{
+const userAccountsDestination = computed(() => {
   let accounts: any = []
 
   switch (props.type) {
     case 'own':
-    console.log(accountOrigin)
 
-    if(accountOrigin.value?.id){
-      accounts = user_accounts.value.filter(res => (res.id != accountOrigin?.value.id) && res.currency?.category?.name == accountOrigin?.value.currency?.category?.name)
-      accounts.map(res => {
-        res.idAccount = res.id
-      })
-    }
+      if (accountOrigin.value?.id) {
+        accounts = user_accounts.value.filter(res => (res.id != accountOrigin?.value.id) && res.currency?.category?.name == accountOrigin?.value.currency?.category?.name)
+        accounts.map(res => {
+          res.idAccount = res.id
+        })
+      }
       break;
     case 'inner':
-      // accounts = addressesInner.value.filter(res => res.account?.currency?.category?.name == accountOrigin?.value.currency?.category?.name)
-      accounts = addressesInner.value
-      accounts.map(res => {
-        res.idAccount = res.account?.id
-        res.accountNumberFormat = `${res.account?.accountNumber}  (${res?.account?.currency?.abbreviation}) -- ${res?.comments}`
-        res.accountNumber = res.account?.accountNumber
-      })
+      if (accountOrigin.value?.id) {
+
+        accounts = addressesInner.value.filter(res => res.account?.currency?.category?.name == accountOrigin?.value.currency?.category?.name)
+        accounts.map(res => {
+          res.idAccount = res.account?.id
+          res.accountNumberFormat = `${res.account?.accountNumber}  (${res?.account?.currency?.abbreviation}) -- ${res?.comments}`
+          res.accountNumber = res.account?.accountNumber
+        })
+      }
       break;
     case 'outer':
-      accounts = addressesOuter.value
-      accounts.map(res => {
-        res.idAccount = res.id
-        res.accountNumberFormat = `${res?.accountNumber}  (${res?.currency?.abbreviation}) -- ${res?.name}`
-      })
+
+      if (accountOrigin.value?.id) {
+
+        accounts = addressesOuter.value.filter(res => res?.currency?.category?.name == accountOrigin?.value.currency?.category?.name)
+        accounts.map(res => {
+          res.idAccount = res.id
+          res.accountNumberFormat = `${res?.accountNumber}  (${res?.currency?.abbreviation}) -- ${res?.name}`
+        })
+      }
       break;
     case 'crypto':
-      if(accountOrigin.value?.currency?.id){
-      accounts = addressesCrypto.value.filter(res => (res.currency?.id == accountOrigin?.value.currency?.id))
-      accounts.map(res => {
-        res.idAccount = res.id
-        res.accountNumberFormat = `${res.walletAddress}  (${res?.currency?.abbreviation}) -- ${res?.name}`
-        res.accountNumber = res.walletAddress
-      })
-    }
+      if (accountOrigin.value?.currency?.id) {
+        accounts = addressesCrypto.value.filter(res => (res.currency?.id == accountOrigin?.value.currency?.id))
+        accounts.map(res => {
+          res.idAccount = res.id
+          res.accountNumberFormat = `${res.walletAddress}  (${res?.currency?.abbreviation}) -- ${res?.name}`
+          res.accountNumber = res.walletAddress
+        })
+      }
       break;
 
     default:
       break;
   }
-  console.log(accounts)
-return accounts;
+  return accounts;
 })
-const accountsUser = computed(()=> {
-  if(props.type == 'crypto')
-  return user_accounts.value.filter(res => res.currency?.category?.name == 'CRYPTO')
+const accountsUser = computed(() => {
+  if (props.type == 'crypto')
+    return user_accounts.value.filter(res => res.currency?.category?.name == 'CRYPTO')
   else return user_accounts.value
   // .filter(res => res.currency?.category?.name == 'FIAT')
 }
@@ -121,7 +125,7 @@ const changeDestination = () => {
       break;
     case 'crypto':
       paramsSimule.value.to = accountDestination?.value.currency?.abbreviation
-      
+
       break;
 
     default:
@@ -131,25 +135,25 @@ const changeDestination = () => {
 }
 const confirmTransfer = () => {
   switch (props.type) {
-      case 'own':
-        transfer.createTranferOwn()
-        break;
-      case 'inner':
+    case 'own':
+      transfer.createTranferOwn()
+      break;
+    case 'inner':
       auth.getResendCodeSms()
-    dialogConfirm.value = true
-        break;
-      case 'outer':
-        transfer.createTranferOuter()
-        break;
-      case 'crypto':
-        transfer.createTranferCrypto()
-        break;
+      dialogConfirm.value = true
+      break;
+    case 'outer':
+      transfer.createTranferOuter()
+      break;
+    case 'crypto':
+      transfer.createTranferCrypto()
+      break;
 
-      default:
-        break;
+    default:
+      break;
 
 
-    }
+  }
 
   // if (props.type == "own")
   //   transfer.createTranferOwn()
@@ -223,7 +227,7 @@ switch (props.type) {
   <VForm @submit.prevent="createTransfer" ref="formCreateTransfer">
     <VRow>
       <VCol cols="12" md="6">
-       <!-- <pre> {{ userAccountsDestination }}</pre> -->
+        <!-- <pre> {{ userAccountsDestination }}</pre> -->
         <VCol cols="12" md="9" class="mx-auto">
           <VSelect v-model="accountOrigin" :disabled="disabledForm" @update:model-value="changeOrigin" return-object
             item-title="accountNumberFormat" item-value="id" :rules="[validator.required]" :items="accountsUser"
@@ -251,7 +255,7 @@ switch (props.type) {
         </VCol>
       </VCol>
       <VCol cols="1" v-if="disabledForm">
-        <VIcon :size="xlAndUp ? '100' :'50'" >mdi-chevron-double-right</VIcon>
+        <VIcon :size="xlAndUp ? '100' : '50'">mdi-chevron-double-right</VIcon>
       </VCol>
       <VCol cols="12" md="5" v-if="disabledForm">
         <VCard elevation="0" border>
@@ -283,7 +287,7 @@ switch (props.type) {
                   Enviarás: {{ form.amount }} {{ accountOrigin?.currency?.abbreviation }}
                 </VListItemTitle>
               </VListItem>
-            
+
               <VListItem v-if="paramsSimule?.to != paramsSimule?.from">
                 <VListItemTitle>
                   Recibirás: {{ Intl.NumberFormat(["ban", "id"]).format(objectSimule?.rates[paramsSimule.to]) }} {{
@@ -292,15 +296,17 @@ switch (props.type) {
               </VListItem>
               <VListItem v-if="paramsSimule?.to != paramsSimule?.from">
                 <VListItemTitle>
-                  Procentaje commission: {{ Intl.NumberFormat(["ban", "id"]).format(parseFloat(objectSimule?.commission)) }} %
+                  Procentaje commission: {{ Intl.NumberFormat(["ban", "id"]).format(parseFloat(objectSimule?.commission))
+                  }} %
                 </VListItemTitle>
               </VListItem>
               <VListItem v-if="paramsSimule?.to != paramsSimule?.from">
                 <!-- <pre>{{ transformAmount(form.amount) }}</pre>
-                <pre>{{ (parseFloat(2.00) / 100) * transformAmount(form.amount) }}</pre> -->
+                  <pre>{{ (parseFloat(2.00) / 100) * transformAmount(form.amount) }}</pre> -->
                 <VListItemTitle>
-                  Amount commission: {{ Intl.NumberFormat(["ban", "id"]).format((parseFloat(objectSimule?.commission) / 100) * transformAmount(form.amount)) }} {{
-                    paramsSimule.from }}
+                  Amount commission: {{ Intl.NumberFormat(["ban", "id"]).format((parseFloat(objectSimule?.commission) /
+                    100) * transformAmount(form.amount)) }} {{
+    paramsSimule.from }}
                 </VListItemTitle>
               </VListItem>
               <VListItem v-if="type != 'outer' && type != 'crypto'">
@@ -308,12 +314,12 @@ switch (props.type) {
                   Comments: {{ form.comments }}
                 </VListItemTitle>
               </VListItem>
-              
+
             </VList>
             <VRow class="justify-center">
               <VBtnSecondary @click="disabledForm = !disabledForm" class="mr-2" min-width="100px">Update
-                  </VBtnSecondary>
-                  <VBtnPrimary @click="confirmTransfer">Procesar transferencia</VBtnPrimary>
+              </VBtnSecondary>
+              <VBtnPrimary @click="confirmTransfer">Procesar transferencia</VBtnPrimary>
             </VRow>
           </VCardText>
         </VCard>
